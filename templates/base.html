@@ -1,0 +1,41 @@
+{% load static %}<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="keywords" content={% block keywords %}"Аниме, Топ аниме, Лучшее аниме, топ 10 аниме"{% endblock %}>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>{% block title %}mood2Anime{% endblock %}</title>
+    <link href="{% static 'css/base.css' %}" rel="stylesheet" />
+    <link rel="icon" href="{%  static 'favicon.ico' %}" type="image/x-icon" />
+    <meta name="description" content={% block description %}"Найдите идеальное аниме под ваше настроение! Удобный поиск по жанрам, эмоциям и рекомендациям от сообщества любителей."{% endblock %}>
+    <script type="text/javascript"> var csrftoken = '{{ csrf_token }}';</script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div id="loaderFullFill">
+        <div class="loader"></div>
+    </div>
+    {% include 'includes/metrics.html' %}
+    {% block bodyHeader %}
+    <div id="header">
+        <div id="innerHeader">
+            <div>
+                <a href = "{% url 'home' %}">
+                    <b>
+                        &emsp;M2A&emsp;
+                    </b>
+                </a>
+            </div>
+            <div>
+                <a href = "{% url 'listAnimePage' %}">
+                    <b>
+                        &emsp;Список&emsp;
+                    </b>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    {% block main %}{% endblock %}
+</body>  
+</html>

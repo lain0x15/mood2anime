@@ -1,0 +1,231 @@
+#content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+}
+
+#innerContent {
+    width: 50%;
+    min-width: min-content;
+    min-width: 730px;
+    display: grid;
+    padding: 0px 10px 0px 10px;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto auto 40px;
+    grid-row-gap: 10px;
+}
+
+#anime_screenshots {
+    width: 100%;
+    position: relative;
+}
+
+#anime_title  {
+    height: 100%;
+    grid-row: 20px;
+    font-size: 1.5em;
+}
+.link_to_anime {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+.link_to_anime:hover {
+    color: red;
+}
+#anime_info {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+.scoreStar {
+    width:auto;
+    height:auto;
+    background-size:100% 100%;
+    white-space: pre;
+}
+
+#anime_genres {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 5px;
+    font-size: 1.2em;
+    grid-row-gap: 5px;
+    user-select: none;
+}
+#anime_description {
+    font-size: 1.2em;
+}
+
+#anime_buttons {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.buttons {
+    width: calc(100% - 6px);
+    text-align: center;
+    border: solid 3px red;
+    border-radius: 10px;
+    transition: background-color 0.5s ease-out 100ms;
+    font-size: 1.5em;
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    user-select: none;
+}
+
+.buttons:hover {
+    background: red;
+}
+.buttons a {
+    text-decoration: none;
+    color: black;
+}
+
+.anime_image {
+    width:100%;
+    display: none;
+}
+.anime_image_active {
+    display: block;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+#bottoms {
+    bottom: 0px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 50%;
+    justify-items: center;
+    position: fixed;
+    background: white;
+    min-width: 730px;
+}
+
+.genre {
+    border-radius: 22px;
+    border: solid red 2px;
+    font-size: 1.0em;
+    color: red;
+    padding: 3px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contentGenre {
+    flex: 0 0;
+}
+
+@media (width <= 1024px) and (orientation: portrait) {
+    #innerContent {
+        width: 100%;
+        grid-template-rows: auto auto auto auto auto 60px;
+    }
+    #anime_title  {
+        grid-row: 50px;
+        font-size: 3em;
+    }
+    #anime_info {
+        font-size: 2em;
+    }
+    #anime_genres {
+        grid-template-columns: 1fr 1fr;
+        font-size: 2em;
+    }
+    #anime_description {
+        font-size: 2.5em;
+    }
+    #bottoms {
+        right: 0px;
+        width: 100%;
+        min-width: 0px;
+    }
+    .buttons {
+        font-size: 2.5em;
+        height: 60px;
+        line-height: 60px;
+        border: solid 2px red;
+    }
+}
+
+@media (width <= 768px) and (orientation: portrait) {
+    #innerContent {
+        min-width: 0px;
+    }
+}
+
+@media (width <= 480px) and (orientation: portrait) {
+    .genre {
+        border: solid red 1px;
+    }
+}
+@media (width <= 320px) and (orientation: portrait) {}
+
+@media (width <= 1024px) and (orientation: landscape) {
+    #innerContent {
+        width: 100%;
+        grid-template-rows: auto auto auto auto auto 30px;
+    }
+    #anime_title  {
+        grid-row: 50px;
+        font-size: 2em;
+    }
+    #anime_info {
+        font-size: 1.5em;
+    }
+    #anime_genres {
+        grid-template-columns: 1fr 1fr 1fr;
+        font-size: 1.5em;
+    }
+    #anime_description {
+        font-size: 1.5em;
+    }
+    #bottoms {
+        right: 0px;
+        width:100%;
+        min-width: 0px;
+    }
+    .buttons {
+        font-size: 2em;
+        height: 30px;
+        line-height: 30px;
+        border: solid 2px red;
+    }
+}
+
+@media (width <= 768px) and (orientation: landscape) {
+    #innerContent {
+        min-width: 0px;
+    }
+}
+
+@media (width <= 480px) and (orientation: landscape) {}
+@media (width <= 320px) and (orientation: landscape) {}

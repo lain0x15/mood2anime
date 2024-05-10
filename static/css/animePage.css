@@ -1,0 +1,208 @@
+#animeContent {
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 0 auto;
+    max-width: 1024px;
+}
+
+#animeName {
+    font-size: 2em;
+}
+
+#animeInfo {
+    display: grid;
+    gap: 0px 10px;
+    grid-template-columns: 250px 1fr;
+    box-sizing: border-box;
+}
+
+#anime_studio_row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 2em;
+}
+
+.anime_studio_logo {
+    box-sizing: border-box;
+    padding: 5px;
+    vertical-align:middle;
+    width:200px;
+}
+
+.animeInfoText {
+    font-size: 1.5em;
+}
+
+.animeInfoDescription {
+    box-sizing: border-box;
+    font-size: 1.5em;
+}
+
+#animeContentSplit {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+}
+
+#animeImg {
+    width: 250px;
+}
+
+.stageName {
+    box-sizing: border-box;
+    height: 30px;
+    padding-left: 20px;
+    line-height: 30px;
+    background-color: rgba(255, 0, 0, 0.2);
+    font-size: 1.5em;
+    box-shadow: inset 10px 0px red;
+    font-weight: bold;
+
+}
+
+#franchises {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+}
+
+.franchise {
+    width: 100%;
+    min-height: 150px;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 110px 1fr;
+}
+
+.franchise_text {
+    font-size: 1.5em;
+}
+
+.img_franchise {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.current_anime {
+    font-weight: bold;
+    color: red;
+}
+
+.franchise_link_to_anime {
+    text-decoration: none;
+    color: black;
+}
+
+#screenshots {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 5px;
+    width: 100%;
+    grid-template-rows: 1fr 0;
+    overflow: hidden;
+}
+
+
+.screenshot_img {
+    width: 100%;
+}
+
+
+@media (width <= 1024px) and (orientation: portrait) {
+    #franchises {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (width <= 768px) and (orientation: portrait) {
+    #animeContentSplit {
+        grid-template-columns: 1fr;
+    }
+    #animeName {
+        font-size: 3em;
+    }
+    #animeInfo {
+        gap: 5px 10px;
+        grid-template-columns: auto 1fr;
+    }
+    .animeInfoText {
+        font-size: 2em;
+    }
+    .animeInfoDescription {
+        font-size: 2.5em;
+    }
+    .stageName {
+        font-size: 2em;
+    }
+    .anime_studio_logo {
+        width: 150px;
+    }
+    #franchises {
+        grid-template-columns: 1fr;
+    }
+    .franchise_text {
+        font-size: 2em;
+    }
+    #screenshots {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (width <= 480px) and (orientation: portrait) {
+    #franchises {
+        grid-template-columns: 1fr;
+    }
+    #screenshots {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (width <= 320px) and (orientation: portrait) {}
+
+@media (width <= 1024px) and (orientation: landscape) {
+    #animeInfo {
+        grid-template-columns: auto 1fr;
+    }
+    #franchises {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (width <= 768px) and (orientation: landscape) {
+    #animeImg {
+        width: 150px;
+    }
+    #animeContentSplit {
+        grid-template-columns: 160px 1fr;
+    }
+    .anime_studio_logo {
+        width:130px;
+    }
+    #franchises {
+        grid-template-columns: 1fr;
+    }
+    #screenshots {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (width <= 480px) and (orientation: landscape) {
+    #animeImg {
+        width: 100px;
+    }
+    #animeContentSplit {
+        grid-template-columns: 110px 1fr;
+    }
+    #franchises {
+        grid-template-columns: 1fr;
+    }
+    #screenshots {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (width <= 320px) and (orientation: landscape) {}

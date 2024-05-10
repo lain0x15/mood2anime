@@ -1,0 +1,592 @@
+.pagerLink {
+    cursor: pointer;
+}
+
+#pager {
+    position: absolute;
+    transform: translate(-50%);
+    margin: 0; padding: 0;
+    display: inline-block;
+    min-width: max-content;
+    left: 50%;
+}
+#pager li {
+    display: inline-block;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: red;
+    line-height: 30px;
+    margin-left: 10px;
+    font-size: 1.3em;
+}
+#pager li:first-child {
+    margin-left: 0;
+}
+#pager a {
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+}
+#pager .active {
+    width: 50px; height: 50px;
+    line-height: 50px;
+    background: #fff;
+    border: 3px solid red;
+    font-size: 2em;
+}
+#pager .active a {
+    color: #000;
+    font-weight: bold;
+}
+
+.blur {
+    filter: blur(2px)
+}
+
+.animeRow {
+    display:grid;
+    grid-template-columns: 130px 1fr;
+    width:70%;
+    min-height:200px;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.animeRowImg {
+    width: 100%;
+}
+.animeRowInfo {
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.animeRowTitle {
+    font-size:2em;
+    padding: 0px;
+    margin:0px;
+    color: red;
+}
+
+.animeRowName {
+    font-size: 2em;
+    color: red;
+}
+
+.animeRowName a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.animeRowText {
+    font-size:1.5em;
+}
+.animeDescription {
+    font-size: 1.5em;
+    margin: 1em 0px 0px 0px;
+}
+
+#not_found_anime {
+    font-size: 2em;
+    display: none;
+}
+
+#anime_filters {
+    padding: 10px;
+    position: sticky;
+    top: 0px;
+    right: 0px;
+    float: right;
+    width: 30%;
+    box-sizing: border-box;
+    z-index: 1;
+    background: white;
+}
+
+#anime_filters_title {
+    text-align: center;
+    font-size: 1.5em;
+    height: 50px;
+    line-height: 50px;
+}
+
+.thumbs {
+    display: grid;
+    margin-top: 27px;
+}
+
+.range {
+    --range-track-top: 40px;
+
+    --tickmarks-w: calc(100% - 18px);
+    --option-after-h: 30px;
+    --option-after-top: -30px;
+
+    --range-progress-w: calc((var(--value-2) - var(--value-1)) * (100 / (var(--value_max) - var(--value_min))) * 1%);
+    --range-progress-left: min(
+      calc((var(--value-1) - var(--value_min)) * (100 / (var(--value_max) - var(--value_min))) * 1%),
+      calc((var(--value-2) - var(--value_min)) * (100 / (var(--value_max) - var(--value_min))) * 1%)
+    );
+    height: 80px;
+
+    position: relative;
+    display: grid;
+}
+
+.range-output {
+    --range-output-left: calc((var(--value) - var(--value_min)) * (100 / (var(--value_max) - var(--value_min))) * 1%);
+    --range-output-offset-xy: calc((var(--value) - var(--value_min)) * (100 / (var(--value_max) - var(--value_min))) * -0.95%), 0;
+    --range-output-margin: calc(6 / ((var(--value) - var(--value_min)) * (100 / (var(--value_max) - var(--value_min))) + 1) * 1px);
+    margin-top: -45px;
+}
+
+.range-input {
+    width: 100%;
+    height: 30px;
+    grid-area: 1 / 1;
+    border-radius: 10px;
+    appearance: none;
+    background: none;
+    pointer-events: none;
+    touch-action: none;
+}
+
+.range-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 0 5px inset red;
+    transition: 300ms;
+    pointer-events: auto;
+}
+
+.range-input::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 0 5px inset red;
+    transition: 300ms;
+    pointer-events: auto;
+}
+
+.range-input:hover::-webkit-slider-thumb,
+.range-input:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 0 0 10px inset red;
+}
+
+.range-input:hover::-moz-range-thumb,
+.range-input:focus-visible::-moz-range-thumb {
+    box-shadow: 0 0 0 10px inset red;
+}
+
+.range-input:active::-webkit-slider-thumb {
+    box-shadow: 0 0 0 30px inset red;
+}
+.range-input:active::-moz-range-thumb {
+    box-shadow: 0 0 0 30px inset red;
+}
+
+.range-input:disabled::-webkit-slider-thumb {
+    box-shadow: 0 0 0 30px inset gray;
+}
+.range-input:disabled::-moz-range-thumb {
+    box-shadow: 0 0 0 30px inset gray;
+}
+
+.range-input:focus-visible {
+    outline-offset: 7px;
+    outline: 1px solid red;
+}
+
+.range-input:focus-visible::-webkit-slider-thumb {
+    outline: 3px solid #41e847;
+}
+
+.range-input:focus-visible::-moz-range-thumb {
+    outline: 3px solid #41e847;
+}
+
+.track {
+    position: absolute;
+    top: var(--range-track-top);
+    width: 100%;
+    height: 8px;
+    border-radius: 10px;
+    background-color: #ababab;
+    z-index: -1;
+}
+
+.progress {
+    position: absolute;
+    top: var(--range-track-top);
+    left: var(--range-progress-left);
+    width: var(--range-progress-w);
+    height: 8px;
+    border-radius: 10px;
+    background-color: red;
+    z-index: -1;
+}
+
+.range-output {
+    position: absolute;
+    top: 50px;
+    left: var(--range-output-left);
+    margin-left: var(--range-output-margin);
+    display: grid;
+    min-width: fit-content;
+    padding: 0 4px;
+    place-items: center;
+    background: transparent;
+    border-radius: 10px;
+    font-size: 1em;
+    text-align: end;
+    transform: translate(var(--range-output-offset-xy));
+    user-select: none;
+    transition: 300ms;
+}
+
+.dropbtn {
+    background-color: red;
+    color: white;
+    padding: 16px;
+    font-size: 1.3em;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #ff4242;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 9999;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: scroll;
+    transform: translate(0px, 0px);
+}
+
+.dropdown-content > div {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.checkboxGenres {
+    accent-color: red;
+}
+
+.checkboxGenresLabel {
+    font-size: 1.2em;
+    user-select: none;
+    display: inline-block;
+    line-height: 21.2px;
+}
+
+.dropNoClose {
+    cursor: pointer;
+}
+
+.dropdown-content div:hover {background-color: #ddd}
+
+.hide {display:none;}
+.show {display:block;}
+
+.anime_menu_button {
+    width: 200px;
+    margin: 5px;
+    text-align: center;
+    border: solid 3px red;
+    border-radius: 10px;
+    transition: background-color 0.5s ease-out 100ms;
+    font-size: 1.5em;
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    user-select: none;
+    float: left;
+}
+
+#sort_menu{
+    position: relative;
+    display: inline-block;
+}
+
+#sort_button{
+    float: none;
+    width: 100%;
+}
+
+#dropdown_sort {
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    width: 100%;
+    max-height: 300px;
+    transform: translate(0px, 0px);
+    cursor: pointer;
+}
+
+#dropdown_sort div {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 1.2em;
+}
+
+#dropdown_sort div:hover {background-color: #ddd}
+
+#filter_button {
+    display: none;
+}
+
+.anime_menu_button:hover {
+    background: red;
+}
+
+#close_anime_filter {
+    color: #000000;
+    font-size: 3em;
+    display: none;
+    cursor: pointer;
+    width: fit-content;
+    position: relative;
+    right: -92%;
+}
+
+.tristate {
+  position: relative;
+}
+.tristate > input[type=radio] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+}
+.tristate > input[type=radio] + i {
+  position: relative;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  vertical-align: top;
+}
+.tristate > input[type=radio] + i, .tristate > input[type=radio] + i:before, .tristate > input[type=radio] + i:after {
+  transition: all 0.3s;
+}
+.tristate > input[type=radio]:first-child {
+  z-index: 10;
+}
+.tristate > input[type=radio]:first-child:checked {
+  z-index: 0;
+}
+.tristate > input[type=radio]:checked + input[type=radio] {
+  z-index: 10;
+}
+
+.tristate-checkbox > input[type=radio] + i {
+  border: solid 2px #bdbdbd;
+  border-radius: 3px;
+}
+.tristate-checkbox > input[type=radio] + i:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  background-color: #8b8b8b;
+  border-radius: 3px;
+}
+.tristate-checkbox > input[type=radio] + i:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  left: 4px;
+  top: 7px;
+  color: white;
+  border-bottom: solid 3px;
+  opacity: 0;
+}
+.tristate-checkbox > input[type=radio]:checked + i {
+  background-color: red;
+  color: white;
+}
+.tristate-checkbox > input[type=radio]:checked + i:before {
+    left: 4px;
+    top: 7px;
+    width: 10px;
+    height: 0px;
+    border-left: none;
+    border-bottom: solid 3px;
+    transform: rotate(-90deg);
+    opacity: 1;
+}
+.tristate-checkbox > input[type=radio]:checked + i:after {
+    width: 10px;
+    height: 0px;
+    border-left: none;
+    border-bottom: solid 3px;
+    transform: rotate(0);
+    opacity: 1;
+}
+
+.tristate-checkbox > input[type=radio]:checked + input[type=radio] + i:after {
+    left: 1px;
+    top: 3px;
+    width: 14px;
+    height: 5px;
+    border-left: solid 3px;
+    border-bottom: solid 3px;
+    transform: rotate(-45deg);
+    opacity: 1;
+}
+.tristate-checkbox > input[type=radio]:checked + input[type=radio] + i:before {
+    background-color: red;
+}
+
+.tristate-checkbox > input[type=radio]:checked + input[type=radio] + input[type=radio] + i:before {
+  opacity: 0;
+  transform: scale(0);
+}
+
+@media (width <= 1024px) and (orientation: portrait) {
+    #close_anime_filter {
+        display: block;
+    }
+    #filter_button {
+        display: block;
+    }
+    #anime_filters {
+        position: fixed;
+        display: none;
+        height: 100%;
+        width: 100%;
+    }
+    #anime_filters:target {
+        display: block;
+    }
+    .animeRow {
+        width:100%;
+    }
+}
+
+@media (width <= 768px) and (orientation: portrait) {
+    .animeRowName {
+        font-size: 1.5em;
+        color: red;
+    }
+    .animeRowText {
+        font-size:1.3em;
+    }
+    .animeDescription {
+        font-size: 1.3em;
+    }
+}
+
+@media (width <= 480px) and (orientation: portrait) {
+    .animeRow {
+        grid-template-columns: 61px 1fr;
+        width:100%;
+        min-height:100px;
+        overflow: hidden;
+    }
+    .animeRowName {
+        font-size: 1.9em;
+        color: red;
+    }
+    .animeRowText {
+        font-size:1.9em;
+    }
+    .animeDescription {
+        display: none;
+    }
+    .anime_menu_button {
+        font-size: 1.7em;
+    }
+    #dropdown_sort div {
+        font-size: 1.7em;
+    }
+    #anime_filters_title {
+        font-size: 1.9em;
+    }
+    .range-output {
+        font-size: 1.7em;
+    }
+    .dropbtn {
+        font-size: 1.7em;
+    }
+    .checkboxGenresLabel {
+        font-size: 1.7em;
+    }
+}
+
+@media (width <= 320px) and (orientation: portrait) {}
+
+@media (width <= 1024px) and (orientation: landscape) {
+    #close_anime_filter {
+        display: block;
+    }
+    #filter_button {
+        display: block;
+    }
+    #anime_filters {
+        position: fixed;
+        display: none;
+        height: 100%;
+        width: 100%;
+    }
+    #anime_filters:target {
+        display: block;
+    }
+    .animeRow {
+        width:100%;
+    }
+}
+
+@media (width <= 768px) and (orientation: landscape) {
+    .animeRowName {
+        font-size: 1.7em;
+        color: red;
+    }
+    .animeRowText {
+        font-size:1.5em;
+    }
+    .animeDescription {
+        font-size: 1.5em;
+    }
+}
+
+@media (width <= 480px) and (orientation: landscape) {
+    .animeDescription {
+        display: none;
+    }
+}
+
+@media (width <= 320px) and (orientation: landscape) {}

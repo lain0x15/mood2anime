@@ -1,0 +1,430 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link href="{% static 'css/listAnimePage.css' %}" rel="stylesheet" />
+    <script src="{% static 'js/jquery/3.5.1/jquery.min.js' %}"></script>
+    <script src="{% static 'js/anime.js' %}"></script>
+{% endblock %}
+{% block main %}
+<div id="filter_button" class="anime_menu_button anime_menu">Фильтры</div>
+<div id="sort_menu" class="anime_menu">
+    <div id="sort_button" class="anime_menu_button">
+        <span id="sort_name">
+            {% if anime_filter.order_by == 1 %}
+                Дата релиза &#9660;
+            {% elif anime_filter.order_by == 2 %}
+                Дата релиза &#9650;
+            {% elif anime_filter.order_by == 3 %}
+                Рейтинг &#9660;
+            {% elif anime_filter.order_by == 4 %}
+                Рейтинг &#9650;
+            {%else%}
+                Сортировка
+            {% endif %}
+        </span>
+    </div>
+    <div id="dropdown_sort" class="hide">
+        <div onclick="change_sort(this,0)">-----------------</div>
+        <div onclick="change_sort(this,1)">Дата релиза &#9660;</div>
+        <div onclick="change_sort(this,2)">Дата релиза &#9650;</div>
+        <div onclick="change_sort(this,3)">Рейтинг &#9660;</div>
+        <div onclick="change_sort(this,4)">Рейтинг &#9650;</div>
+    </div>
+</div>
+
+
+<div id="anime_filters">
+    <div id="close_anime_filter">&#10006;</div>
+    <div id="anime_filters_title">
+        Фильтр
+    </div>
+    <div class="range" style="--value-1: {{ anime_filter.date_from }}; --value-2: {{ anime_filter.date_to }}; --value_min: {{ anime_filter.min_date_release }}; --value_max: {{ anime_filter.max_date_release }};">
+        <div class="track"></div>
+        <div class="progress"></div>
+        <div class="thumbs">
+            <input
+                    class="range-input"
+                    id="tailmetr1"
+                    type="range"
+                    min="{{ anime_filter.min_date_release }}"
+                    max="{{ anime_filter.max_date_release }}"
+                    value="{{ anime_filter.date_from }}"
+                    step="1"
+                    aria-valuemin="{{ anime_filter.min_date_release }}"
+                    aria-valuemax="{{ anime_filter.max_date_release }}"
+                    aria-orientation="horizontal"
+                    list="tickmarks"
+            >
+            <output
+                    class="range-output"
+                    id="output"
+                    for="tailmetr1"
+                    style="--value: var(--value-1);"
+            >
+                {{ anime_filter.date_from }}
+            </output>
+            <!-- Второй ползунок -->
+            <input
+                    class="range-input"
+                    id="tailmetr2"
+                    type="range"
+                    min="{{ anime_filter.min_date_release }}"
+                    max="{{ anime_filter.max_date_release }}"
+                    value="{{ anime_filter.date_to }}"
+                    step="1"
+                    aria-valuemin="{{ anime_filter.min_date_release }}"
+                    aria-valuemax="{{ anime_filter.max_date_release }}"
+                    aria-orientation="horizontal"
+                    list="tickmarks"
+            >
+            <!-- Вывод текущего значения для второго ползунка -->
+            <output
+                    class="range-output"
+                    id="output"
+                    for="tailmetr2"
+                    style="--value: var(--value-2); margin-top: 10px;"
+            >
+                {{ anime_filter.date_to }}
+            </output>
+        </div>
+    </div>
+    <div id="dropdown_id" class="dropdown">
+        <button onclick="show_genres_filter()" class="dropbtn">Жанры</button>
+        <div id="myDropdown" class="dropdown-content">
+            {% for genre in anime_filter.genres %}
+                <div onclick="setGenreFilter(this,{{ genre.id }})" class="dropNoClose">
+                    <span class="tristate tristate-checkbox dropNoClose">
+                        <input type="radio" id="item1-state-off" name="{{ genre.id }}" value="0" class="dropNoClose" checked >
+                        <input type="radio" id="item1-state-null" name="{{ genre.id }}" value="1" class="dropNoClose" {% if genre.id in anime_filter.selected_genres %}checked{% endif %}>
+                        <input type="radio" id="item1-state-on" name="{{ genre.id }}" value="2" class="dropNoClose" {% if genre.id in anime_filter.selected_genres_and %}checked{% endif %}>
+                        <i class="dropNoClose"></i>
+                    </span>
+                    <div class="dropNoClose checkboxGenresLabel" for="scales">{{genre}}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<span id="not_found_anime">Не найдено аниме</span>
+
+<div id="animeRows"></div>
+
+<ul id="pager"></ul>
+
+
+<script>
+    document.getElementById("loaderFullFill").style.display = "block";
+
+    const range1 = document.querySelector('#tailmetr1')
+    range1.addEventListener('input', handleInputRange1)
+    range1.addEventListener('change', change1)
+
+    const range2 = document.querySelector('#tailmetr2')
+    range2.addEventListener('input', handleInputRange2)
+    range2.addEventListener('change', change2)
+
+    function change1 () {
+        const value1 = event.target.parentNode.parentNode.style.getPropertyValue('--value-1');
+        setUrlParams([
+            {name:'page', value:1},
+            {name:'date_release_from', value:value1}
+        ]);
+        getAnimesByFilters();
+    }
+    function change2 () {
+        const value2 = event.target.parentNode.parentNode.style.getPropertyValue('--value-2');
+        setUrlParams([
+            {name:'page', value:1},
+            {name:'date_release_to', value:value2}
+        ]);
+        getAnimesByFilters();
+    }
+
+    function handleInputRange1() {
+        const value2 = event.target.parentNode.parentNode.style.getPropertyValue('--value-2');
+        if (parseInt(event.target.value) >= parseInt(value2)) {
+            event.target.value = value2
+        }
+        if (event.target.value === '{{ anime_filter.max_date_release }}') {
+            event.target.style.zIndex = '{{ anime_filter.max_date_release }}'
+        } else {
+            event.target.style.zIndex = '{{ anime_filter.min_date_release }}'
+        }
+        event.target.parentNode.parentNode.style.setProperty('--value-1',event.target.value);
+        event.target.nextElementSibling.value = event.target.value;
+    }
+
+    function handleInputRange2() {
+        const value1 = event.target.parentNode.parentNode.style.getPropertyValue('--value-1');
+        if (parseInt(event.target.value) <= parseInt(value1)) {
+            event.target.value = value1;
+        }
+        if (event.target.value === '{{ anime_filter.min_date_release }}') {
+            event.target.style.zIndex = '{{ anime_filter.max_date_release }}';
+        } else {
+            event.target.style.zIndex = '{{ anime_filter.min_date_release }}';
+        }
+        event.target.parentNode.parentNode.style.setProperty("--value-2",event.target.value);
+        event.target.nextElementSibling.value = event.target.value;
+    }
+
+    document.getElementById('filter_button').addEventListener('click', show_filters);
+    document.getElementById('close_anime_filter').addEventListener('click', close_filters);
+
+    document.getElementById('sort_button').addEventListener('click', show_sort);
+
+    function show_filters() {
+        location.hash = '#anime_filters';
+    }
+
+    function close_filters() {
+        location.hash = '';
+    }
+
+    function show_sort() {
+        document.getElementById("dropdown_sort").classList.toggle("show");
+    }
+
+    function renderPager(currentPage, maxPages){
+        var maxVisiblePages = 7;
+        var pager = document.getElementById("pager");
+        pager.innerHTML = '';
+        var halfVisiblePages = Math.floor(maxVisiblePages/2);
+        nextPagesCount = maxVisiblePages - halfVisiblePages - (maxPages - currentPage + 1)
+        if (nextPagesCount > 0 && (maxPages - currentPage) >= 0){
+            halfVisiblePages += nextPagesCount;
+        }
+
+        for (let i = currentPage - 1; i > 0 && halfVisiblePages > 0; i--) {
+            pager.innerHTML = '<li><a class="pagerLink" onclick="changePage(' + i + ')">'+i+'</a></li>' + pager.innerHTML;
+            halfVisiblePages--;
+            maxVisiblePages--;
+        }
+
+        for (let i = currentPage; i <= maxPages && i < maxVisiblePages + currentPage ; i++) {
+            if (i == currentPage ) {
+                pager.innerHTML+='<li class="active"><a>'+i+'</a></li>';
+            } else {
+                pager.innerHTML+='<li><a class="pagerLink" onclick="changePage(' + i + ')">'+i+'</a></li>';
+            }
+        }
+    }
+
+    function changePage(page){
+        setUrlParams([
+            {name:'page',value:page}
+        ]);
+        window.scrollTo(0, 0);
+        getAnimesByFilters();
+    }
+
+    function setCheckedValueOfRadioButtonGroup(name, value) {
+      let radios = document.getElementsByName(name);
+      for (let radio of radios) {
+        if (radio.value === value) {
+          radio.checked = true;
+          break;
+        }
+      }
+    }
+
+    function setGenreFilter(element,idGenre) {
+        let params = new URLSearchParams(document.location.search);
+        let filter_genre = params.get("filter_genres");
+
+        radio_value = document.querySelector('input[name="' + idGenre + '"]:checked').value;
+
+        console.log(event.target.name);
+        if (!event.target.name){
+            if (radio_value == 2){radio_value=-1}
+            radio_value++;
+            setCheckedValueOfRadioButtonGroup("" + idGenre, "" + radio_value);
+        }
+
+        if (filter_genre != null && filter_genre!="") {
+            filter_genre=filter_genre.split("-");
+        } else {
+            filter_genre = new Array();
+        }
+
+        filter_genre.push(radio_value + "_" + idGenre);
+        regex = new RegExp(/^[12]_\d+$/);
+        filter_genre = filter_genre.filter((item) => regex.test(item));
+
+        regex = new RegExp("^[^"+radio_value+"]_"+idGenre+"$");
+        filter_genre = filter_genre.filter((item) => !regex.test(item));
+
+        setUrlParams([
+            {name:'page', value:1},
+            {name:'filter_genres',value:filter_genre.join('-')}
+        ]);
+
+        getAnimesByFilters();
+    }
+
+    let first_lock_getAnimesByFilters = false;
+    let second_lock_getAnimesByFilters = false;
+    function getAnimesByFilters (){
+        if (first_lock_getAnimesByFilters && !second_lock_getAnimesByFilters) {
+            second_lock_getAnimesByFilters = true;
+            setTimeout(() => {
+                second_lock_getAnimesByFilters = false;
+                getAnimesByFilters();
+            }, 300);
+            return 0;
+        } else if (second_lock_getAnimesByFilters) {
+            return 0;
+        }
+
+        first_lock_getAnimesByFilters = true;
+        document.getElementById('animeRows').classList.add("blur");
+        let params = new URLSearchParams(document.location.search);
+        $.ajax({
+            url: "/api/anime/get",
+            headers: { 'X-CSRFToken': csrftoken },
+            method: 'post',
+            dataType: 'html',
+            data: {
+                date_release_from: params.get("date_release_from"),
+                date_release_to: params.get("date_release_to"),
+                filter_genres: params.get("filter_genres"),
+                limit: params.get("limit"),
+                page: params.get("page"),
+                order_by: params.get("order_by")
+            },
+            success: function(data){
+                var animes = JSON.parse(data).animes;
+                let newAnimeRows = document.getElementById('animeRows').cloneNode(true);
+                newAnimeRows.classList.remove("blur");
+                newAnimeRows.innerHTML = '';
+                animes.forEach((anime) => {
+                    var animeRow = document.createElement("div");
+                    animeRow.classList.add("animeRow");
+
+                    animeRowImg = document.createElement("img");
+                    animeRowImg.src = anime.portraitImage;
+                    animeRowImg.classList.add("animeRowImg");
+                    animeRow.appendChild(animeRowImg);
+
+                    animeRowInfo = document.createElement("div");
+                    animeRowInfo.classList.add("animeRowInfo");
+                    animeRowName = document.createElement("div");
+                    animeRowName.classList.add("animeRowName");
+                    animeRowNameLink = document.createElement("a");
+                    animeRowNameLink.href="animePage/" + anime.url_name;
+                    animeRowNameLink.appendChild(document.createTextNode(anime.name));
+                    animeRowName.appendChild(animeRowNameLink);
+                    animeRowInfo.appendChild(animeRowName);
+
+                    animeRowText = document.createElement("span");
+                    animeRowText.classList.add("animeRowText");
+                    var dateRelease = new Date(anime.releaseYear);
+                    animeGenres = ""
+                    if (anime.genre.length) {
+                        animeGenres += " / ";
+                        anime.genre.forEach((element, idx) => {
+                            if (idx == 0){
+                                animeGenres += element;
+                            } else {
+                                animeGenres += ", " + element.toLowerCase();
+                            }
+                        });
+                    }
+                    animeRowText.appendChild(document.createTextNode(dateRelease.getFullYear() + " / " + anime.kind + animeGenres));
+                    animeRowInfo.appendChild(document.createElement("br"));
+                    animeRowInfo.appendChild(animeRowText);
+
+                    if (anime.description) {
+                        animeDescription = document.createElement("p");
+                        animeDescription.classList.add("animeDescription");
+                        animeDescription.appendChild(document.createTextNode(anime.description.slice(0, 150) + "..."));
+                        animeRowInfo.appendChild(animeDescription);
+                    }
+
+
+                    animeRow.appendChild(animeRowInfo);
+                    newAnimeRows.appendChild(animeRow);
+                });
+                if (animes.length == 0) {
+                    document.getElementById("not_found_anime").style.display = "block";
+                } else {
+                    document.getElementById("not_found_anime").style.display = "none";
+                }
+                let oldNode = document.getElementById('animeRows');
+                setTimeout(() => {
+                    oldNode.parentElement.replaceChild(newAnimeRows, oldNode);
+                    renderPager(JSON.parse(data).page, JSON.parse(data).pages);
+                    first_lock_getAnimesByFilters = false;
+                 }, 300);
+                 setTimeout(() => {  document.getElementById("loaderFullFill").style.display = "none"; }, 300);
+            },
+            error: function(jqXHR, exception){
+                first_lock_getAnimesByFilters = false;
+                if (!second_lock_getAnimesByFilters){
+                    setTimeout(() => {
+                        getAnimesByFilters();
+                    }, 500);
+                }
+            }
+        });
+    }
+
+function show_genres_filter() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+getAnimesByFilters();
+
+window.addEventListener('resize', () => {
+    change_size_genre_filter();
+});
+
+function change_size_genre_filter() {
+    var height_myDropdown = 300;
+    var myElement = document.getElementById('myDropdown');
+    var myElementDp = document.getElementById('dropdown_id');
+    var bounding = myElement.getBoundingClientRect();
+    var boundingDp = myElementDp.getBoundingClientRect();
+
+    if (boundingDp.bottom + height_myDropdown <= window.innerHeight) {
+        myElement.style.transform = "translate(0px," + 0 + "px)";
+        myElement.style.maxHeight = "" + height_myDropdown + "px";
+    } else {
+        myElement.style.maxHeight = "" + boundingDp.top + "px";
+        myElement.style.transform = "translate(0px," + boundingDp.bottom * -1 + "px)";
+    }
+}
+
+function change_sort(element,order_by){
+    setUrlParams([
+        {name:'page',value: 1},
+        {name:'order_by',value:order_by}
+    ]);
+    document.getElementById('sort_name').textContent=element.innerHTML;
+    getAnimesByFilters();
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn') && !event.target.matches('.dropNoClose')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+    change_size_genre_filter();
+
+    if (!event.target.matches('#sort_button') && !event.target.matches('#sort_name')) {
+        var openDropdown = document.getElementById("dropdown_sort");
+        if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+        }
+    }
+}
+</script>
+
+{% endblock %}

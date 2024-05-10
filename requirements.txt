@@ -1,0 +1,4 @@
+Django==5.1.5
+Pillow>=9.2.0
+PyYAML>=6.0.2
+django-cleanup==9.0.0

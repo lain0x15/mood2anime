@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{anime.name}}{% endblock %}
+{% block description %}"{{anime.description}}"{% endblock %}
+{% block keywords %}"{{anime.name}}, аниме"{% endblock %}
+{% block head %}
+    <link href="{% static 'css/animePage.css' %}" rel="stylesheet" />
+{% endblock %}
+{% block main %}
+<div id="animeContent">
+    <div id="animeContentSplit">
+        <img id="animeImg" src="{{ anime.portraitImage.url }}" />
+        <div>
+            <div id="animeName"><b>{{anime.name}}</b></div>
+            <div class="stageName">Информация</div>
+            <div id="animeInfo">
+                <div class="animeInfoText">Тип</div>
+                <div class="animeInfoText">{{ anime.type_field.name }}{% if anime.episodes %} / {{ anime.episodes }} серий{% endif %}</div>
+                {% if anime.genres.all %}
+                <div class="animeInfoText">Жанры</div>
+                <div class="animeInfoText">{% for genre in anime.genres.all %}{% if forloop.first %}{{ genre.name }}{% else %}{{ genre.name | lower }}{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
+                {% endif %}
+                <div class="animeInfoText">Год релиза</div>
+                <div class="animeInfoText">{{ anime.releaseYear | date:"Y" }}</div>
+                <div class="animeInfoText">Оценка</div>
+                <div class="animeInfoText">{{ anime.review }}</div>
+            </div>
+            {% if anime.studio.all %}
+            <div class="stageName">{% if anime.studio.all|length == 1 %}Студия{% else %}Студии{% endif %}</div>
+            <div id="anime_studio_row">{% for studio in anime.studio.all %}{% if studio.image %}<img class="anime_studio_logo" src="{{studio.image.url}}" />{% else %}&emsp;{{ studio.name }}&emsp;{% endif %}{% endfor %}</div>
+            {% endif %}
+        </div>
+    </div>
+    {% if anime.description %}
+    <div class="stageName">Описание</div>
+    <div class="animeInfoDescription">{{anime.description}}</div>
+    {% endif %}
+    {% if anime.getAnimeScreenshots %}
+    <div class="stageName">Кадры</div>
+    <div id="screenshots">
+        {% for screenshot in anime.getAnimeScreenshots|slice:":4" %}
+            <img class="screenshot_img" src="{{ screenshot.screenshot.url }}">
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="stageName">Связанные</div>
+    <div id="franchises">
+        {% for franchise in anime.getFranchisesAnime %}
+            <div class="franchise">
+                <img class="img_franchise" src="{{ franchise.portraitImage.url }}">
+                <div class="franchise_text">
+                    <a class="franchise_link_to_anime" href="{% url 'animePage' franchise.url_name %}"><span {% if anime.id == franchise.id %}class="current_anime"{% endif %}>{{ franchise.name }}</span></a>
+                    <div>{{ franchise.releaseYear | date:"Y" }} / {{ franchise.type_field.name }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
