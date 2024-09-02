@@ -1,0 +1,74 @@
+﻿{% extends 'index.html' %}
+{% load static %}
+{% block header %}
+    <link href="{% static 'css/animePage.css' %}" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% endblock %}
+{% block headerContent %}
+   <a href = "{% url 'home' %}">Настроение<img style="vertical-align: top;" src="/media/{{ mood.img }}">{{ mood.name | lower }}</a>
+{% endblock %}
+{% block main %}
+        <div id="anime">
+            <div id="innerAnime">
+                <div class="wrapper">
+                    <div class="box1">
+                        <iframe id="trailer"  src="None" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <div class="box2">
+
+                    </div>
+                    <div class="box3">
+
+                    </div>
+                    <div class="box4">
+                    </div>
+                    <div class="box5">
+
+                    </div>
+                    <div class="box6">
+                        <div id="bottoms">
+                            <div id="previousButton" class="buttons">
+                                <b>Предыдущее</b>
+                            </div>
+                            <div id="nextButton" class="buttons">
+                                <b>Следующее</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        function getAnime (previous = 0){
+            $.ajax({
+	            url: "{% url 'mood' mood.id %}",
+                headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+	            method: 'post',             
+	            dataType: 'html',          
+	            data: {'previous': previous},     
+	            success: function(data){
+                    var anime = JSON.parse(data).anime
+                    $('#trailer').attr('src', anime.trailer);
+                    $('.box2').html("<b>" + anime.name + "</b>");
+                    const releaseDate = new Date(anime.releaseYear);
+                    releaseYear = releaseDate.getFullYear ();
+                    $('.box3').html("<b>Релиз " + releaseYear + "г. <img src={% static 'img/star.png' %} /> " + anime.review + "/9</b>");
+                    var genres = ""
+                    anime.genre.forEach((element) => genres = genres + "<div class=genre>" + element + "</div>");
+                    $('.box4').html(genres);
+                    $('.box5').html(anime.description);
+                    setTimeout(() => {  document.getElementById("loaderFullFill").style.display = "none"; }, 300);
+	            }
+            });
+        }
+        document.getElementById("loaderFullFill").style.display = "block";
+        getAnime();
+        $( "#nextButton" ).on( "click", function() {
+            getAnime(0);
+        });
+        $( "#previousButton" ).on( "click", function() {
+            getAnime(1);
+        });
+    </script>
+{% endblock %}
