@@ -2,6 +2,7 @@ services:
   mood2anime:
     build:
       dockerfile: ./Dockerfile
+      context: .
     restart: always
   nginx:
     image: nginx
