@@ -4,6 +4,15 @@ services:
       dockerfile: ./Dockerfile
       context: .
     restart: always
+  certbot:
+    image: python:3.12-slim
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - "python3 -m pip install certbot && certbot certonly --cert-name mood2anime  --standalone --non-interactive --agree-tos -m webmaster@google.com -d mood2anime.lain0x15.tech && cp /etc/letsencrypt/live/mood2anime/* /etc/nginx/ssl"
+    ports:
+      - 80:80
+    volumes:
+      - ssl:/etc/nginx/ssl
   nginx:
     image: nginx
     restart: always
@@ -12,3 +21,9 @@ services:
       - 443:443
     volumes:
       - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ssl:/etc/nginx/ssl
+    depends_on:
+      certbot:
+        condition: service_completed_successfully
+volumes:
+  ssl:
