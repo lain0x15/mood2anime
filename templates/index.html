@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>    
+<head>  
+    <meta charset="UTF-8">
+    <meta name="keywords" content="Аниме, Топ аниме, Лучшее аниме, топ 10 аниме">
+    <title>mood2Anime</title>
+    <link href="{% static 'css/index.css' %}" rel="stylesheet" />
+    {% block header %}{% endblock %}
+</head>  
+<body>
+    <div id="loaderFullFill">
+        <div class="loader"></div>
+    </div>
+    {% block bodyHeader %}
+    <div id="header">
+        <div id="innerHeader">
+            <a href = "{% url 'home' %}"><img id='leftIMG' src="{% static 'img/header/headerGirl.gif' %}"></a>
+            <a href = "{% url 'home' %}">
+                <b>
+                    {% block headerContent %}Mood2Anime{% endblock %}
+                </b>
+            </a>
+            <a href = "{% url 'home' %}"><img id='rightIMG' src="{% static 'img/header/headerBoy.gif' %}"></a>
+        </div>
+    </div>
+    {% endblock %}
+    <div id="content">
+        <div id='innerContent'>
+            {% block main %}{% endblock %}
+        </div>
+    </div>
+</body>  
+</html>

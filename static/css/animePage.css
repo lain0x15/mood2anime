@@ -1,0 +1,255 @@
+#innerContent {
+	width: 50%;
+}
+
+#anime {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+#innerAnime {
+	
+	border-radius: 22px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	min-width: 730px;
+}
+.wrapper {
+	display: grid;
+	margin-left: 10px;
+	margin-right: 10px;
+	grid-template-columns: 1fr;
+	width:100%;
+	grid-template-rows: 400px auto auto auto 100px 30px;
+	grid-row-gap: 10px;
+}
+.box1 {
+	width: 100%;
+	
+}
+.box1 iframe {
+	height: 100%;
+	width: 100%;
+}
+.box2 {
+	height: 100%;
+	grid-row: 20px;
+	font-size: 1.5em;
+}
+.box3 {
+	font-size: 1.3em;
+}
+
+.box3 img {
+	width:20px;
+}
+
+.box4 {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-column-gap: 5px;
+	font-size: 1.2em;
+	grid-row-gap: 5px;
+}
+.box5 {
+	font-size: 1.2em;
+}
+
+.box6 {
+	position: relative;
+}
+.buttons {
+	text-align: center;
+	border: solid 3px red;
+	border-radius: 10px;
+	width: 80%;
+	transition: background-color 0.5s ease-out 100ms;
+	font-size: 1.5em;
+	cursor: pointer;
+	height: 30px;
+	line-height: 30px;
+}
+.buttons:hover {
+	background: red;
+}
+.buttons a {
+  text-decoration: none;
+  color: black;
+}
+#trailer {
+	width: 100%;
+	height: 100;
+}
+
+#bottoms {
+	bottom: 5px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	width: 100%;
+	justify-items: center;
+}
+
+.genre {
+	border-radius: 22px;
+	border: solid red 2px;
+	font-size: 0.8em;
+	color: red;
+	padding: 3px;
+	text-align: center;
+}
+
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (width <= 1024px) and (orientation: portrait) {
+	#innerAnime {
+		width: 100%;
+	}
+	#innerContent {
+		width: 100%;
+		min-width: min-content;
+	}
+	.wrapper {
+		grid-template-rows: 500px auto auto auto auto 10vh;
+	}
+	.box2 {
+		height: 100%;
+		grid-row: 50px;
+		font-size: 4em;
+	}
+	.box3 {
+		font-size: 1.3em;
+	}
+	.box4 {
+		grid-template-columns: 1fr 1fr;
+		font-size: 3em;
+	}
+	.box5 {
+		font-size: 4em;
+	}
+	#bottoms {
+		font-size: 2em;
+		position: fixed;
+		bottom: 0px;
+		right: 0px;
+		background: white;
+	}
+	.buttons {
+		height: 10vh;
+		width: calc(100% - 6px);
+		font-size: 2em;
+		line-height: 10vh;
+	}
+	#innerAnime {
+		background: white;
+	}
+	#leftIMG {
+		display: none;
+	}
+	#rightIMG {
+		display: none;
+	}
+	.box3 img {
+		width:40px;
+	}
+	#innerHeader { 
+		font-size: 2.5em;
+	}
+	.box3 img {
+		width:20px;
+	}
+}
+
+@media (width <= 800px) and (orientation: portrait) {
+
+}
+
+@media (width <= 768px) and (orientation: portrait) {
+	#innerAnime {
+		min-width: 0px;
+	}
+	body {
+		font-size: 12px;
+	}
+}
+
+@media (width <= 600px) and (orientation: portrait) {
+
+}
+
+@media (width <= 480px) and (orientation: portrait) {
+	body {
+		font-size: 8px;
+	}
+}
+
+@media (width <= 320px) and (orientation: portrait) {
+}
+
+@media (width <= 1280px) and (orientation: landscape) {
+	#innerAnime {
+		width: 100%;
+	}
+	#innerContent {
+		width: 100%;
+		min-width: min-content;
+	}
+	.wrapper {
+		grid-template-rows: 500px auto auto auto auto 10vh;
+	}
+	.box2 {
+		height: 100%;
+		grid-row: 50px;
+		font-size: 2em;
+	}
+	.box3 {
+		font-size: 1.3em;
+	}
+	.box4 {
+		grid-template-columns: 1fr 1fr 1fr;
+		font-size: 2em;
+	}
+	.box5 {
+		font-size: 2em;
+	}
+	#bottoms {
+		font-size: 2em;
+		position: fixed;
+		bottom: 0px;
+		right: 0px;
+		background: white;
+	}
+	.buttons {
+		height: 10vh;
+		width: calc(100% - 6px);
+		font-size: 1em;
+		line-height: 10vh;
+	}
+	#innerAnime {
+		background: white;
+	}
+	.box3 img {
+		width:20px;
+	}
+}
+
+@media (width <= 1024px) and (orientation: landscape) {
+
+}
+
+@media (width <= 800px) and (orientation: landscape) {
+
+}
+
+@media (width <= 480px) and (orientation: landscape) {
+
+}
+
+@media (width <= 320px) and (orientation: landscape) {
+
+}

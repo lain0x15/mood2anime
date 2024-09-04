@@ -1,0 +1,174 @@
+html {
+		height: 100%;
+		padding: 0px;
+		margin: 0px;
+}
+body { 
+	font-size:16px; 
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+
+#header {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	border-bottom: 5px solid red;
+	overflow: hidden;
+}
+#innerHeader {
+	height: 84px;
+	line-height: 84px; 
+	text-align: center;
+	vertical-align: middle;
+	font-size: 2em;
+	min-width: max-content;
+	min-width: 730px;
+}
+
+#innerHeader img {
+	width: 84px;
+	height: 84px;
+}
+
+#innerHeader #leftIMG {
+	float: left;
+	margin-left: 58px;
+}
+
+#innerHeader #rightIMG {
+	float: right;
+	margin-right: 58px;
+}
+
+#header a {
+  text-decoration: none;
+  color: black;
+}
+
+#content {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 18px;
+}
+
+#innerContent {
+	width: 70%;
+	min-width: min-content;
+}
+
+#loaderFullFill {
+	position: fixed;
+	background-color: black;
+	width: 100%;
+	height: 100%;
+	top:0px;
+	left: 0px;
+	z-index: 1;
+	display: none;
+}
+
+.loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  margin: -76px 0 0 -76px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (width <= 1024px) and (orientation: portrait) {
+	#innerHeader {
+		width: 100%;
+		height: 125px;
+		line-height: 125px; 
+		font-size: 4em;
+	}
+	#innerHeader img {
+		width: 150px;
+		height: 150px;
+	}
+	#innerContent {
+		width: 100%;
+		min-width: min-content;
+	}
+	#leftIMG {
+		display: none;
+	}
+	#rightIMG {
+		display: none;
+	}
+}
+
+@media (width <= 800px) and (orientation: portrait) {
+	#innerHeader {
+		min-width: 0px;
+	}
+}
+
+@media (width <= 768px) and (orientation: portrait) {
+
+}
+
+@media (width <= 600px) and (orientation: portrait) {
+
+}
+
+@media (width <= 480px) and (orientation: portrait) {
+
+}
+
+@media (width <= 320px) and (orientation: portrait) {
+
+}
+
+@media (width <= 1280px) and (orientation: landscape) {
+
+}
+
+@media (width <= 1024px) and (orientation: landscape) {
+	#innerHeader {
+		width: 100%;
+		height: 75px;
+		line-height: 75px; 
+		font-size: 2.5em;
+	}
+
+	#innerContent {
+		width: 100%;
+		min-width: min-content;
+	}
+	#leftIMG {
+		display: none;
+	}
+	#rightIMG {
+		display: none;
+	}
+}
+
+@media (width <= 800px) and (orientation: landscape) {
+	#innerHeader {
+		min-width: 0px;
+	}
+}
+
+@media (width <= 480px) and (orientation: landscape) {
+
+}
+
+@media (width <= 320px) and (orientation: landscape) {
+
+}
