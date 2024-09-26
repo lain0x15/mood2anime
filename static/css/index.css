@@ -10,6 +10,10 @@ body {
 	margin: 0px;
 }
 
+* {
+	touch-action: manipulation;
+}
+
 #header {
 	width: 100%;
 	display: flex;

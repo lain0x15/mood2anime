@@ -12,18 +12,15 @@
             <div id="innerAnime">
                 <div class="wrapper">
                     <div class="box1">
-                        <iframe id="trailer"  src="None" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <iframe id="trailer"  src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                     <div class="box2">
-
                     </div>
                     <div class="box3">
-
                     </div>
                     <div class="box4">
                     </div>
                     <div class="box5">
-
                     </div>
                     <div class="box6">
                         <div id="bottoms">
@@ -53,9 +50,9 @@
                     $('.box2').html("<b>" + anime.name + "</b>");
                     const releaseDate = new Date(anime.releaseYear);
                     releaseYear = releaseDate.getFullYear ();
-                    $('.box3').html("<b>Релиз " + releaseYear + "г. <img src={% static 'img/star.png' %} /> " + anime.review + "/9</b>");
+                    $('.box3').html("<b>Релиз " + releaseYear + "г. <span style='background-image: url({% static 'img/star.png' %})' class=scoreStar>     </span> " + anime.review + "/9</b>");
                     var genres = ""
-                    anime.genre.forEach((element) => genres = genres + "<div class=genre>" + element + "</div>");
+                    anime.genre.forEach((element) => genres = genres + "<div class=genre><div class=contentGenre>" + element + "</div></div>");
                     $('.box4').html(genres);
                     $('.box5').html(anime.description);
                     setTimeout(() => {  document.getElementById("loaderFullFill").style.display = "none"; }, 300);
