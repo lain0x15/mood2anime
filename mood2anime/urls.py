@@ -20,7 +20,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', mainViews.index, name = 'home'),
     path('mood/<int:id>', mainViews.moodAnimeView, name="mood")
 ]
