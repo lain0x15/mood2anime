@@ -137,3 +137,9 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = BASE_DIR / "staticRoot"
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+
+CSRF_TRUSTED_ORIGINS = [
+    host for host in os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', '').split(',') if host != ''
+]
