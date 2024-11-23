@@ -21,7 +21,7 @@
 	margin-right: 10px;
 	grid-template-columns: 1fr;
 	width:100%;
-	grid-template-rows: 400px auto auto auto 100px 30px;
+	grid-template-rows: 400px auto auto auto 100px 40px;
 	grid-row-gap: 10px;
 }
 .box1 {
@@ -63,10 +63,10 @@
 	position: relative;
 }
 .buttons {
+    width: calc(100% - 6px);
 	text-align: center;
 	border: solid 3px red;
 	border-radius: 10px;
-	width: 80%;
 	transition: background-color 0.5s ease-out 100ms;
 	font-size: 1.5em;
 	cursor: pointer;
@@ -88,11 +88,13 @@
 }
 
 #bottoms {
-	bottom: 5px;
+	bottom: 0px;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	width: 100%;
+	width: 50%;
 	justify-items: center;
+	position: fixed;
+	background: white;
 }
 
 .genre {
@@ -145,14 +147,11 @@
 	}
 	#bottoms {
 		font-size: 2em;
-		position: fixed;
-		bottom: 0px;
 		right: 0px;
-		background: white;
+		width: 100%;
 	}
 	.buttons {
 		height: 10vh;
-		width: calc(100% - 6px);
 		font-size: 2em;
 		line-height: 10vh;
 	}
@@ -222,14 +221,11 @@
 	}
 	#bottoms {
 		font-size: 2em;
-		position: fixed;
-		bottom: 0px;
 		right: 0px;
-		background: white;
+		width:100%;
 	}
 	.buttons {
 		height: 10vh;
-		width: calc(100% - 6px);
 		font-size: 1em;
 		line-height: 10vh;
 	}
