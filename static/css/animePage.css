@@ -61,7 +61,10 @@
 
 .box6 {
 	position: relative;
+	display: flex;
+    justify-content: center;
 }
+
 .buttons {
     width: calc(100% - 6px);
 	text-align: center;
