@@ -2,7 +2,7 @@
 {% load static %}
 {% block header %}
     <link href="{% static 'css/animePage.css' %}" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'css/jquery/3.5.1/jquery.min.js' %}"></script>
 {% endblock %}
 {% block headerContent %}
    <a href = "{% url 'home' %}">Настроение<img style="vertical-align: top;" src="/media/{{ mood.img }}">{{ mood.name | lower }}</a>
