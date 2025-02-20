@@ -83,6 +83,10 @@
 	.mood {
 		font-size: 4em;
 	}
+	.mood img {
+        left: 0px;
+        position: absolute;
+	}
 	#innerContent {
 		width: 100%;
 		min-width: min-content;
@@ -95,6 +99,10 @@
 	}
 	.mood {
 		font-size: 4em;
+	}
+	.mood img {
+        left: 0px;
+        position: absolute;
 	}
 }
 
@@ -139,6 +147,10 @@
 	#moods {
 		grid-template-columns: 1fr;
 	}
+    .mood img {
+        left: 0px;
+        position: absolute;
+    }
 }
 
 @media (width <= 320px) and (orientation: landscape) {
