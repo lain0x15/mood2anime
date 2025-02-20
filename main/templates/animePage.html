@@ -8,6 +8,8 @@
    <a href = "{% url 'home' %}">Настроение<img style="vertical-align: top;" src="/media/{{ mood.img }}">{{ mood.name | lower }}</a>
 {% endblock %}
 {% block main %}
+<div id="content">
+    <div id='innerContent'>
         <div id="anime">
             <div id="innerAnime">
                 <div class="wrapper">
@@ -35,12 +37,13 @@
                 </div>
             </div>
         </div>
-
+    </div>
+</div>
     <script>
         function getAnime (previous = 0){
             $.ajax({
 	            url: "{% url 'mood' mood.id %}",
-                headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                headers: { 'X-CSRFToken': csrftoken },
 	            method: 'post',             
 	            dataType: 'html',          
 	            data: {'previous': previous},     

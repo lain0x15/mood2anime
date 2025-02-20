@@ -4,18 +4,21 @@
     <link href="{% static 'css/homePage.css' %}" rel="stylesheet" />
 {% endblock %}
 {% block main %}
-
+<div id="content">
+    <div id='innerContent'>
         <div id="contentHeader">
             <b>Найди аниме под настроение</b>
         </div>
         <div id="moods">
-        {% for mood in moods %}
-                <a href="{% url 'mood' mood.id %}">
-                    <div class='mood'>
-                        <img src="media/{{ mood.img }}">
-                        <b>{{ mood.name }}</b>
-                    </div>
-                </a>
-        {% endfor %}
+            {% for mood in moods %}
+            <a href="{% url 'mood' mood.id %}">
+                <div class='mood'>
+                    <img src="media/{{ mood.img }}">
+                    <b>{{ mood.name }}</b>
+                </div>
+            </a>
+            {% endfor %}
         </div>
+    </div>
+</div>
 {% endblock %}

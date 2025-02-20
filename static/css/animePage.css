@@ -1,5 +1,13 @@
+#content {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 18px;
+}
+
 #innerContent {
 	width: 50%;
+	min-width: min-content;
 }
 
 #anime {
@@ -116,12 +124,11 @@
 	flex: 0 0;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
 @media (width <= 1024px) and (orientation: portrait) {
+	#innerContent {
+		width: 100%;
+		min-width: min-content;
+	}
 	#innerAnime {
 		width: 100%;
 	}
@@ -160,12 +167,6 @@
 	}
 	#innerAnime {
 		background: white;
-	}
-	#leftIMG {
-		display: none;
-	}
-	#rightIMG {
-		display: none;
 	}
 	#innerHeader { 
 		font-size: 2.5em;
@@ -238,7 +239,10 @@
 }
 
 @media (width <= 1024px) and (orientation: landscape) {
-
+	#innerContent {
+		width: 100%;
+		min-width: min-content;
+	}
 }
 
 @media (width <= 800px) and (orientation: landscape) {

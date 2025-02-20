@@ -51,18 +51,6 @@ body {
   color: black;
 }
 
-#content {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	margin-top: 18px;
-}
-
-#innerContent {
-	width: 70%;
-	min-width: min-content;
-}
-
 #loaderFullFill {
 	position: fixed;
 	background-color: black;
@@ -105,10 +93,6 @@ body {
 		width: 150px;
 		height: 150px;
 	}
-	#innerContent {
-		width: 100%;
-		min-width: min-content;
-	}
 	#leftIMG {
 		display: none;
 	}
@@ -149,11 +133,6 @@ body {
 		height: 75px;
 		line-height: 75px; 
 		font-size: 2.5em;
-	}
-
-	#innerContent {
-		width: 100%;
-		min-width: min-content;
 	}
 	#leftIMG {
 		display: none;
