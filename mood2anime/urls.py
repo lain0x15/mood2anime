@@ -21,7 +21,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', mainViews.index, name = 'home'),
-    path('mood/<int:id>', mainViews.moodAnimeView, name="mood")
+    path('mood/<int:id>', mainViews.moodAnimeView, name="mood"),
+    path('getAnimeByID/<int:id>', mainViews.getAnimeByID, name="getAnimeByID"),
+    path('getIDsAnime', mainViews.getIDsAnime, name="getIDsAnime")
 ]
 
 if settings.DEBUG:

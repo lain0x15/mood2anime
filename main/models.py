@@ -24,6 +24,9 @@ class anime(models.Model):
     def getGenres(self):
         return genreAnime.objects.filter(animeID=self)
 
+    def getMoods(self):
+        return moodAnime.objects.filter(animeID=self)
+
     def __str__(self):
         return self.name
 

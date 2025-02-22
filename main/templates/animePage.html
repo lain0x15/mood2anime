@@ -40,14 +40,32 @@
     </div>
 </div>
     <script>
-        function getAnime (previous = 0){
+        document.getElementById("loaderFullFill").style.display = "block";
+
+        async function getIDsAnime(search_filter_genre='', search_filter_mood='') {
+            const data = new URLSearchParams();
+            data.append('search_filter_genre', search_filter_genre);
+            data.append('search_filter_mood', search_filter_mood);
+            const response = await fetch('/getIDsAnime', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': csrftoken
+                },
+                body: data
+            });
+            const json = await response.json();
+            return json.animeIDs;
+        }
+
+        function getAnimeByID (id){
             $.ajax({
-	            url: "{% url 'mood' mood.id %}",
+                url: "/getAnimeByID/" + id,
                 headers: { 'X-CSRFToken': csrftoken },
-	            method: 'post',             
-	            dataType: 'html',          
-	            data: {'previous': previous},     
-	            success: function(data){
+                method: 'post',
+                dataType: 'html',
+                data: {},
+                success: function(data){
                     var anime = JSON.parse(data).anime
                     $('#trailer').attr('src', anime.trailer);
                     $('.box2').html("<b>" + anime.name + "</b>");
@@ -59,16 +77,28 @@
                     $('.box4').html(genres);
                     $('.box5').html(anime.description);
                     setTimeout(() => {  document.getElementById("loaderFullFill").style.display = "none"; }, 300);
-	            }
+                }
             });
         }
-        document.getElementById("loaderFullFill").style.display = "block";
-        getAnime();
+
+        getIDsAnime('','{{mood.id}}').then(function(result){
+            animeIDs = result;
+            animeIDsOffset = Math.floor(Math.random() * animeIDs.length);
+            getAnimeByID(animeIDs[animeIDsOffset]);
+        });
         $( "#nextButton" ).on( "click", function() {
-            getAnime(0);
+            animeIDsOffset++;
+            if (animeIDsOffset >= animeIDs.length){
+                animeIDsOffset = 0;
+            }
+            getAnimeByID(animeIDs[animeIDsOffset]);
         });
         $( "#previousButton" ).on( "click", function() {
-            getAnime(1);
+            animeIDsOffset--;
+            if (animeIDsOffset < 0){
+                animeIDsOffset = animeIDs.length - 1;
+            }
+            getAnimeByID(animeIDs[animeIDsOffset]);
         });
     </script>
 {% endblock %}
