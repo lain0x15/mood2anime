@@ -16,7 +16,6 @@
 	justify-content: center;
 }
 #innerAnime {
-	
 	border-radius: 22px;
 	width: 100%;
 	display: flex;
@@ -34,7 +33,6 @@
 }
 .box1 {
 	width: 100%;
-	
 }
 .box1 iframe {
 	height: 100%;
@@ -125,10 +123,6 @@
 }
 
 @media (width <= 1024px) and (orientation: portrait) {
-	#innerContent {
-		width: 100%;
-		min-width: min-content;
-	}
 	#innerAnime {
 		width: 100%;
 	}
@@ -137,67 +131,66 @@
 		min-width: min-content;
 	}
 	.wrapper {
-		grid-template-rows: 500px auto auto auto auto 10vh;
+		grid-template-rows: 500px auto auto auto auto 60px;
 	}
 	.box2 {
 		height: 100%;
 		grid-row: 50px;
-		font-size: 4em;
+		font-size: 3em;
 	}
-
 	.box3 {
-		font-size: 1.3em;
+		font-size: 2em;
 	}
 	.box4 {
 		grid-template-columns: 1fr 1fr;
-		font-size: 3em;
+		font-size: 2em;
 	}
 	.box5 {
-		font-size: 4em;
+		font-size: 2.5em;
 	}
 	#bottoms {
-		font-size: 2em;
 		right: 0px;
 		width: 100%;
-	}
-	.buttons {
-		height: 10vh;
-		font-size: 2em;
-		line-height: 10vh;
 	}
 	#innerAnime {
 		background: white;
 	}
-	#innerHeader { 
+	#innerHeader {
 		font-size: 2.5em;
 	}
-}
-
-@media (width <= 800px) and (orientation: portrait) {
+    .buttons {
+        font-size: 2.5em;
+        height: 60px;
+        line-height: 60px;
+        border: solid 2px red;
+    }
 }
 
 @media (width <= 768px) and (orientation: portrait) {
 	#innerAnime {
 		min-width: 0px;
 	}
-	body {
-		font-size: 12px;
+	.wrapper {
+		grid-template-rows: 375px auto auto auto auto 60px;
 	}
-}
-
-@media (width <= 600px) and (orientation: portrait) {
 }
 
 @media (width <= 480px) and (orientation: portrait) {
-	body {
-		font-size: 8px;
+	.wrapper {
+		grid-template-rows: 234px auto auto auto auto 60px;
 	}
+    .genre {
+        border: solid red 1px;
+    }
 }
 
 @media (width <= 320px) and (orientation: portrait) {
+	.wrapper {
+		grid-template-rows: 156px auto auto auto auto 60px;
+	}
 }
 
-@media (width <= 1280px) and (orientation: landscape) {
+@media (width <= 1024px) and (orientation: landscape) {
 	#innerAnime {
 		width: 100%;
 	}
@@ -206,7 +199,7 @@
 		min-width: min-content;
 	}
 	.wrapper {
-		grid-template-rows: 500px auto auto auto auto 10vh;
+		grid-template-rows: 425px auto auto auto auto 30px;
 	}
 	.box2 {
 		height: 100%;
@@ -214,45 +207,47 @@
 		font-size: 2em;
 	}
 	.box3 {
-		font-size: 1.3em;
+		font-size: 1.5em;
 	}
 	.box4 {
 		grid-template-columns: 1fr 1fr 1fr;
-		font-size: 2em;
+		font-size: 1.5em;
 	}
 	.box5 {
-		font-size: 2em;
+		font-size: 1.5em;
 	}
 	#bottoms {
-		font-size: 2em;
 		right: 0px;
 		width:100%;
-	}
-	.buttons {
-		height: 10vh;
-		font-size: 1em;
-		line-height: 10vh;
 	}
 	#innerAnime {
 		background: white;
 	}
+    .buttons {
+        font-size: 2em;
+        height: 30px;
+        line-height: 30px;
+        border: solid 2px red;
+    }
 }
 
-@media (width <= 1024px) and (orientation: landscape) {
-	#innerContent {
-		width: 100%;
-		min-width: min-content;
+@media (width <= 768px) and (orientation: landscape) {
+	.wrapper {
+		grid-template-rows: 375px auto auto auto auto 60px;
+	}
+	#innerAnime {
+		min-width: 0px;
 	}
 }
 
-@media (width <= 800px) and (orientation: landscape) {
-
-}
-
 @media (width <= 480px) and (orientation: landscape) {
-
+	.wrapper {
+		grid-template-rows: 234px auto auto auto auto 60px;
+	}
 }
 
 @media (width <= 320px) and (orientation: landscape) {
-
+	.wrapper {
+		grid-template-rows: 156px auto auto auto auto 60px;
+	}
 }
