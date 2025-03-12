@@ -5,10 +5,10 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="keywords" content="Аниме, Топ аниме, Лучшее аниме, топ 10 аниме">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>mood2Anime</title>
+    <title>{% block title %}mood2Anime{% endblock %}</title>
     <link href="{% static 'css/index.css' %}" rel="stylesheet" />
     <link rel="icon" href="{%  static 'favicon.ico' %}" type="image/x-icon" />
-    <meta name="description" content="Найдите идеальное аниме под ваше настроение! Удобный поиск по жанрам, эмоциям и рекомендациям от сообщества любителей.">
+    <meta name="description" content={% block description %}"Найдите идеальное аниме под ваше настроение! Удобный поиск по жанрам, эмоциям и рекомендациям от сообщества любителей."{% endblock %}>
     <script type="text/javascript"> var csrftoken = '{{ csrf_token }}';</script>
     {% block header %}{% endblock %}
 </head>
