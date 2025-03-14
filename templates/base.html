@@ -20,13 +20,20 @@
     {% block bodyHeader %}
     <div id="header">
         <div id="innerHeader">
-            <a href = "{% url 'home' %}"><img id='leftIMG' src="{% static 'img/header/headerGirl.gif' %}"></a>
-            <a href = "{% url 'home' %}">
-                <b>
-                    Mood2Anime
-                </b>
-            </a>
-            <a href = "{% url 'home' %}"><img id='rightIMG' src="{% static 'img/header/headerBoy.gif' %}"></a>
+            <div>
+                <a href = "{% url 'home' %}">
+                    <b>
+                        M2A
+                    </b>
+                </a>
+            </div>
+            <div>
+                <a href = "{% url 'home' %}">
+                    <b>
+                        Списоком
+                    </b>
+                </a>
+            </div>
         </div>
     </div>
     {% endblock %}
