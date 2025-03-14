@@ -23,8 +23,8 @@ body {
 	box-sizing: border-box;
 }
 #innerHeader {
-	height: 84px;
-	line-height: 84px;
+	height: 64px;
+	line-height: 64px;
 	vertical-align: middle;
 	font-size: 2em;
     box-sizing: border-box;
@@ -80,16 +80,16 @@ body {
 @media (width <= 1024px) and (orientation: portrait) {
 	#innerHeader {
 	    width: 100%;
-		height: 125px;
-		line-height: 125px; 
+		height: 64px;
+		line-height: 64px;
 		font-size: 2em;
 	}
 }
 
 @media (width <= 768px) and (orientation: portrait) {
 	#innerHeader {
-		height: 80px;
-		line-height: 80px;
+		height: 64px;
+		line-height: 64px;
 	}
     #header {
         border-bottom: 4px solid red;
@@ -101,8 +101,8 @@ body {
 
 @media (width <= 480px) and (orientation: portrait) {
 	#innerHeader {
-		height: 60px;
-		line-height: 60px;
+		height: 40px;
+		line-height: 40px;
 	}
     #header {
         border-bottom: 3px solid red;
@@ -114,8 +114,8 @@ body {
 
 @media (width <= 320px) and (orientation: portrait) {
 	#innerHeader {
-		height: 50px;
-		line-height: 50px;
+		height: 40px;
+		line-height: 40px;
 	}
     #header {
         border-bottom: 3px solid red;
