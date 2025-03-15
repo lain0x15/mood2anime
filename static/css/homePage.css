@@ -104,6 +104,7 @@
 	justify-items: center;
 	position: fixed;
 	background: white;
+    min-width: 730px;
 }
 
 .genre {
@@ -151,6 +152,7 @@
 	#bottoms {
 		right: 0px;
 		width: 100%;
+		min-width: 0px;
 	}
 	#innerAnime {
 		background: white;
@@ -216,6 +218,7 @@
 	#bottoms {
 		right: 0px;
 		width:100%;
+		min-width: 0px;
 	}
 	#innerAnime {
 		background: white;
