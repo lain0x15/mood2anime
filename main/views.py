@@ -5,10 +5,24 @@ import datetime
 from django.conf import settings
 import json
 import random
-from django.http import HttpResponseNotAllowed, HttpResponseNotFound, HttpResponseBadRequest
-
+from django.http import HttpResponseNotAllowed, HttpResponseNotFound, HttpResponseBadRequest, HttpResponseRedirect
+from math import ceil
 def homePage(request):
     return render(request, "homePage.html")
+
+def listAnimePage(request):
+    pageLimit = 25
+    try:
+        page = int(request.GET.get('page', 1))
+        page = page if page >= 1 else 1
+    except ValueError:
+        page = 1
+
+    animes = anime.objects.all()
+    pages = ceil(animes.count()/pageLimit)
+    page = pages if page > pages else page
+    animes = animes[pageLimit * (page - 1):pageLimit * page]
+    return render(request, "listAnimePage.html", context={'animes':animes, 'pages':pages, 'currentPage':page})
 
 def getIDsAnime(request):
     if request.method != "POST":

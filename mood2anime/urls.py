@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', mainViews.homePage, name = 'home'),
+    path('listAnimePage', mainViews.listAnimePage, name = 'listAnimePage'),
     path('getAnimeByID/<int:id>', mainViews.getAnimeByID, name="getAnimeByID"),
     path('getIDsAnime', mainViews.getIDsAnime, name="getIDsAnime")
 ]
