@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import anime, genres, genreAnime
 from django.http import JsonResponse, HttpResponse
 import datetime
@@ -7,6 +7,7 @@ import json
 import random
 from django.http import HttpResponseNotAllowed, HttpResponseNotFound, HttpResponseBadRequest, HttpResponseRedirect
 from math import ceil
+
 def homePage(request):
     return render(request, "homePage.html")
 
@@ -23,6 +24,10 @@ def listAnimePage(request):
     page = pages if page > pages else page
     animes = animes[pageLimit * (page - 1):pageLimit * page]
     return render(request, "listAnimePage.html", context={'animes':animes, 'pages':pages, 'currentPage':page})
+
+def animePage(request, pk):
+    animeContext = get_object_or_404(anime, id=pk)
+    return render(request, "anime.html", context={'anime': animeContext})
 
 def getIDsAnime(request):
     if request.method != "POST":
