@@ -39,9 +39,8 @@
 <script>
     document.getElementById("loaderFullFill").style.display = "block";
 
-    async function getIDsAnime(search_filter_genre='') {
+    async function getIDsAnime() {
         const data = new URLSearchParams();
-        data.append('search_filter_genre', search_filter_genre);
         const response = await fetch('/getIDsAnime', {
             method: 'POST',
             headers: {
@@ -77,7 +76,7 @@
         });
     }
 
-    getIDsAnime('').then(function(result){
+    getIDsAnime().then(function(result){
         animeIDs = result;
         animeIDsOffset = Math.floor(Math.random() * animeIDs.length);
         getAnimeByID(animeIDs[animeIDsOffset]);

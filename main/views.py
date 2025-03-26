@@ -34,20 +34,6 @@ def getIDsAnime(request):
         return HttpResponseNotAllowed(["POST"])
     animeIDs = anime.objects.all()
 
-    search_filter_genre = request.POST.get("search_filter_genre", "")
-
-    if search_filter_genre == "":
-        _genres = genres.objects.all()
-    else:
-        search_filter_genre = search_filter_genre.split(',')
-        _genres = genres.objects.filter(id__in=search_filter_genre)
-        for animeRow in animeIDs:
-            animeGenres = animeRow.getGenres()
-            for i in _genres:
-                if not animeGenres.filter(genreID=i):
-                    animeIDs = animeIDs.exclude(id=animeRow.id)
-                    break
-
     animeIDs = [animeRow.id for animeRow in animeIDs]
     response = JsonResponse({'status': 'ok', 'animeIDs':animeIDs})
     return response
