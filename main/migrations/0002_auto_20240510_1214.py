@@ -20,88 +20,123 @@ def addStudios (apps, scheme_editor):
     studiosModel = apps.get_model('main', 'studios')
     studiosList = [
         {
-            'name': 'A-1 Pictures'
+            'name': 'A-1 Pictures',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Madhouse'
+            'name': 'Madhouse',
+            'imageName': 'Madhouse_studio_logo.png'
+
         },
         {
-            'name': 'J.C.STAFF'
+            'name': 'J.C.STAFF',
+            'imageName': 'J.C.Staff_Logo.png'
         },
         {
-            'name': 'Sunrise'
+            'name': 'Sunrise',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Bandai Namco Pictures'
+            'name': 'Bandai Namco Pictures',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Wit Studio'
+            'name': 'Wit Studio',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'EMT squared'
+            'name': 'EMT squared',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Feel'
+            'name': 'Feel',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Studio Pierrot'
+            'name': 'Studio Pierrot',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Studio Deen'
+            'name': 'Studio Deen',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Bones'
+            'name': 'Bones',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Manglobe'
+            'name': 'Manglobe',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'CloverWorks'
+            'name': 'CloverWorks',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Silver Link'
+            'name': 'Silver Link',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Studio Colorido'
+            'name': 'Studio Colorido',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Lapin Track'
+            'name': 'Lapin Track',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'NAZ'
+            'name': 'NAZ',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Science Saru'
+            'name': 'Science Saru',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Ashi Productions'
+            'name': 'Ashi Productions',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Studio 4°С'
+            'name': 'Studio 4°С',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Production I.G'
+            'name': 'Production I.G',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'MAPPA'
+            'name': 'MAPPA',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Brain\'s Base'
+            'name': 'Brain\'s Base',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Drive'
+            'name': 'Drive',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Toho'
+            'name': 'Toho',
+            'imageName': 'A-1_Logo.png'
         },
         {
-            'name': 'Twin Engine'
+            'name': 'Twin Engine',
+            'imageName': 'A-1_Logo.png'
         }
     ]
+    base_dir = Path(__file__).parent
+    photo_path = base_dir / 'initial_photos' / 'studios' / 'picture'
+
     for studioList in studiosList:
-        studiosModel.objects.create (
-            name=studioList['name']
-        )
+        files = photo_path.glob(studioList['imageName'])
+        files = [file for file in files if file.is_file()]
+        with open(files[0].relative_to(os.getcwd(), walk_up=True), 'rb') as file:
+            djangoFile = File(file, name=studioList['imageName'])
+            studiosModel.objects.create (
+                name=studioList['name'],
+                image=djangoFile
+            )
 
 def addAnime (apps, scheme_editor):
     anime = apps.get_model('main', 'anime')

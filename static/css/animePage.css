@@ -1,7 +1,7 @@
 #animeContent {
     box-sizing: border-box;
     padding: 10px;
-    width: 100%;
+
 }
 
 #animeName {
@@ -10,15 +10,92 @@
 
 #animeInfo {
     display: grid;
-    grid-gap: 10px;
+    gap: 0px 10px;
     grid-template-columns: 250px 1fr;
+    box-sizing: border-box;
+}
+
+#anime_studio_row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.anime_studio_logo {
+    box-sizing: border-box;
+    padding: 5px;
+    vertical-align:middle;
+    width:200px;
 }
 
 .animeInfoText {
     font-size: 1.5em;
 }
 
+.animeInfoDescription {
+    box-sizing: border-box;
+    font-size: 1.5em;
+}
+
+#animeContentSplit {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+}
+
 #animeImg {
     width: 250px;
-    float: left;
+}
+
+.stageName {
+    box-sizing: border-box;
+    height: 30px;
+    padding-left: 20px;
+    line-height: 30px;
+    background-color: rgba(255, 0, 0, 0.2);
+    font-size: 1.5em;
+    box-shadow: inset 10px 0px red;
+    font-weight: bold;
+
+}
+
+@media (width <= 1024px) and (orientation: portrait) {
+
+}
+
+@media (width <= 768px) and (orientation: portrait) {
+    #animeContentSplit {
+        grid-template-columns: 1fr;
+    }
+    #animeName {
+        font-size: 3em;
+    }
+    #animeImg {
+
+    }
+    #animeInfo {
+        gap: 5px 10px;
+        grid-template-columns: auto 1fr;
+    }
+    .animeInfoText {
+        font-size: 2em;
+    }
+    .animeInfoDescription {
+        font-size: 2.5em;
+    }
+    .stageName {
+        font-size: 2em;
+    }
+    .anime_studio_logo {
+        width: 150px;
+    }
+}
+
+@media (width <= 480px) and (orientation: portrait) {
+
+}
+
+@media (width <= 320px) and (orientation: portrait) {
+
 }
