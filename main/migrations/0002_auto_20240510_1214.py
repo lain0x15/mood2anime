@@ -34,95 +34,91 @@ def addStudios (apps, scheme_editor):
         },
         {
             'name': 'Sunrise',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'sunrise.jpg'
         },
         {
             'name': 'Bandai Namco Pictures',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'Bandai_Namco_logo.png'
         },
         {
             'name': 'Wit Studio',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'Wit_studio.png'
         },
         {
             'name': 'EMT squared',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'EMT_Squared_logo.gif'
         },
         {
             'name': 'Feel',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'feel.png'
         },
         {
             'name': 'Studio Pierrot',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'Studio_Pierrot_logo.png'
         },
         {
             'name': 'Studio Deen',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'Studio_Deen_logo.png'
         },
         {
             'name': 'Bones',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'Bones_logo.png'
         },
         {
             'name': 'Manglobe',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'manglobe.png'
         },
         {
             'name': 'CloverWorks',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'CloverWorks_Logo.png'
         },
         {
             'name': 'Silver Link',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'Silver_Link_Logo.png'
         },
         {
             'name': 'Studio Colorido',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'Studio_Colorido.png'
         },
         {
             'name': 'Lapin Track',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'Lapin_Track_Logo.png'
         },
         {
             'name': 'NAZ',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'Naz_Logo.png'
         },
         {
             'name': 'Science Saru',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'Science_SARU_logo.png'
         },
         {
             'name': 'Ashi Productions',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'Ashi_Productions.png'
         },
         {
             'name': 'Studio 4°С',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'Studio_4°С.gif'
         },
         {
             'name': 'Production I.G',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'Production_I.G_Logo.png'
         },
         {
             'name': 'MAPPA',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'MAPPA_Logo.svg.png'
         },
         {
             'name': 'Brain\'s Base',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'Brains_Base_logo.svg.png'
         },
         {
             'name': 'Drive',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'Drive_Studio_Logo.png'
         },
         {
             'name': 'Toho',
-            'imageName': 'A-1_Logo.png'
-        },
-        {
-            'name': 'Twin Engine',
-            'imageName': 'A-1_Logo.png'
+            'imageName': 'Toho_Logo.svg.jpg'
         }
     ]
     base_dir = Path(__file__).parent
@@ -529,7 +525,7 @@ def addAnime (apps, scheme_editor):
                 'review': 8,
                 'description': 'Миё Сасаки по прозвищу «Мугэ» — активная и яркая девушка, по уши влюблённая в одноклассника Кэнто Хинодэ. Все попытки Миё привлечь внимание юноши заканчиваются провалом, однако ситуация меняется, когда та находит магическую маску, позволяющую превращаться в «Таро» — милую белую кошку, которую так любит Кэнто. Ход событий кажется заманчивым, но со временем граница между девушкой и кошкой начинает исчезать.',
                 'portraitImgName': 'AWhiskerAway.jpg',
-                'studios': ['Studio Colorido', 'Toho', 'Twin Engine']
+                'studios': ['Studio Colorido', 'Toho']
             },
             'genres': [
                 'Драма',
