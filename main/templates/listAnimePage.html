@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link href="{% static 'css/listAnimePage.css' %}" rel="stylesheet" />
+<script src="{% static 'js/jquery/3.5.1/jquery.min.js' %}"></script>
+{% endblock %}
+{% block main %}
+{% for anime in animes %}
+<div class="animeRow">
+    <img class="animeRowImg" src="media/{{ anime.portraitImage }}">
+    <div class="animeRowInfo">
+        <div class="animeRowName"><a href="{% url 'animePage' anime.id %}">{{ anime.name }}</a></div>
+        <br>
+        <span class="animeRowText">{{ anime.releaseYear | date:"Y" }}  /  {% for genre in anime.getGenres %}{{ genre.genreID.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
+        <p class="animeDescription">{{ anime.description }}</p>
+    </div>
+</div>
+{% endfor %}
+<ul id="pager"></ul>
+
+<script>
+    var maxVisiblePages = 7;
+    var pager = document.getElementById("pager");
+    var currentPage = {{ currentPage }};
+    var maxPages = {{ pages }};
+    var halfVisiblePages = Math.floor(maxVisiblePages/2);
+
+    nextPagesCount = maxVisiblePages - halfVisiblePages - (maxPages - currentPage + 1)
+    if (nextPagesCount > 0 && (maxPages - currentPage) >= 0){
+        halfVisiblePages += nextPagesCount;
+    }
+
+    for (let i = currentPage - 1; i > 0 && halfVisiblePages > 0; i--) {
+        pager.innerHTML = '<li><a href="?page=' + i + '">'+i+'</a></li>' + pager.innerHTML;
+        halfVisiblePages--;
+        maxVisiblePages--;
+    }
+
+    for (let i = currentPage; i <= maxPages && i < maxVisiblePages + currentPage ; i++) {
+        if (i == currentPage ) {
+            pager.innerHTML+='<li class="active"><a>'+i+'</a></li>';
+        } else {
+            pager.innerHTML+='<li><a href="?page=' + i + '">'+i+'</a></li>';
+        }
+    }
+
+
+    let animeDescription = document.getElementsByClassName("animeDescription");
+    let sizeDescription = 150;
+    for (let i = 0; i < animeDescription.length; i++) {
+        newsText=animeDescription[i].innerHTML;
+        animeDescription[i].innerHTML = newsText.slice(0, sizeDescription) + '...';
+    }
+
+</script>
+{% endblock %}

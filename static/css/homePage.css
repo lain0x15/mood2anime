@@ -1,11 +1,3 @@
-#contentHeader {
-	line-height: 74px;
-	text-align: center;
-	vertical-align: middle;
-	font-size: 3.5em;
-	width: 100%;
-}
-
 #content {
 	width: 100%;
 	display: flex;
@@ -14,148 +6,248 @@
 }
 
 #innerContent {
-	width: 70%;
+	width: 50%;
 	min-width: min-content;
 }
 
-#moods {
+#anime {
 	width: 100%;
-	height: 12px;
+	display: flex;
+	justify-content: center;
+}
+#innerAnime {
+	border-radius: 22px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	min-width: 730px;
+}
+.wrapper {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 5%;
-	grid-row-gap: 2em;
-	margin-top: 20px;
+	margin-left: 10px;
+	margin-right: 10px;
+	grid-template-columns: 1fr;
+	width:100%;
+	grid-template-rows: 400px auto auto auto auto 40px;
+	grid-row-gap: 10px;
+}
+.box1 {
+	width: 100%;
+}
+.box1 iframe {
+	height: 100%;
+	width: 100%;
+}
+.box2 {
+	height: 100%;
+	grid-row: 20px;
+	font-size: 1.5em;
+}
+.box3 {
+	font-size: 1.3em;
+}
+.scoreStar {
+	width:auto; 
+	height:auto;
+	background-size:100% 100%;
+	white-space: pre;
 }
 
-@keyframes slideInFromLeft {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-	  transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
+.box4 {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-column-gap: 5px;
+	font-size: 1.2em;
+	grid-row-gap: 5px;
+	user-select: none;
+}
+.box5 {
+	font-size: 1.2em;
 }
 
-.mood {
+.box6 {
+	position: relative;
+	display: flex;
+    justify-content: center;
+}
+
+.buttons {
+    width: calc(100% - 6px);
+	text-align: center;
 	border: solid 3px red;
 	border-radius: 10px;
-	width: calc(100% - 6px);
-	height: 83px;
-	line-height: 83px;
-	text-align: center;
-	vertical-align: middle;
-	font-size: 1.5em;
-	float: left;
 	transition: background-color 0.5s ease-out 100ms;
-	animation: 1s ease-out 0s 1 slideInFromLeft;
-	min-width: max-content;
+	font-size: 1.5em;
+	cursor: pointer;
+	height: 30px;
+	line-height: 30px;
+	user-select: none;
 }
 
-#moods a {
+.buttons:hover {
+	background: red;
+}
+.buttons a {
   text-decoration: none;
   color: black;
 }
-
-.mood img {
-	width: 91px;
-	height: 81px;
-	float: left;
-}
-
-.mood:hover {
-	background: red;
-}
-
-.row {
+#trailer {
 	width: 100%;
-	min-width: max-content;
-	display: inline-block;
+	height: 100;
+}
+
+#bottoms {
+	bottom: 0px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	width: 50%;
+	justify-items: center;
+	position: fixed;
+	background: white;
+    min-width: 730px;
+}
+
+.genre {
+	border-radius: 22px;
+	border: solid red 2px;
+	font-size: 1.0em;
+	color: red;
+	padding: 3px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.contentGenre {
+	flex: 0 0;
 }
 
 @media (width <= 1024px) and (orientation: portrait) {
-	#moods {
-		grid-template-columns: 1fr;
-	}
-	.mood {
-		font-size: 3.5em;
-	}
-	.mood img {
-        left: 0px;
-        position: absolute;
+	#innerAnime {
+		width: 100%;
 	}
 	#innerContent {
 		width: 100%;
 		min-width: min-content;
 	}
+	.wrapper {
+		grid-template-rows: 500px auto auto auto auto 60px;
+	}
+	.box2 {
+		height: 100%;
+		grid-row: 50px;
+		font-size: 3em;
+	}
+	.box3 {
+		font-size: 2em;
+	}
+	.box4 {
+		grid-template-columns: 1fr 1fr;
+		font-size: 2em;
+	}
+	.box5 {
+		font-size: 2.5em;
+	}
+	#bottoms {
+		right: 0px;
+		width: 100%;
+		min-width: 0px;
+	}
+	#innerAnime {
+		background: white;
+	}
+    .buttons {
+        font-size: 2.5em;
+        height: 60px;
+        line-height: 60px;
+        border: solid 2px red;
+    }
 }
 
 @media (width <= 768px) and (orientation: portrait) {
-    #contentHeader {
-        line-height: 40px;
-    }
+	#innerAnime {
+		min-width: 0px;
+	}
+	.wrapper {
+		grid-template-rows: 375px auto auto auto auto 60px;
+	}
 }
 
 @media (width <= 480px) and (orientation: portrait) {
-    .mood {
-        height: 43px;
-        line-height: 43px;
-        border: solid 1.5px red;
-    }
-    .mood img {
-        width: 46px;
-        height: 41px;
-        float: left;
+	.wrapper {
+		grid-template-rows: 234px auto auto auto auto 60px;
+	}
+    .genre {
+        border: solid red 1px;
     }
 }
 
 @media (width <= 320px) and (orientation: portrait) {
-    .mood {
-        height: 43px;
-        line-height: 43px;
-    }
-    .mood img {
-        width: 46px;
-        height: 41px;
-        float: left;
-    }
+	.wrapper {
+		grid-template-rows: 156px auto auto auto auto 60px;
+	}
 }
 
 @media (width <= 1024px) and (orientation: landscape) {
+	#innerAnime {
+		width: 100%;
+	}
 	#innerContent {
 		width: 100%;
 		min-width: min-content;
 	}
+	.wrapper {
+		grid-template-rows: 425px auto auto auto auto 30px;
+	}
+	.box2 {
+		height: 100%;
+		grid-row: 50px;
+		font-size: 2em;
+	}
+	.box3 {
+		font-size: 1.5em;
+	}
+	.box4 {
+		grid-template-columns: 1fr 1fr 1fr;
+		font-size: 1.5em;
+	}
+	.box5 {
+		font-size: 1.5em;
+	}
+	#bottoms {
+		right: 0px;
+		width:100%;
+		min-width: 0px;
+	}
+	#innerAnime {
+		background: white;
+	}
+    .buttons {
+        font-size: 2em;
+        height: 30px;
+        line-height: 30px;
+        border: solid 2px red;
+    }
 }
 
 @media (width <= 768px) and (orientation: landscape) {
-	#moods {
-		grid-template-columns: 1fr 1fr;
+	.wrapper {
+		grid-template-rows: 375px auto auto auto auto 60px;
 	}
-    #contentHeader {
-        line-height: 40px;
-    }
-    .mood {
-        font-size: 1.8em;
-    }
+	#innerAnime {
+		min-width: 0px;
+	}
 }
 
 @media (width <= 480px) and (orientation: landscape) {
-	#moods {
-		grid-template-columns: 1fr;
+	.wrapper {
+		grid-template-rows: 234px auto auto auto auto 60px;
 	}
-    .mood img {
-        left: 0px;
-        position: absolute;
-    }
-    .mood {
-        font-size: 2.5em;
-    }
 }
 
 @media (width <= 320px) and (orientation: landscape) {
-
+	.wrapper {
+		grid-template-rows: 156px auto auto auto auto 60px;
+	}
 }

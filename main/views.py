@@ -1,54 +1,38 @@
-from django.shortcuts import render, redirect
-from .models import mood, moodAnime, anime, genres, genreAnime
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import anime, genres, genreAnime
 from django.http import JsonResponse, HttpResponse
 import datetime
 from django.conf import settings
 import json
 import random
-from django.http import HttpResponseNotAllowed, HttpResponseNotFound, HttpResponseBadRequest
+from django.http import HttpResponseNotAllowed, HttpResponseNotFound, HttpResponseBadRequest, HttpResponseRedirect
+from math import ceil
 
-def index(request):
-    moods = mood.objects.all()
-    return render(request, "homePage.html", context={'moods':moods})
+def homePage(request):
+    return render(request, "homePage.html")
 
-def moodAnimeView(request, id):
+def listAnimePage(request):
+    pageLimit = 25
     try:
-        _mood = mood.objects.get(id=id)
-    except mood.DoesNotExist:
-        return HttpResponseNotFound()
-    return render(request, "animePage.html", context={'mood':_mood})
+        page = int(request.GET.get('page', 1))
+        page = page if page >= 1 else 1
+    except ValueError:
+        page = 1
+
+    animes = anime.objects.all()
+    pages = ceil(animes.count()/pageLimit)
+    page = pages if page > pages else page
+    animes = animes[pageLimit * (page - 1):pageLimit * page]
+    return render(request, "listAnimePage.html", context={'animes':animes, 'pages':pages, 'currentPage':page})
+
+def animePage(request, pk):
+    animeContext = get_object_or_404(anime, id=pk)
+    return render(request, "anime.html", context={'anime': animeContext})
 
 def getIDsAnime(request):
     if request.method != "POST":
         return HttpResponseNotAllowed(["POST"])
     animeIDs = anime.objects.all()
-
-    search_filter_genre = request.POST.get("search_filter_genre", "")
-    search_filter_mood = request.POST.get("search_filter_mood", "")
-
-    if search_filter_genre == "":
-        _genres = genres.objects.all()
-    else:
-        search_filter_genre = search_filter_genre.split(',')
-        _genres = genres.objects.filter(id__in=search_filter_genre)
-        for animeRow in animeIDs:
-            animeGenres = animeRow.getGenres()
-            for i in _genres:
-                if not animeGenres.filter(genreID=i):
-                    animeIDs = animeIDs.exclude(id=animeRow.id)
-                    break
-
-    if search_filter_mood == "":
-        _moods = mood.objects.all()
-    else:
-        search_filter_mood = search_filter_mood.split(',')
-        _moods = mood.objects.filter(id__in=search_filter_mood)
-        for animeRow in animeIDs:
-            animeMoods = animeRow.getMoods()
-            for i in _moods:
-                if not animeMoods.filter(moodID=i):
-                    animeIDs = animeIDs.exclude(id=animeRow.id)
-                    break
 
     animeIDs = [animeRow.id for animeRow in animeIDs]
     response = JsonResponse({'status': 'ok', 'animeIDs':animeIDs})
