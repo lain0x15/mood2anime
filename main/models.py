@@ -21,7 +21,7 @@ class anime(models.Model):
     review = models.FloatField(default=0.0)
     description = models.CharField(max_length=375)
     portraitImage = models.ImageField(upload_to='anime/portraitImage/')
-    studio = models.ManyToManyField(studios, null=True)
+    studio = models.ManyToManyField(studios)
     
     def getGenres(self):
         return genreAnime.objects.filter(animeID=self)
