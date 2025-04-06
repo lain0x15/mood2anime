@@ -14,6 +14,9 @@ class studios (models.Model):
     def __str__(self):
         return self.name
 
+class types_model (models.Model):
+    name = models.CharField(max_length=50)
+
 class anime(models.Model):
     name = models.CharField(max_length=50)
     trailer = models.URLField(max_length=200)
@@ -22,6 +25,7 @@ class anime(models.Model):
     description = models.CharField(max_length=375)
     portraitImage = models.ImageField(upload_to='anime/portraitImage/')
     studio = models.ManyToManyField(studios)
+    type_field = models.ForeignKey(types_model, on_delete=models.PROTECT, null=True)
     
     def getGenres(self):
         return genreAnime.objects.filter(animeID=self)

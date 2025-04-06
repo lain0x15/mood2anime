@@ -15,6 +15,8 @@
             <div id="animeName"><b>{{anime.name}}</b></div>
             <div class="stageName">Информация</div>
             <div id="animeInfo">
+                <div class="animeInfoText">Тип</div>
+                <div class="animeInfoText">{{ anime.type_field.name }}</div>
                 <div class="animeInfoText">Жанры</div>
                 <div class="animeInfoText">{% for genre in anime.getGenres %}{{ genre.genreID.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
                 <div class="animeInfoText">Год релиза</div>
