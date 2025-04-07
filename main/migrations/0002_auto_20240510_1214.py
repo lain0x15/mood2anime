@@ -142,7 +142,17 @@ def addStudios (apps, scheme_editor):
 
 def addFranchises (apps, scheme_editor):
     franchises_model = apps.get_model('main', 'franchises')
-    franchises_name = ['sonny_boy']
+    franchises_name = [
+        'sonny_boy', 'gintama', 'Toradora',
+        'Attack_on_Titan', 'Train_to_the_End_of_the_World', 'Golden_time',
+        'My_Teen_Romantic_Comedy_SNAFU', 'GTO', 'KonoSuba',
+        'Noragami', 'Samurai_Champloo', 'Vinland_Saga',
+        'My_Dress-Up_Darling', 'Tanaka-kun_is_Always_Listless', 'My_Oni_Girl',
+        'Shoshimin_How_to_Become_Ordinary', 'Id_Invaded', 'Death_Parade',
+        'Dandadan', '365_Days_to_the_Wedding', 'Erased',
+        'Tekkonkinkreet', 'Btooom', 'AWhiskerAway',
+        'ZeronoTsukaima'
+    ]
     for franchise_name in franchises_name:
         franchises_model.objects.create (name=franchise_name)
 
@@ -184,7 +194,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'gintama.jpg',
                 'studios': ['Sunrise', 'Bandai Namco Pictures'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'gintama'
             },
             'genres': [
                 'Комедия',
@@ -203,7 +213,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'toradora.jpg',
                 'studios': ['J.C.STAFF'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'Toradora'
             },
             'genres': [
                 'Комедия',
@@ -221,7 +231,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'attackOnTitan.jpg',
                 'studios': ['Wit Studio', 'Production I.G', 'MAPPA'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'Attack_on_Titan'
             },
             'genres': [
                 'Драма',
@@ -241,7 +251,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'trainTotheEndoftheWorld.jpg',
                 'studios': ['EMT squared'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'Train_to_the_End_of_the_World'
             },
             'genres': [
                 'Приключения'
@@ -257,7 +267,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'goldenTime.jpg',
                 'studios': ['J.C.STAFF'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'Golden_time'
             },
             'genres': [
                 'Романтика',
@@ -276,7 +286,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'MyYouthRomanticComedyIsWrong.jpg',
                 'studios': ['Brain\'s Base', 'Feel'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'My_Teen_Romantic_Comedy_SNAFU'
             },
             'genres': [
                 'Романтика',
@@ -294,7 +304,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'GTO.jpg',
                 'studios': ['Studio Pierrot'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'GTO'
             },
             'genres': [
                 'Комедия',
@@ -313,7 +323,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'KonoSuba.jpg',
                 'studios': ['Studio Deen', 'J.C.STAFF', 'Drive'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'KonoSuba'
             },
             'genres': [
                 'Комедия',
@@ -332,7 +342,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'Noragami.jpg',
                 'studios': ['Bones'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'Noragami'
             },
             'genres': [
                 'Комедия',
@@ -351,7 +361,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'Samurai_Champloo.jpg',
                 'studios': ['Manglobe'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'Samurai_Champloo'
             },
             'genres': [
                 'Комедия',
@@ -370,7 +380,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'Vinland_Saga.jpg',
                 'studios': ['Wit Studio', 'MAPPA'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'Vinland_Saga'
             },
             'genres': [
                 'Приключения',
@@ -388,7 +398,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'Sono_Bisque_Doll_wa_Koi_wo_Suru.jpg',
                 'studios': ['CloverWorks'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'My_Dress-Up_Darling'
             },
             'genres': [
                 'Повседневность',
@@ -406,7 +416,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'Tanaka-kun_wa_Itsumo_Kedaruge.jpg',
                 'studios': ['Silver Link'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'Tanaka-kun_is_Always_Listless'
             },
             'genres': [
                 'Повседневность',
@@ -424,7 +434,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'MyOniGirl.jpg',
                 'studios': ['Studio Colorido'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'My_Oni_Girl'
             },
             'genres': [
                 'Приключения'
@@ -440,7 +450,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'HowtoBecomeOrdinary.jpeg',
                 'studios': ['Lapin Track'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'Shoshimin_How_to_Become_Ordinary'
             },
             'genres': [
                 'Повседневность',
@@ -457,7 +467,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'IdInvaded.jpeg',
                 'studios': ['NAZ'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'Id_Invaded'
             },
             'genres': [
                 'Детектив',
@@ -475,7 +485,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'DeathParade.jpeg',
                 'studios': ['Madhouse'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'Death_Parade'
             },
             'genres': [
                 'Детектив',
@@ -493,7 +503,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'dandadan.jpeg',
                 'studios': ['Science Saru'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'Dandadan'
             },
             'genres': [
                 'Комедия',
@@ -512,7 +522,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': '365DaystotheWedding.jpg',
                 'studios': ['Ashi Productions'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': '365_Days_to_the_Wedding'
             },
             'genres': [
                 'Сэйнэн',
@@ -529,7 +539,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'Erased.jpeg',
                 'studios': ['A-1 Pictures'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'Erased'
             },
             'genres': [
                 'Детектив',
@@ -548,7 +558,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'Tekkonkinkreet.jpeg',
                 'studios': ['Studio 4°С'],
                 'typeName': 'Фильм',
-                'franchise': 'sonny_boy'
+                'franchise': 'Tekkonkinkreet'
             },
             'genres': [
                 'Сэйнэн',
@@ -568,7 +578,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'Btooom.jpeg',
                 'studios': ['Madhouse'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'Btooom'
             },
             'genres': [
                 'Сэйнэн',
@@ -587,7 +597,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'AWhiskerAway.jpg',
                 'studios': ['Studio Colorido', 'Toho'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'AWhiskerAway'
             },
             'genres': [
                 'Драма',
@@ -605,7 +615,7 @@ def addAnime (apps, scheme_editor):
                 'portraitImgName': 'ZeronoTsukaima.jpeg',
                 'studios': ['J.C.STAFF'],
                 'typeName': 'Сериал',
-                'franchise': 'sonny_boy'
+                'franchise': 'ZeronoTsukaima'
             },
             'genres': [
                 'Экшен',
