@@ -27,8 +27,18 @@
         </div>
     </div>
     <div class="stageName">Описание</div>
-    <div class="animeInfoDescription">
-        {{anime.description}}
+    <div class="animeInfoDescription">{{anime.description}}</div>
+    <div class="stageName">Связанные</div>
+    <div id="franchises">
+        {% for franchise in anime.getFranchisesAnime %}
+            <div class="franchise">
+                <img class="img_franchise" src="/media/{{franchise.portraitImage}}">
+                <div class="franchise_text">
+                    <a class="franchise_link_to_anime" href="{% url 'animePage' franchise.id %}"><div {% if anime.id == franchise.id %}class="current_anime"{% endif %}>{{ franchise.name }}</div></a>
+                    <div>{{ franchise.releaseYear | date:"Y" }} / {{ franchise.type_field.name }}</div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 </div>
 

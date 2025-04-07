@@ -61,8 +61,43 @@
 
 }
 
-@media (width <= 1024px) and (orientation: portrait) {
+#franchises {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+}
 
+.franchise {
+    width: 100%;
+}
+
+.franchise_text {
+    font-size: 1.5em;
+}
+
+.img_franchise {
+    height: 150px;
+    float: left;
+    box-sizing: border-box;
+    padding-right: 5px;
+}
+
+.current_anime {
+    font-weight: bold;
+    color: red;
+}
+
+.franchise_link_to_anime {
+    text-decoration: none;
+    color: black;
+}
+
+@media (width <= 1024px) and (orientation: portrait) {
+    #franchises {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 @media (width <= 768px) and (orientation: portrait) {
@@ -91,10 +126,18 @@
     .anime_studio_logo {
         width: 150px;
     }
+    #franchises {
+        grid-template-columns: 1fr;
+    }
+    .franchise_text {
+        font-size: 2em;
+    }
 }
 
 @media (width <= 480px) and (orientation: portrait) {
-
+    #franchises {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (width <= 320px) and (orientation: portrait) {
@@ -104,6 +147,9 @@
 @media (width <= 1024px) and (orientation: landscape) {
     #animeInfo {
         grid-template-columns: auto 1fr;
+    }
+    #franchises {
+        grid-template-columns: 1fr 1fr;
     }
 }
 
@@ -117,6 +163,9 @@
     .anime_studio_logo {
         width:130px;
     }
+    #franchises {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (width <= 480px) and (orientation: landscape) {
@@ -125,6 +174,9 @@
     }
     #animeContentSplit {
         grid-template-columns: 110px 1fr;
+    }
+    #franchises {
+        grid-template-columns: 1fr;
     }
 }
 
