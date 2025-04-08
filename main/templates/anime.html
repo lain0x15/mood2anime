@@ -15,6 +15,8 @@
             <div id="animeName"><b>{{anime.name}}</b></div>
             <div class="stageName">Информация</div>
             <div id="animeInfo">
+                <div class="animeInfoText">Тип</div>
+                <div class="animeInfoText">{{ anime.type_field.name }}</div>
                 <div class="animeInfoText">Жанры</div>
                 <div class="animeInfoText">{% for genre in anime.getGenres %}{{ genre.genreID.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
                 <div class="animeInfoText">Год релиза</div>
@@ -25,8 +27,18 @@
         </div>
     </div>
     <div class="stageName">Описание</div>
-    <div class="animeInfoDescription">
-        {{anime.description}}
+    <div class="animeInfoDescription">{{anime.description}}</div>
+    <div class="stageName">Связанные</div>
+    <div id="franchises">
+        {% for franchise in anime.getFranchisesAnime %}
+            <div class="franchise">
+                <img class="img_franchise" src="/media/{{franchise.portraitImage}}">
+                <div class="franchise_text">
+                    <a class="franchise_link_to_anime" href="{% url 'animePage' franchise.id %}"><div {% if anime.id == franchise.id %}class="current_anime"{% endif %}>{{ franchise.name }}</div></a>
+                    <div>{{ franchise.releaseYear | date:"Y" }} / {{ franchise.type_field.name }}</div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 </div>
 
