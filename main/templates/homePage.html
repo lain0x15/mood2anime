@@ -78,7 +78,7 @@
     }
 
     getIDsAnime().then(function(result){
-        animeIDs = result;
+        animeIDs = result.sort(() => Math.random() - 0.5);
         animeIDsOffset = Math.floor(Math.random() * animeIDs.length);
         getAnimeByID(animeIDs[animeIDsOffset]);
     });
