@@ -46,7 +46,7 @@
 }
 
 .animeRowImg {
-
+    max-width:130px;
 }
 .animeRowInfo {
     box-sizing: border-box;
@@ -129,4 +129,32 @@
         .animeDescription {
             display: none;
         }
+}
+
+@media (width <= 1024px) and (orientation: landscape) {
+
+}
+
+@media (width <= 768px) and (orientation: landscape) {
+        .animeRowName {
+            font-size: 1.7em;
+            color: red;
+        }
+        .animeRowText {
+            font-size:1.5em;
+        }
+        .animeDescription {
+            font-size: 1.5em;
+        }
+}
+
+@media (width <= 480px) and (orientation: landscape) {
+        .animeDescription {
+            display: none;
+        }
+
+}
+
+@media (width <= 320px) and (orientation: landscape) {
+
 }
