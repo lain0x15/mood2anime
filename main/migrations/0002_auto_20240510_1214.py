@@ -151,7 +151,7 @@ def addFranchises (apps, scheme_editor):
         'Shoshimin_How_to_Become_Ordinary', 'Id_Invaded', 'Death_Parade',
         'Dandadan', '365_Days_to_the_Wedding', 'Erased',
         'Tekkonkinkreet', 'Btooom', 'AWhiskerAway',
-        'zero_no_tsukaima', 'frieren'
+        'zero_no_tsukaima', 'frieren', 'Lonely_Castle_in_the_Mirror'
     ]
     for franchise_name in franchises_name:
         franchises_model.objects.create (name=franchise_name)
@@ -737,6 +737,24 @@ def addAnime (apps, scheme_editor):
             'genres': [
                 'Сёнен',
                 'Приключения',
+                'Драма',
+                'Фэнтези'
+            ]
+        },
+        {
+            'anime': {
+                'url_name': 'Lonely_Castle_in_the_Mirror',
+                'name': 'Одинокий замок в Зазеркалье',
+                'trailer': 'https://www.youtube.com/embed/43lEvEQSHYE?si=V17Q-GLF9-Vmnanb',
+                'releaseYear': '2022-01-01',
+                'review': 8,
+                'description': 'Ученица средней школы Кокоро из-за психологической травмы вынуждена закрыться от мира у себя дома. Однажды зеркало в её комнате начинает светиться, и таинственная девочка в маске волка затягивает Кокоро в мир зазеркалья. Там она находит сказочный замок и ещё шестерых детей из средней школы.',
+                'portraitImgName': 'Lonely_Castle_in_the_Mirror.jpeg',
+                'studios': ['A-1 Pictures'],
+                'typeName': 'Фильм',
+                'franchise': 'Lonely_Castle_in_the_Mirror'
+            },
+            'genres': [
                 'Драма',
                 'Фэнтези'
             ]
