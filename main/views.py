@@ -25,8 +25,8 @@ def listAnimePage(request):
     animes = animes[pageLimit * (page - 1):pageLimit * page]
     return render(request, "listAnimePage.html", context={'animes':animes, 'pages':pages, 'currentPage':page})
 
-def animePage(request, pk):
-    animeContext = get_object_or_404(anime, id=pk)
+def animePage(request, url_name):
+    animeContext = get_object_or_404(anime, url_name=url_name)
     return render(request, "anime.html", context={'anime': animeContext})
 
 def getIDsAnime(request):
@@ -49,6 +49,7 @@ def getAnimeByID (request, id):
         return HttpResponseNotFound()
 
     animeDict = {
+        'url_name': responseAnime.url_name,
         'name': responseAnime.name,
         'trailer': responseAnime.trailer,
         'releaseYear': responseAnime.releaseYear,

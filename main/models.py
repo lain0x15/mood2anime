@@ -21,6 +21,7 @@ class franchises (models.Model):
     name = models.CharField(max_length=50)
 
 class anime(models.Model):
+    url_name = models.CharField(max_length=50, unique=True, null=False)
     name = models.CharField(max_length=50)
     trailer = models.URLField(max_length=200)
     releaseYear = models.DateField()

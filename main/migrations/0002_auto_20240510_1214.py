@@ -168,6 +168,7 @@ def addAnime (apps, scheme_editor):
     animesField = [
         {
             'anime': {
+                'url_name': 'Sonny_Boy',
                 'name': 'Сонни Бой',
                 'trailer': 'https://www.youtube.com/embed/6LiyZ0p_uLw?si=34XIQHzHyN-rq_lB',
                 'releaseYear': '2021-01-01',
@@ -186,6 +187,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Gintama',
                 'name': 'Гинтама',
                 'trailer': 'https://www.youtube.com/embed/YQC3ot0IjiA?si=AyVfrIWwxnEETlFD',
                 'releaseYear': '2003-01-01',
@@ -205,6 +207,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Toradora',
                 'name': 'Тора дора',
                 'trailer': 'https://www.youtube.com/embed/ya570uUgQNc?si=S-rwaF8fCds3KkD1',
                 'releaseYear': '2008-01-01',
@@ -223,6 +226,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Attack_on_Titan',
                 'name': 'Атака титанов',
                 'trailer': 'https://www.youtube.com/embed/MGRm4IzK1SQ?si=w2qkot2_Q3F0QUVI',
                 'releaseYear': '2013-01-01',
@@ -243,6 +247,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Train_to_the_End_of_the_World',
                 'name': 'Куда едет поезд судного дня?',
                 'trailer': 'https://www.youtube.com/embed/XLWzhcMOcVo?si=GeS6KO7BuweEXmJV',
                 'releaseYear': '2024-01-01',
@@ -259,6 +264,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Golden_Time',
                 'name': 'Золотая пора',
                 'trailer': 'https://www.youtube.com/embed/44njDYJ5OJA?si=DSxkmBPx8LkpbONx',
                 'releaseYear': '2013-01-01',
@@ -278,6 +284,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'My_Teen_Romantic_Comedy_SNAFU',
                 'name': 'Как и ожидалось, моя школьная романтическая жизнь не удалась',
                 'trailer': 'https://www.youtube.com/embed/u-bpwWPNEpE?si=_rbaZyje3L5Ay7ru',
                 'releaseYear': '2013-01-01',
@@ -296,6 +303,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Great_Teacher_Onizuka',
                 'name': 'Крутой учитель Онидзука',
                 'trailer': 'https://www.youtube.com/embed/aZcEfuNsyKM?si=TjHL6Z1TDCM37wFv',
                 'releaseYear': '1999-01-01',
@@ -315,6 +323,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'KonoSuba_Gods_Blessing_on_This_Wonderful_World',
                 'name': 'Богиня благословляет этот прекрасный мир',
                 'trailer': 'https://www.youtube.com/embed/s0TXMXF3Qyo?si=OR6ckacFpNSqOszp',
                 'releaseYear': '2016-01-01',
@@ -334,6 +343,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Noragami',
                 'name': 'Бездомный Бог',
                 'trailer': 'https://www.youtube.com/embed/gEVlI1ZLpFI?si=LcDCmQhEGTKVWLIg',
                 'releaseYear': '2014-01-01',
@@ -353,6 +363,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Samurai_Champloo',
                 'name': 'Самурай Чамплу',
                 'trailer': 'https://www.youtube.com/embed/xWKzbhAUeZE?si=jBDl85ajITJcFQL9',
                 'releaseYear': '2004-01-01',
@@ -372,6 +383,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Vinland_Saga',
                 'name': 'Сага о Винланде',
                 'trailer': 'https://www.youtube.com/embed/Vt7Rwfj7bHU?si=TM8Us0daoqP0lSzB',
                 'releaseYear': '2019-01-01',
@@ -390,6 +402,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'My_Dress-Up_Darling',
                 'name': 'Эта фарфоровая кукла влюбилась',
                 'trailer': 'https://www.youtube.com/embed/BqrwazH7PhU?si=zIVF2sLdSH0AUyoM',
                 'releaseYear': '2022-01-01',
@@ -408,6 +421,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Tanaka-kun_is_Always_Listless',
                 'name': 'Всегда вялый танака-кун',
                 'trailer': 'https://www.youtube.com/embed/MWVEG7kDQfo?si=cs6ReW0KU9_y_ADd',
                 'releaseYear': '2016-01-01',
@@ -426,6 +440,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'My_Oni_Girl',
                 'name': 'Моя подруга – демон',
                 'trailer': 'https://www.youtube.com/embed/sWhtovYy3E0?si=j0onRNPx9N3EtG52',
                 'releaseYear': '2024-01-01',
@@ -433,7 +448,7 @@ def addAnime (apps, scheme_editor):
                 'description': 'История Хиираги Яцусэ, первокурсника старшей школы, который изо всех сил пытается завести друзей, несмотря на свои усилия угодить другим. Его жизнь принимает неожиданный поворот, когда однажды летним днем ​​он встречает Цумуги, девушку-они (демона), ищущую свою мать в человеческом мире. Таинственным образом начинает падать снег... и начинается их приключение.',
                 'portraitImgName': 'MyOniGirl.jpg',
                 'studios': ['Studio Colorido'],
-                'typeName': 'Сериал',
+                'typeName': 'Фильм',
                 'franchise': 'My_Oni_Girl'
             },
             'genres': [
@@ -442,6 +457,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Shoshimin_How_to_Become_Ordinary',
                 'name': 'Маленький гражданин',
                 'trailer': 'https://www.youtube.com/embed/U1agV6NfMqU?si=gmpOCDqVnaa3-R9I',
                 'releaseYear': '2024-01-01',
@@ -459,6 +475,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Id_Invaded',
                 'name': 'ID: Вторжение',
                 'trailer': 'https://www.youtube.com/embed/AcvLglA-KfE?si=NNmNfdmVa_Jl6bKz',
                 'releaseYear': '2020-01-01',
@@ -477,6 +494,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Death_Parade',
                 'name': 'Парад смерти',
                 'trailer': 'https://www.youtube.com/embed/EbNKpwe_lM4?si=Y6zryEA5KufTiHQe',
                 'releaseYear': '2015-01-01',
@@ -495,6 +513,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Dandadan',
                 'name': 'Дандадан',
                 'trailer': 'https://www.youtube.com/embed/0XJxfbN36Uw?si=MRrXKBhmUV-JVJf3',
                 'releaseYear': '2024-01-01',
@@ -514,6 +533,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': '365_Days_to_the_Wedding',
                 'name': 'Вы правда женитесь?',
                 'trailer': 'https://www.youtube.com/embed/AiVwg7do7Ik?si=h996Wmyydzjbdj0s',
                 'releaseYear': '2024-01-01',
@@ -531,6 +551,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Erased',
                 'name': 'Город, в котором меня нет',
                 'trailer': 'https://www.youtube.com/embed/-MfjTJvMLn0?si=Wgks01X5jj7b4Wic',
                 'releaseYear': '2016-01-01',
@@ -550,6 +571,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Tekkonkinkreet',
                 'name': 'Железобетон',
                 'trailer': 'https://www.youtube.com/embed/PfQjc2hs34Y?si=zbVHsOM4Y43HjYGO',
                 'releaseYear': '2006-01-01',
@@ -570,6 +592,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Btooom',
                 'name': 'Бтууум!',
                 'trailer': 'https://www.youtube.com/embed/H92d6YZkVO8?si=c2zEP17p92tyvVEi',
                 'releaseYear': '2012-01-01',
@@ -589,6 +612,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'A_Whisker_Away',
                 'name': 'Сквозь слёзы я притворяюсь кошкой',
                 'trailer': 'https://www.youtube.com/embed/Fj9GUyJuu9U?si=yobeC8nNXhIukrlo',
                 'releaseYear': '2020-01-01',
@@ -596,7 +620,7 @@ def addAnime (apps, scheme_editor):
                 'description': 'Миё Сасаки по прозвищу «Мугэ» — активная и яркая девушка, по уши влюблённая в одноклассника Кэнто Хинодэ. Все попытки Миё привлечь внимание юноши заканчиваются провалом, однако ситуация меняется, когда та находит магическую маску, позволяющую превращаться в «Таро» — милую белую кошку, которую так любит Кэнто. Ход событий кажется заманчивым, но со временем граница между девушкой и кошкой начинает исчезать.',
                 'portraitImgName': 'AWhiskerAway.jpg',
                 'studios': ['Studio Colorido', 'Toho'],
-                'typeName': 'Сериал',
+                'typeName': 'Фильм',
                 'franchise': 'AWhiskerAway'
             },
             'genres': [
@@ -607,6 +631,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'The_Familiar_of_Zero',
                 'name': 'Подручный Луизы-Нулизы',
                 'trailer': 'https://www.youtube.com/embed/j-UofYKswhI?si=zs3uIGr98k0oGJNR',
                 'releaseYear': '2006-01-01',
@@ -629,6 +654,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'The_Familiar_of_Zero_Knight_of_the_Twin_Moons',
                 'name': 'Подручный Луизы-Нулизы: Рыцарь двух лун',
                 'trailer': 'https://www.youtube.com/embed/j-UofYKswhI?si=zs3uIGr98k0oGJNR',
                 'releaseYear': '2007-01-01',
@@ -651,6 +677,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'The_Familiar_of_Zero_Rondo_of_Princesses',
                 'name': 'Подручный Луизы-Нулизы: Хоровод трёх принцесс',
                 'trailer': 'https://www.youtube.com/embed/j-UofYKswhI?si=zs3uIGr98k0oGJNR',
                 'releaseYear': '2008-01-01',
@@ -673,6 +700,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'The_Familiar_of_Zero_F',
                 'name': 'Подручный Луизы-Нулизы: Финал',
                 'trailer': 'https://www.youtube.com/embed/j-UofYKswhI?si=zs3uIGr98k0oGJNR',
                 'releaseYear': '2012-01-01',
@@ -695,6 +723,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Frieren_Beyond_Journeys_End',
                 'name': 'Провожающая в последний путь Фрирен',
                 'trailer': 'https://www.youtube.com/embed/4sAOCa4rtuM?si=G3D4N0bdIPARDcBf',
                 'releaseYear': '2024-01-01',
@@ -723,6 +752,7 @@ def addAnime (apps, scheme_editor):
         with open(files[0].relative_to(os.getcwd(), walk_up=True), 'rb') as file:
             djangoFile = File(file, name=animeField['anime']['portraitImgName'])
             createdAnime = anime.objects.create (
+                url_name=animeField['anime']['url_name'],
                 name=animeField['anime']['name'],
                 trailer=animeField['anime']['trailer'],
                 releaseYear=animeField['anime']['releaseYear'],
