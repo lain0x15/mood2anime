@@ -4,6 +4,7 @@ from django.db import migrations
 from django.core.files import File
 from pathlib import Path
 import os
+from random import shuffle
 
 def addGenres (apps, scheme_editor):
     genres = apps.get_model('main', 'genres')
@@ -1052,7 +1053,7 @@ def addAnime (apps, scheme_editor):
 
     base_dir = Path(__file__).parent
     photo_path = base_dir / 'initial_photos' / 'anime' / 'portraitImage'
-
+    shuffle(animesField)
     for animeField in animesField:
         files = photo_path.glob(animeField['anime']['portraitImgName'])
         files = [file for file in files if file.is_file()]
