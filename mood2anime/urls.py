@@ -24,7 +24,8 @@ urlpatterns = [
     path('listAnimePage', mainViews.listAnimePage, name = 'listAnimePage'),
     path('animePage/<str:url_name>', mainViews.animePage, name = 'animePage'),
     path('getAnimeByID/<int:id>', mainViews.getAnimeByID, name="getAnimeByID"),
-    path('getIDsAnime', mainViews.getIDsAnime, name="getIDsAnime")
+    path('getIDsAnime', mainViews.getIDsAnime, name="getIDsAnime"),
+    path('sitemap.xml', mainViews.sitemap, name="sitemap")
 ]
 
 if settings.DEBUG:

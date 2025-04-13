@@ -38,7 +38,6 @@ def getIDsAnime(request):
     response = JsonResponse({'status': 'ok', 'animeIDs':animeIDs})
     return response
 
-
 def getAnimeByID (request, id):
     if request.method != "POST":
         return HttpResponseNotAllowed(["POST"])
@@ -59,3 +58,7 @@ def getAnimeByID (request, id):
     }
     response = JsonResponse({'status': 'ok', 'anime':animeDict})
     return response
+
+def sitemap(request):
+    animeList = anime.objects.all()
+    return render(request, 'sitemap.xml', context={'animeList': animeList, 'website_dns_name': settings.WEBSITE_DNS_NAME}, content_type='application/xml')
