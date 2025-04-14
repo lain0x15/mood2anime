@@ -9,7 +9,7 @@
 <div class="animeRow">
     <img class="animeRowImg" src="media/{{ anime.portraitImage }}">
     <div class="animeRowInfo">
-        <div class="animeRowName"><a href="{% url 'animePage' anime.id %}">{{ anime.name }}</a></div>
+        <div class="animeRowName"><a href="{% url 'animePage' anime.url_name %}">{{ anime.name }}</a></div>
         <br>
         <span class="animeRowText">{{ anime.releaseYear | date:"Y" }}  /  {% for genre in anime.getGenres %}{{ genre.genreID.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
         <p class="animeDescription">{{ anime.description }}</p>

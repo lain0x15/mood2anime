@@ -63,7 +63,7 @@
             success: function(data){
                 var anime = JSON.parse(data).anime
                 $('#trailer').attr('src', anime.trailer);
-                var url_mask = "{% url 'animePage' 0 %}".replace(/0/, id);
+                var url_mask = "{% url 'animePage' 0 %}".replace(/0/, anime.url_name);
                 $('.box2').html("<a class=link_to_anime href=" + url_mask + "><b>" + anime.name + "</b></a>");
                 const releaseDate = new Date(anime.releaseYear);
                 releaseYear = releaseDate.getFullYear ();

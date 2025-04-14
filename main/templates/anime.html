@@ -34,7 +34,7 @@
             <div class="franchise">
                 <img class="img_franchise" src="/media/{{franchise.portraitImage}}">
                 <div class="franchise_text">
-                    <a class="franchise_link_to_anime" href="{% url 'animePage' franchise.id %}"><span {% if anime.id == franchise.id %}class="current_anime"{% endif %}>{{ franchise.name }}</span></a>
+                    <a class="franchise_link_to_anime" href="{% url 'animePage' franchise.url_name %}"><span {% if anime.id == franchise.id %}class="current_anime"{% endif %}>{{ franchise.name }}</span></a>
                     <div>{{ franchise.releaseYear | date:"Y" }} / {{ franchise.type_field.name }}</div>
                 </div>
             </div>

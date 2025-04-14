@@ -22,9 +22,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', mainViews.homePage, name = 'home'),
     path('listAnimePage', mainViews.listAnimePage, name = 'listAnimePage'),
-    path('animePage/<int:pk>', mainViews.animePage, name = 'animePage'),
+    path('animePage/<str:url_name>', mainViews.animePage, name = 'animePage'),
     path('getAnimeByID/<int:id>', mainViews.getAnimeByID, name="getAnimeByID"),
-    path('getIDsAnime', mainViews.getIDsAnime, name="getIDsAnime")
+    path('getIDsAnime', mainViews.getIDsAnime, name="getIDsAnime"),
+    path('sitemap.xml', mainViews.sitemap, name="sitemap")
 ]
 
 if settings.DEBUG:

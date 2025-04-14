@@ -4,6 +4,7 @@ from django.db import migrations
 from django.core.files import File
 from pathlib import Path
 import os
+from random import shuffle
 
 def addGenres (apps, scheme_editor):
     genres = apps.get_model('main', 'genres')
@@ -11,14 +12,15 @@ def addGenres (apps, scheme_editor):
       'Драма', 'Идолы', 'Икудзи', 'Исторические произведения', 'Кайто', 'Киберпанк', 'Комедия',
       'Махо-сёдзё', 'Моэ', 'Меха', 'Мистика', 'Научная фантастика', 'Отаку', 'Парапсихология', 'Паропанк/Стимпанк',
       'Повседневность', 'Постапокалиптика', 'Психологический триллер', 'Триллер', 'Исэкай', 'Романтика', 'Спокон', 'Токусацу', 'Фэнтези',
-      'Супер сила', 'Приключения', 'Сёнэн', 'Экшен', 'Фантастика', 'Пародия', 'Исторический', 'Сверхъестественное', 'Сэйнэн', 'Этти', 'Сёнен'
+      'Супер сила', 'Приключения', 'Сёнэн', 'Экшен', 'Фантастика', 'Пародия', 'Исторический', 'Сверхъестественное', 'Сэйнэн', 'Этти', 'Сёнен',
+      'Самураи'
     ]
     for genreName in genresName:
         genres.objects.create (name=genreName)
 
 def addTypes (apps, scheme_editor):
     types_model = apps.get_model('main', 'types_model')
-    types_name = ['Сериал', 'Фильм']
+    types_name = ['Сериал', 'Фильм', 'OVA', 'ONA']
     for type_name in types_name:
         types_model.objects.create (name=type_name)
 
@@ -125,6 +127,10 @@ def addStudios (apps, scheme_editor):
         {
             'name': 'Toho',
             'imageName': 'Toho_Logo.svg.jpg'
+        },
+        {
+            'name': 'Shaft',
+            'imageName': 'Shaft.png'
         }
     ]
     base_dir = Path(__file__).parent
@@ -151,7 +157,8 @@ def addFranchises (apps, scheme_editor):
         'Shoshimin_How_to_Become_Ordinary', 'Id_Invaded', 'Death_Parade',
         'Dandadan', '365_Days_to_the_Wedding', 'Erased',
         'Tekkonkinkreet', 'Btooom', 'AWhiskerAway',
-        'zero_no_tsukaima', 'frieren'
+        'zero_no_tsukaima', 'frieren', 'Lonely_Castle_in_the_Mirror',
+        'Rec'
     ]
     for franchise_name in franchises_name:
         franchises_model.objects.create (name=franchise_name)
@@ -168,11 +175,12 @@ def addAnime (apps, scheme_editor):
     animesField = [
         {
             'anime': {
+                'url_name': 'Sonny_Boy',
                 'name': 'Сонни Бой',
                 'trailer': 'https://www.youtube.com/embed/6LiyZ0p_uLw?si=34XIQHzHyN-rq_lB',
                 'releaseYear': '2021-01-01',
                 'review': 8,
-                'description': '16 августа, середина долгих летних каникул. Пустые школьные классы, в которых никого нет, тоскливые дни... внезапно прерванные неожиданным происшествием — здание школы, Нагара и 36 его одноклассников вдруг перемещаются в другое измерение!\nТам подростки, брошенные на произвол судьбы, сталкиваются со многими загадочными ситуациями и явлениями. Но главное — приобретают различные способности, находящиеся за пределами человеческого понимания. Некоторые радуются открытым в себе силам и устраивают беспорядки, другие пытаются занять место лидера группы, остальные же — отчаянно ищут способ вернуться в мир, из которого они прибыли. Недоверие, неконтролируемая ревность и стремление к лидерству приводят к конфликтам. В водовороте вопросов, которые возникают один за другим, начинается жизнь на грани выживания. Смогут ли Нагара и его друзья покорить этот мир и благополучно вернуться домой?',
+                'description': '16 августа, середина долгих летних каникул. Пустые школьные классы, в которых никого нет, тоскливые дни... внезапно прерванные неожиданным происшествием — здание школы, Нагара и 36 его одноклассников вдруг перемещаются в другое измерение! Там подростки, брошенные на произвол судьбы, сталкиваются со многими загадочными ситуациями и явлениями. Но главное — приобретают различные способности, находящиеся за пределами человеческого понимания. Некоторые радуются открытым в себе силам и устраивают беспорядки, другие пытаются занять место лидера группы, остальные же — отчаянно ищут способ вернуться в мир, из которого они прибыли. Недоверие, неконтролируемая ревность и стремление к лидерству приводят к конфликтам. В водовороте вопросов, которые возникают один за другим, начинается жизнь на грани выживания. Смогут ли Нагара и его друзья покорить этот мир и благополучно вернуться домой?',
                 'portraitImgName': 'sonnyboy.jpg',
                 'studios': ['Madhouse'],
                 'typeName': 'Сериал',
@@ -186,25 +194,315 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Gintama',
                 'name': 'Гинтама',
                 'trailer': 'https://www.youtube.com/embed/YQC3ot0IjiA?si=AyVfrIWwxnEETlFD',
-                'releaseYear': '2003-01-01',
-                'review': 7,
-                'description': 'Гинтама - шедевр нашего времени, который заслужено признан одним если не из самых лучших сёненов и комедий, среди аниме и манги. Хочу ещё поговорить про структуру сюжета. Достаточно включить рандомный эпизод, вам без проблем может попасться серия, в котором будет обыгрываться какая-то ситуация и не дай бог она будет не обставлена каким-то невообразимо забавным образом.',
-                'portraitImgName': 'gintama.jpg',
-                'studios': ['Sunrise', 'Bandai Namco Pictures'],
+                'releaseYear': '2006-01-01',
+                'review': 8,
+                'description': 'Жить в феодальной Японии непросто... особенно если вас завоевали инопланетяне. Да, конечно, новая система здравоохранения хороша, но запрет на ношение меча ставит истинных самураев в безвыходное положение. Вдвойне это относится к Гинтоки Сакате, последнему самураю, в ком ещё жив истинно японский дух. Гинтоки живёт с Кагурой, представительницей одной из сильнейших рас во вселенной, и очкариком Шинпачи Шимурой. Втроём они создают агентство под названием «Мастера на все руки-сана» и берутся за любые странные и нелепые поручения, с которыми к ним приходят, будь то поиск пропавшей кошки или спасение мира. Ведь платить им нечем не только за аренду жилья, но и за еду.',
+                'portraitImgName': 'gintama.jpeg',
+                'studios': ['Sunrise'],
                 'typeName': 'Сериал',
                 'franchise': 'gintama'
             },
             'genres': [
+                'Сёнен',
+                'Экшен',
                 'Комедия',
                 'Фантастика',
                 'Пародия',
-                'Приключения'
+                'Самураи'
              ]
         },
         {
             'anime': {
+                'url_name': 'Gintama_Movie_1_Shinyaku_Benizakura-hen',
+                'name': 'Гинтама: Сказание о Бэнидзакуре',
+                'trailer': 'https://www.youtube.com/embed/VWyODQu3Ozg?si=njmbLJmBX86HsTHA',
+                'releaseYear': '2010-01-01',
+                'review': 8,
+                'description': 'Официальный сайт гласит, что премьерный показ полнометражного фильма «Гинтама: Новый пересказ», адаптации альтернативно-исторической гэг-манги Хидэаки Сорати, состоится в Японии во время «Золотой недели» — череды праздников, что тянутся с конца апреля и до первой недели мая. Как и подразумевает название, действия тесно соприкасаются с сюжетом TV-сериала.',
+                'portraitImgName': 'Gintama_Movie_1_Shinyaku_Benizakura-hen.jpeg',
+                'studios': ['Sunrise'],
+                'typeName': 'Фильм',
+                'franchise': 'gintama'
+            },
+            'genres': [
+                'Сёнен',
+                'Экшен',
+                'Комедия',
+                'Фантастика',
+                'Пародия',
+                'Самураи'
+             ]
+        },
+        {
+            'anime': {
+                'url_name': 'Gintama_Season_2',
+                'name': 'Гинтама 2',
+                'trailer': 'https://www.youtube.com/embed/YQC3ot0IjiA?si=AyVfrIWwxnEETlFD',
+                'releaseYear': '2011-01-01',
+                'review': 8,
+                'description': 'Продолжение приключений Гинтоки и его команды из агентства «Мастера на все руки» в окружении альтернативно-исторической феодальной Японии.',
+                'portraitImgName': 'Gintama_Season_2.jpeg',
+                'studios': ['Sunrise'],
+                'typeName': 'Сериал',
+                'franchise': 'gintama'
+            },
+            'genres': [
+                'Сёнен',
+                'Экшен',
+                'Комедия',
+                'Фантастика',
+                'Пародия',
+                'Самураи'
+             ]
+        },
+        {
+            'anime': {
+                'url_name': 'Gintama_Yorinuki_Gintama-san_on_Theater_2D',
+                'name': 'Гинтама: Лучшее из «Гинтамы» на Theater 2D',
+                'trailer': 'https://www.youtube.com/embed/YQC3ot0IjiA?si=AyVfrIWwxnEETlFD',
+                'releaseYear': '2012-01-01',
+                'review': 8,
+                'description': 'Полнометражная версия арок о Синсэнгуми (101-105 серии), а также четырёх дэвах квартала Кабуки (210-214 серии). 1) В рядах Синсэнгуми вспыхнул бунт. Как в этом замешан Камотаро Ито и причём тут Шинскэ Такасуги? 2) Напряжение между группировками в Кабуки возрастает, поэтому четверо их предводителей решили заключить договор. Группировка, которая начнёт разборки на чужой территории, будет уничтожена тремя другими. Кто же станет первой жертвой? Вспомнить, как это было, и посмотреть одно из опаснейших приключений Ёродзуи теперь можно в одном фильме.',
+                'portraitImgName': 'Gintama_Yorinuki_Gintama-san_on_Theater_2D.jpeg',
+                'studios': ['Sunrise'],
+                'typeName': 'Фильм',
+                'franchise': 'gintama'
+            },
+            'genres': [
+                'Сёнен',
+                'Экшен',
+                'Комедия',
+                'Фантастика',
+                'Пародия',
+                'Самураи'
+             ]
+        },
+        {
+            'anime': {
+                'url_name': 'Gintama_Enchousen',
+                'name': 'Гинтама 3',
+                'trailer': 'https://www.youtube.com/embed/YQC3ot0IjiA?si=AyVfrIWwxnEETlFD',
+                'releaseYear': '2012-01-01',
+                'review': 8,
+                'description': 'Третье пришествие знаменитой троицы мастеров на все руки. Гинтоки по-прежнему ленив и кучеряв, у малышки Кагуры остался прежний взрывной характер (и бездонный желудок тоже), а Шинпачи всё так же выступает в команде голосом разума. Почему всё осталось по-прежнему? Потому что сериал представляет из себя повторный показ избранных эпизодов из предыдущих сезонов, однако не обойдётся и без новых серий. Восстав аки феникс из пепла, сериал вновь раздаст пинки здравому смыслу, поиздевается над моралью и порвёт не один шаблон. Приготовьтесь, театр абсурда в декорациях футуристически-средневекового Эдо ещё никогда не был таким весёлым!',
+                'portraitImgName': 'Gintama_Enchousen.jpeg',
+                'studios': ['Sunrise'],
+                'typeName': 'Сериал',
+                'franchise': 'gintama'
+            },
+            'genres': [
+                'Сёнен',
+                'Экшен',
+                'Комедия',
+                'Фантастика',
+                'Пародия',
+                'Самураи'
+             ]
+        },
+        {
+            'anime': {
+                'url_name': 'Gintama_The_Movie_The_Final_Chapter_Be_Forever_Yorozuya',
+                'name': 'Гинтама: Финальная арка — Ёродзуя навсегда!',
+                'trailer': 'https://www.youtube.com/embed/YQC3ot0IjiA?si=AyVfrIWwxnEETlFD',
+                'releaseYear': '2013-01-01',
+                'review': 8,
+                'description': 'Интересно, что бы случилось, если бы Белого Демона никогда не существовало? В один прекрасный день мир сошёл с ума, и теперь Эдо ввергнут в настоящий хаос. Гинтоки Саката отныне живёт в альтернативной реальности, будущем, в котором ему места не нашлось. Но что же случилось с Ёродзуей? А с остальными? Но важнее всего: кто за всем этим стоит? Похоже, Гинтоки снова предстоит стать демоном во плоти, чтобы защитить своих друзей. Ему в одиночку придётся управляться с грандиознейшим поручением в истории Ёродзуи и постараться, чтобы оно не стало последним.',
+                'portraitImgName': 'Gintama_The_Movie_The_Final_Chapter_Be_Forever_Yorozuya.jpeg',
+                'studios': ['Sunrise'],
+                'typeName': 'Фильм',
+                'franchise': 'gintama'
+            },
+            'genres': [
+                'Сёнен',
+                'Экшен',
+                'Комедия',
+                'Фантастика',
+                'Пародия',
+                'Самураи'
+             ]
+        },
+        {
+            'anime': {
+                'url_name': 'Gintama_Season_4',
+                'name': 'Гинтама 4',
+                'trailer': 'https://www.youtube.com/embed/YQC3ot0IjiA?si=AyVfrIWwxnEETlFD',
+                'releaseYear': '2015-01-01',
+                'review': 8,
+                'description': 'Никто этого уже не ждал и не надеялся, но... «Простите, что сняли четвертый сезон!», — возвестила студия Sunrise и вернула любимых героев, по которым все уже успели соскучиться, на экраны. Гинтама снова с нами, и она лучше, чем когда-либо прежде! В ролях: Ёродзуя, Шинсенгуми, Джои, пришельцы — все наши старые-добрые и новые-злые герои. В Эдо, как обычно, случаются катастрофы местного и вселенского масштаба, а предотвращать их и спасать мир вновь придется нашим веселым и бесшабашным героям. В основе аниме юмор самого разного калибра: от туалетных шуток до изысканных острот, а кроме того куча отсылок и пародий. Мысль «Как всю съемочную группу в полном составе до сих пор не засудили?» сломает ваш мозг. Так что приготовьтесь! Ваши стереотипы об аниме будут разрушены навсегда. А сами вы будете рыдать от смеха, наблюдая за невероятными приключениями самурая с серебряными волосами и его необыкновенными соседями!',
+                'portraitImgName': 'Gintama_Season_4.jpeg',
+                'studios': ['Bandai Namco Pictures'],
+                'typeName': 'Сериал',
+                'franchise': 'gintama'
+            },
+            'genres': [
+                'Сёнен',
+                'Экшен',
+                'Комедия',
+                'Фантастика',
+                'Пародия',
+                'Самураи'
+             ]
+        },
+        {
+            'anime': {
+                'url_name': 'Gintama_Love_Incense_Arc',
+                'name': 'Гинтама 4: Любовные благовония',
+                'trailer': 'https://www.youtube.com/embed/YQC3ot0IjiA?si=AyVfrIWwxnEETlFD',
+                'releaseYear': '2016-01-01',
+                'review': 8,
+                'description': 'Ёсивару атакует загадочный туман, обладающий одним опаснейшим свойством: любой вдохнувший его влюбится в первого, кого увидит. Цукуё попадает под удар, и чувства к Гинтоки, которые бедняжка пыталась скрывать, стремятся вырваться наружу. Пытаясь ликвидировать угрозу, Цукуё совершает роковую ошибку, и зловещая дымка окутывает весь район Кабуки. Жертвами тумана оказываются и Ёродзуя вместе с Таэ, Кьюбэй и Исао. Удастся ли нашим героям справиться с любовным недугом и остановить неизвестного преступника?',
+                'portraitImgName': 'Gintama_Love_Incense_Arc.jpeg',
+                'studios': ['Bandai Namco Pictures'],
+                'typeName': 'OVA',
+                'franchise': 'gintama'
+            },
+            'genres': [
+                'Сёнен',
+                'Экшен',
+                'Комедия',
+                'Фантастика',
+                'Пародия',
+                'Самураи'
+             ]
+        },
+        {
+            'anime': {
+                'url_name': 'Gintama_Season_5',
+                'name': 'Гинтама 5',
+                'trailer': 'https://www.youtube.com/embed/YQC3ot0IjiA?si=AyVfrIWwxnEETlFD',
+                'releaseYear': '2017-01-01',
+                'review': 8,
+                'description': 'В Японии эпохи Эдо, захваченной пришельцами, небоскрёбы, скоростные поезда и шумные мотоциклы, казалось бы, давно стёрли из умов землян воспоминания об обычной жизни. Единственный человек, в котором сохранился дух самурая, — Гинтоки Саката. Как обычно, в своей неторопливой манере, Гинтоки продолжает, валяясь на диване, читать Jump, бродить по кабакам, прятать остатки денег от Отосэ и спасать мир в перерывах между ковырянием в носу. Неизвестно, что готовит ему судьба на этот раз, но верные Кагура и Шинпачи всегда рядом.',
+                'portraitImgName': 'Gintama_Season_5.jpeg',
+                'studios': ['Bandai Namco Pictures'],
+                'typeName': 'Сериал',
+                'franchise': 'gintama'
+            },
+            'genres': [
+                'Сёнен',
+                'Экшен',
+                'Комедия',
+                'Фантастика',
+                'Пародия',
+                'Самураи'
+             ]
+        },
+        {
+            'anime': {
+                'url_name': 'Gintama_Slip_Arc',
+                'name': 'Гинтама 6',
+                'trailer': 'https://www.youtube.com/embed/YQC3ot0IjiA?si=AyVfrIWwxnEETlFD',
+                'releaseYear': '2017-01-01',
+                'review': 8,
+                'description': 'Очередной сезон представляет собой экранизацию нескольких пропущенных комедийных арок в манге. Сериал поведает о приключениях Ёродзуи вместе с остальными жителями Эдо, происходящих во время начала четвёртого сезона.',
+                'portraitImgName': 'Gintama_Slip_Arc.jpeg',
+                'studios': ['Bandai Namco Pictures'],
+                'typeName': 'Сериал',
+                'franchise': 'gintama'
+            },
+            'genres': [
+                'Сёнен',
+                'Экшен',
+                'Комедия',
+                'Фантастика',
+                'Пародия',
+                'Самураи'
+             ]
+        },
+        {
+            'anime': {
+                'url_name': 'Gintama_Silver_Soul_Arc',
+                'name': 'Гинтама 7',
+                'trailer': 'https://www.youtube.com/embed/YQC3ot0IjiA?si=AyVfrIWwxnEETlFD',
+                'releaseYear': '2018-01-01',
+                'review': 8,
+                'description': 'Первая часть экранизации арки «Серебряная душа». Данная арка является прямым продолжением событий «Гинтамы 5» и знаменует собой начало последней битвы за возвращение земель самураев. Наших героев ждут невероятные и масштабные сражения, как в знакомом нам квартале Кабуки, так и, неожиданно, в космосе! Но и без абсурдного юмора, конечно же, не обойдётся! Смогут ли Гинтоки, Кагура, Шинпачи и их союзники, оказавшиеся под перекрестным огнём внушительных вражеских сил, отбросить свои разногласия и объединиться, чтобы защитить то, что им дорого?',
+                'portraitImgName': 'Gintama_Silver_Soul_Arc.jpeg',
+                'studios': ['Bandai Namco Pictures'],
+                'typeName': 'Сериал',
+                'franchise': 'gintama'
+            },
+            'genres': [
+                'Сёнен',
+                'Экшен',
+                'Комедия',
+                'Фантастика',
+                'Пародия',
+                'Самураи'
+             ]
+        },
+        {
+            'anime': {
+                'url_name': 'Gintama_Silver_Soul_Arc-Second_Half_War',
+                'name': 'Гинтама 8',
+                'trailer': 'https://www.youtube.com/embed/YQC3ot0IjiA?si=AyVfrIWwxnEETlFD',
+                'releaseYear': '2018-01-01',
+                'review': 8,
+                'description': 'Пока Гинтоки с друзьями пытается освободить Эдо от Армии освобождения, в космосе Котаро и Тацума вместе со своими верными союзниками пытаются объединить силы с Шиджаку и Принцем Хатой. Некоторые, уже знакомые нам ранее герои, тоже не останутся в стороне и присоединятся к сражению. Впереди ждёт ещё много трудностей и испытаний, но наши герои выложатся на полную катушку! Ведь на кону, без преувеличения, целая планета. Вторая часть экранизации арки «Серебряная душа» из манги «Гинтама».',
+                'portraitImgName': 'Gintama_Silver_Soul_Arc-Second_Half_War.jpeg',
+                'studios': ['Bandai Namco Pictures'],
+                'typeName': 'Сериал',
+                'franchise': 'gintama'
+            },
+            'genres': [
+                'Сёнен',
+                'Экшен',
+                'Комедия',
+                'Фантастика',
+                'Пародия',
+                'Самураи'
+             ]
+        },
+        {
+            'anime': {
+                'url_name': 'Gintama_Monster_Strike-hen',
+                'name': 'Гинтама x Удар монстра',
+                'trailer': 'https://www.youtube.com/embed/YQC3ot0IjiA?si=AyVfrIWwxnEETlFD',
+                'releaseYear': '2019-01-01',
+                'review': 8,
+                'description': 'Особая коллаборация между аниме-сериалами «Гинтама» и «Удар монстра».',
+                'portraitImgName': 'Gintama_Monster_Strike-hen.jpeg',
+                'studios': ['Bandai Namco Pictures'],
+                'typeName': 'ONA',
+                'franchise': 'gintama'
+            },
+            'genres': [
+                'Сёнен',
+                'Экшен',
+                'Комедия',
+                'Фантастика',
+                'Пародия',
+                'Самураи'
+             ]
+        },
+        {
+            'anime': {
+                'url_name': 'Gintama_The_Very_Final',
+                'name': 'Гинтама: Финал',
+                'trailer': 'https://www.youtube.com/embed/YQC3ot0IjiA?si=AyVfrIWwxnEETlFD',
+                'releaseYear': '2021-01-01',
+                'review': 8,
+                'description': 'Два года минуло с последних событий. Пути Ёродзуи разошлись: Гинтоки исследует Альтану, Кагура по всему космосу ищет способ вернуть прежнее состояние Садахару, а Шинпачи пытается сохранить то немногое, что осталось от их общего дома. Но тучи сгущаются, остатки Тендошу, благодаря банановой атаке Гориллы, падают на Центральный терминал и собираются вновь использовать Альтану в своих целях. Пришла пора друзьям в последний раз встать на защиту Эдо, чтобы исполнить желание Шоё Йошиды и заодно спасти своё будущее.',
+                'portraitImgName': 'Gintama_The_Very_Final.jpeg',
+                'studios': ['Bandai Namco Pictures'],
+                'typeName': 'Фильм',
+                'franchise': 'gintama'
+            },
+            'genres': [
+                'Сёнен',
+                'Экшен',
+                'Комедия',
+                'Фантастика',
+                'Пародия',
+                'Самураи'
+             ]
+        },
+        {
+            'anime': {
+                'url_name': 'Toradora',
                 'name': 'Тора дора',
                 'trailer': 'https://www.youtube.com/embed/ya570uUgQNc?si=S-rwaF8fCds3KkD1',
                 'releaseYear': '2008-01-01',
@@ -223,6 +521,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Attack_on_Titan',
                 'name': 'Атака титанов',
                 'trailer': 'https://www.youtube.com/embed/MGRm4IzK1SQ?si=w2qkot2_Q3F0QUVI',
                 'releaseYear': '2013-01-01',
@@ -243,6 +542,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Train_to_the_End_of_the_World',
                 'name': 'Куда едет поезд судного дня?',
                 'trailer': 'https://www.youtube.com/embed/XLWzhcMOcVo?si=GeS6KO7BuweEXmJV',
                 'releaseYear': '2024-01-01',
@@ -259,6 +559,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Golden_Time',
                 'name': 'Золотая пора',
                 'trailer': 'https://www.youtube.com/embed/44njDYJ5OJA?si=DSxkmBPx8LkpbONx',
                 'releaseYear': '2013-01-01',
@@ -278,6 +579,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'My_Teen_Romantic_Comedy_SNAFU',
                 'name': 'Как и ожидалось, моя школьная романтическая жизнь не удалась',
                 'trailer': 'https://www.youtube.com/embed/u-bpwWPNEpE?si=_rbaZyje3L5Ay7ru',
                 'releaseYear': '2013-01-01',
@@ -296,6 +598,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Great_Teacher_Onizuka',
                 'name': 'Крутой учитель Онидзука',
                 'trailer': 'https://www.youtube.com/embed/aZcEfuNsyKM?si=TjHL6Z1TDCM37wFv',
                 'releaseYear': '1999-01-01',
@@ -315,6 +618,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'KonoSuba_Gods_Blessing_on_This_Wonderful_World',
                 'name': 'Богиня благословляет этот прекрасный мир',
                 'trailer': 'https://www.youtube.com/embed/s0TXMXF3Qyo?si=OR6ckacFpNSqOszp',
                 'releaseYear': '2016-01-01',
@@ -334,6 +638,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Noragami',
                 'name': 'Бездомный Бог',
                 'trailer': 'https://www.youtube.com/embed/gEVlI1ZLpFI?si=LcDCmQhEGTKVWLIg',
                 'releaseYear': '2014-01-01',
@@ -353,6 +658,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Samurai_Champloo',
                 'name': 'Самурай Чамплу',
                 'trailer': 'https://www.youtube.com/embed/xWKzbhAUeZE?si=jBDl85ajITJcFQL9',
                 'releaseYear': '2004-01-01',
@@ -372,6 +678,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Vinland_Saga',
                 'name': 'Сага о Винланде',
                 'trailer': 'https://www.youtube.com/embed/Vt7Rwfj7bHU?si=TM8Us0daoqP0lSzB',
                 'releaseYear': '2019-01-01',
@@ -390,6 +697,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'My_Dress-Up_Darling',
                 'name': 'Эта фарфоровая кукла влюбилась',
                 'trailer': 'https://www.youtube.com/embed/BqrwazH7PhU?si=zIVF2sLdSH0AUyoM',
                 'releaseYear': '2022-01-01',
@@ -408,6 +716,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Tanaka-kun_is_Always_Listless',
                 'name': 'Всегда вялый танака-кун',
                 'trailer': 'https://www.youtube.com/embed/MWVEG7kDQfo?si=cs6ReW0KU9_y_ADd',
                 'releaseYear': '2016-01-01',
@@ -426,6 +735,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'My_Oni_Girl',
                 'name': 'Моя подруга – демон',
                 'trailer': 'https://www.youtube.com/embed/sWhtovYy3E0?si=j0onRNPx9N3EtG52',
                 'releaseYear': '2024-01-01',
@@ -433,7 +743,7 @@ def addAnime (apps, scheme_editor):
                 'description': 'История Хиираги Яцусэ, первокурсника старшей школы, который изо всех сил пытается завести друзей, несмотря на свои усилия угодить другим. Его жизнь принимает неожиданный поворот, когда однажды летним днем ​​он встречает Цумуги, девушку-они (демона), ищущую свою мать в человеческом мире. Таинственным образом начинает падать снег... и начинается их приключение.',
                 'portraitImgName': 'MyOniGirl.jpg',
                 'studios': ['Studio Colorido'],
-                'typeName': 'Сериал',
+                'typeName': 'Фильм',
                 'franchise': 'My_Oni_Girl'
             },
             'genres': [
@@ -442,6 +752,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Shoshimin_How_to_Become_Ordinary',
                 'name': 'Маленький гражданин',
                 'trailer': 'https://www.youtube.com/embed/U1agV6NfMqU?si=gmpOCDqVnaa3-R9I',
                 'releaseYear': '2024-01-01',
@@ -459,6 +770,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Id_Invaded',
                 'name': 'ID: Вторжение',
                 'trailer': 'https://www.youtube.com/embed/AcvLglA-KfE?si=NNmNfdmVa_Jl6bKz',
                 'releaseYear': '2020-01-01',
@@ -477,6 +789,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Death_Parade',
                 'name': 'Парад смерти',
                 'trailer': 'https://www.youtube.com/embed/EbNKpwe_lM4?si=Y6zryEA5KufTiHQe',
                 'releaseYear': '2015-01-01',
@@ -495,6 +808,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Dandadan',
                 'name': 'Дандадан',
                 'trailer': 'https://www.youtube.com/embed/0XJxfbN36Uw?si=MRrXKBhmUV-JVJf3',
                 'releaseYear': '2024-01-01',
@@ -514,6 +828,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': '365_Days_to_the_Wedding',
                 'name': 'Вы правда женитесь?',
                 'trailer': 'https://www.youtube.com/embed/AiVwg7do7Ik?si=h996Wmyydzjbdj0s',
                 'releaseYear': '2024-01-01',
@@ -531,6 +846,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Erased',
                 'name': 'Город, в котором меня нет',
                 'trailer': 'https://www.youtube.com/embed/-MfjTJvMLn0?si=Wgks01X5jj7b4Wic',
                 'releaseYear': '2016-01-01',
@@ -550,6 +866,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Tekkonkinkreet',
                 'name': 'Железобетон',
                 'trailer': 'https://www.youtube.com/embed/PfQjc2hs34Y?si=zbVHsOM4Y43HjYGO',
                 'releaseYear': '2006-01-01',
@@ -570,6 +887,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Btooom',
                 'name': 'Бтууум!',
                 'trailer': 'https://www.youtube.com/embed/H92d6YZkVO8?si=c2zEP17p92tyvVEi',
                 'releaseYear': '2012-01-01',
@@ -589,6 +907,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'A_Whisker_Away',
                 'name': 'Сквозь слёзы я притворяюсь кошкой',
                 'trailer': 'https://www.youtube.com/embed/Fj9GUyJuu9U?si=yobeC8nNXhIukrlo',
                 'releaseYear': '2020-01-01',
@@ -596,7 +915,7 @@ def addAnime (apps, scheme_editor):
                 'description': 'Миё Сасаки по прозвищу «Мугэ» — активная и яркая девушка, по уши влюблённая в одноклассника Кэнто Хинодэ. Все попытки Миё привлечь внимание юноши заканчиваются провалом, однако ситуация меняется, когда та находит магическую маску, позволяющую превращаться в «Таро» — милую белую кошку, которую так любит Кэнто. Ход событий кажется заманчивым, но со временем граница между девушкой и кошкой начинает исчезать.',
                 'portraitImgName': 'AWhiskerAway.jpg',
                 'studios': ['Studio Colorido', 'Toho'],
-                'typeName': 'Сериал',
+                'typeName': 'Фильм',
                 'franchise': 'AWhiskerAway'
             },
             'genres': [
@@ -607,6 +926,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'The_Familiar_of_Zero',
                 'name': 'Подручный Луизы-Нулизы',
                 'trailer': 'https://www.youtube.com/embed/j-UofYKswhI?si=zs3uIGr98k0oGJNR',
                 'releaseYear': '2006-01-01',
@@ -629,6 +949,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'The_Familiar_of_Zero_Knight_of_the_Twin_Moons',
                 'name': 'Подручный Луизы-Нулизы: Рыцарь двух лун',
                 'trailer': 'https://www.youtube.com/embed/j-UofYKswhI?si=zs3uIGr98k0oGJNR',
                 'releaseYear': '2007-01-01',
@@ -651,6 +972,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'The_Familiar_of_Zero_Rondo_of_Princesses',
                 'name': 'Подручный Луизы-Нулизы: Хоровод трёх принцесс',
                 'trailer': 'https://www.youtube.com/embed/j-UofYKswhI?si=zs3uIGr98k0oGJNR',
                 'releaseYear': '2008-01-01',
@@ -673,6 +995,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'The_Familiar_of_Zero_F',
                 'name': 'Подручный Луизы-Нулизы: Финал',
                 'trailer': 'https://www.youtube.com/embed/j-UofYKswhI?si=zs3uIGr98k0oGJNR',
                 'releaseYear': '2012-01-01',
@@ -695,6 +1018,7 @@ def addAnime (apps, scheme_editor):
         },
         {
             'anime': {
+                'url_name': 'Frieren_Beyond_Journeys_End',
                 'name': 'Провожающая в последний путь Фрирен',
                 'trailer': 'https://www.youtube.com/embed/4sAOCa4rtuM?si=G3D4N0bdIPARDcBf',
                 'releaseYear': '2024-01-01',
@@ -711,18 +1035,56 @@ def addAnime (apps, scheme_editor):
                 'Драма',
                 'Фэнтези'
             ]
+        },
+        {
+            'anime': {
+                'url_name': 'Lonely_Castle_in_the_Mirror',
+                'name': 'Одинокий замок в Зазеркалье',
+                'trailer': 'https://www.youtube.com/embed/43lEvEQSHYE?si=V17Q-GLF9-Vmnanb',
+                'releaseYear': '2022-01-01',
+                'review': 8,
+                'description': 'Ученица средней школы Кокоро из-за психологической травмы вынуждена закрыться от мира у себя дома. Однажды зеркало в её комнате начинает светиться, и таинственная девочка в маске волка затягивает Кокоро в мир зазеркалья. Там она находит сказочный замок и ещё шестерых детей из средней школы.',
+                'portraitImgName': 'Lonely_Castle_in_the_Mirror.jpeg',
+                'studios': ['A-1 Pictures'],
+                'typeName': 'Фильм',
+                'franchise': 'Lonely_Castle_in_the_Mirror'
+            },
+            'genres': [
+                'Драма',
+                'Фэнтези'
+            ]
+        },
+        {
+            'anime': {
+                'url_name': 'Rec',
+                'name': 'Запись',
+                'trailer': 'https://www.youtube.com/embed/xqnUktMiCRg?si=NLOXhHKaFu6TEqAO',
+                'releaseYear': '2006-01-01',
+                'review': 7,
+                'description': 'Фумихико Мацумару — креатив-менеджер PR-компании, который пригласил на ужин Танаку-сан из бухгалтерии. Во время ожидания Мацумару встретил весёлую девушку, которая подбадривала его в отсутствие бухгалтерши. Это была Ака Онда — начинающая сэйю. Она развлекала парня и под конец уволокла в кино. При выходе из зала наша весёлая парочка заметила Танаку-сан и её бойфренда, которые спокойно гуляли по округе. Разбитый Мацумару, увидев это, в печали пошёл домой. Ночью его разбудил шум. Оказалось, это догорал дом той знакомой сэйю. Парень, не долго думая, предложил ей пожить пока у него... Здесь и начинаются приключения этой креативной парочки.',
+                'portraitImgName': 'Rec.jpeg',
+                'studios': ['Shaft'],
+                'typeName': 'Сериал',
+                'franchise': 'Rec'
+            },
+            'genres': [
+                'Сэйнэн',
+                'Комедия',
+                'Романтика'
+            ]
         }
     ]
 
     base_dir = Path(__file__).parent
     photo_path = base_dir / 'initial_photos' / 'anime' / 'portraitImage'
-
+    shuffle(animesField)
     for animeField in animesField:
         files = photo_path.glob(animeField['anime']['portraitImgName'])
         files = [file for file in files if file.is_file()]
         with open(files[0].relative_to(os.getcwd(), walk_up=True), 'rb') as file:
             djangoFile = File(file, name=animeField['anime']['portraitImgName'])
             createdAnime = anime.objects.create (
+                url_name=animeField['anime']['url_name'],
                 name=animeField['anime']['name'],
                 trailer=animeField['anime']['trailer'],
                 releaseYear=animeField['anime']['releaseYear'],
