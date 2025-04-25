@@ -38,7 +38,7 @@
 
 .animeRow {
     display:flex;
-    width:100%;
+    width:70%;
     height:200px;
     overflow: hidden;
     box-sizing: border-box;
@@ -157,4 +157,188 @@
 
 @media (width <= 320px) and (orientation: landscape) {
 
+}
+
+
+
+
+
+.thumbs {
+    display: grid;
+}
+
+.range {
+    --range-track-top: 90px;
+
+    --tickmarks-w: calc(100% - 18px);
+    --option-after-h: 30px;
+    --option-after-top: -30px;
+
+    --range-progress-w: calc((var(--value-2) - var(--value-1)) * 1.51 * 1%);
+    --range-progress-left: min(
+      calc((var(--value-1) - 1959) * 1.51 * 1%),
+      calc((var(--value-2) - 1959) * 1.51 * 1%)
+    );
+
+    position: relative;
+    display: grid;
+    min-width: 400px;
+}
+
+.range-output {
+    --range-output-left: calc((var(--value) - 1959) * 1.51 * 1%);
+    --range-output-offset-xy: calc((var(--value) - 1959) * 1.51 * -0.95%), 0;
+    --range-output-margin: calc(6 / ((var(--value) - 1959) * 1.51 + 1) * 1px);
+}
+
+.range-label {
+    margin-block-end: 50px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.range-input {
+    width: 100%;
+    height: 30px;
+    grid-area: 1 / 1;
+    border-radius: 10px;
+    appearance: none;
+    background: none;
+    pointer-events: none;
+}
+
+.range-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 0 5px inset #c56fff;
+    transition: 300ms;
+    pointer-events: auto;
+}
+
+.range-input::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 0 5px inset #c56fff;
+    transition: 300ms;
+    pointer-events: auto;
+}
+
+.range-input:hover::-webkit-slider-thumb,
+.range-input:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 0 0 10px inset #c56fff;
+}
+
+.range-input:hover::-moz-range-thumb,
+.range-input:focus-visible::-moz-range-thumb {
+    box-shadow: 0 0 0 10px inset #c56fff;
+}
+
+.range-input:active::-webkit-slider-thumb {
+    box-shadow: 0 0 0 30px inset #c56fff;
+}
+.range-input:active::-moz-range-thumb {
+    box-shadow: 0 0 0 30px inset #c56fff;
+}
+
+.range-input:disabled::-webkit-slider-thumb {
+    box-shadow: 0 0 0 30px inset gray;
+}
+.range-input:disabled::-moz-range-thumb {
+    box-shadow: 0 0 0 30px inset gray;
+}
+
+.range-input:focus-visible {
+    outline-offset: 7px;
+    outline: 1px solid #c56fff;
+}
+
+.range-input:focus-visible::-webkit-slider-thumb {
+    outline: 3px solid #41e847;
+}
+
+.range-input:focus-visible::-moz-range-thumb {
+    outline: 3px solid #41e847;
+}
+
+.track {
+    position: absolute;
+    top: var(--range-track-top);
+    width: 100%;
+    height: 8px;
+    border-radius: 10px;
+    background-color: #ababab;
+    z-index: -1;
+}
+
+.progress {
+    position: absolute;
+    top: var(--range-track-top);
+    left: var(--range-progress-left);
+    width: var(--range-progress-w);
+    height: 8px;
+    border-radius: 10px;
+    background-color: #c56fff;
+    z-index: -1;
+}
+
+.range-output {
+    position: absolute;
+    top: 50px;
+    left: var(--range-output-left);
+    margin-left: var(--range-output-margin);
+    display: grid;
+    min-width: fit-content;
+    padding: 0 4px;
+    place-items: center;
+    background: transparent;
+    border-radius: 10px;
+    font-size: 18px;
+    text-align: end;
+    transform: translate(var(--range-output-offset-xy));
+    user-select: none;
+    transition: 300ms;
+}
+
+.range-input:hover + .range-output,
+.range-input:focus-visible + .range-output {
+    background-color: #c56fff;
+    transition: 0ms;
+}
+
+.tickmarks {
+    width: var(--tickmarks-w);
+    height: 30px;
+    padding-inline: 4px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: black;
+}
+
+option {
+    position: relative;
+    padding-top: 10px;
+    padding-left: 4px;
+    width: 10px;
+    font-size: 14px;
+}
+
+option::after {
+    content: "";
+    display: initial;
+    position: absolute;
+    top: var(--option-after-top);
+    left: 10px;
+    width: 3px;
+    height: var(--option-after-h);
+    margin: 0 auto;
+    background: #c6c6c6;
+    z-index: -1;
 }

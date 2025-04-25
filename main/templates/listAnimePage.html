@@ -5,6 +5,71 @@
 <script src="{% static 'js/jquery/3.5.1/jquery.min.js' %}"></script>
 {% endblock %}
 {% block main %}
+<div style="padding: 10px; position: sticky; top: 0px; right: 0px; float: right; width: 30%; box-sizing: border-box;">
+    <div style="text-align: center; font-size: 1.5em; height: 50px; line-height: 50px;">
+        Фильтр
+    </div>
+    <div class="range" style="--value-1: 1959; --value-2: 2025;">
+        <label class="range-label" for="tailmetr">Хвост-о-метр (cм)</label>
+        <div class="track"></div>
+        <div class="progress"></div>
+        <div class="thumbs">
+            <input
+                    class="range-input"
+                    id="tailmetr1"
+                    type="range"
+                    min="1959"
+                    max="2025"
+                    value="1959"
+                    step="1"
+                    aria-valuemin="1959"
+                    aria-valuemax="2025"
+                    aria-orientation="horizontal"
+                    list="tickmarks"
+            >
+            <output
+                    class="range-output"
+                    id="output"
+                    for="tailmetr1"
+                    style="--value: var(--value-1);"
+            >
+                1959
+            </output>
+            <!-- Второй ползунок -->
+            <input
+                    class="range-input"
+                    id="tailmetr2"
+                    type="range"
+                    min="1959"
+                    max="2025"
+                    value="2025"
+                    step="1"
+                    aria-valuemin="1959"
+                    aria-valuemax="2025"
+                    aria-orientation="horizontal"
+                    list="tickmarks"
+            >
+            <!-- Вывод текущего значения для второго ползунка -->
+            <output
+                    class="range-output"
+                    id="output"
+                    for="tailmetr2"
+                    style="--value: var(--value-2);"
+            >
+                2025
+            </output>
+        </div>
+        <datalist id="tickmarks" class="tickmarks">
+            <option value="0 to 20">1959</option>
+            <option>1972</option>
+            <option>1985</option>
+            <option>1998</option>
+            <option>2011</option>
+            <option>2025</option>
+        </datalist>
+    </div>
+
+</div>
 {% for anime in animes %}
 <div class="animeRow">
     <img class="animeRowImg" src="media/{{ anime.portraitImage }}">
@@ -16,6 +81,7 @@
     </div>
 </div>
 {% endfor %}
+
 <ul id="pager"></ul>
 
 <script>
@@ -51,6 +117,74 @@
         newsText=animeDescription[i].innerHTML;
         animeDescription[i].innerHTML = newsText.slice(0, sizeDescription) + '...';
     }
+
+      const range1 = document.querySelector('#tailmetr1')
+      range1.addEventListener('input', handleInputRange1)
+      range1.addEventListener('change', change1)
+
+      const range2 = document.querySelector('#tailmetr2')
+      range2.addEventListener('input', handleInputRange2)
+      range2.addEventListener('change', change2)
+
+      function change1 () {
+           const value1 = event.target.parentNode.parentNode.style.getPropertyValue('--value-1');
+
+            var url = new URL(window.location.href);
+            var search_params = url.searchParams;
+            search_params.set('date_release_from', value1);
+            url.search = search_params.toString();
+            var new_url = url.toString();
+
+            window.location.href = new_url;
+      }
+      function change2 () {
+        const value2 = event.target.parentNode.parentNode.style.getPropertyValue('--value-2');
+        var url = new URL(window.location.href);
+        var search_params = url.searchParams;
+        search_params.set('date_release_to', value2);
+        url.search = search_params.toString();
+        var new_url = url.toString();
+
+        window.location.href = new_url;
+      }
+
+      function handleInputRange1() {
+        const value2 = event.target.parentNode.parentNode.style.getPropertyValue('--value-2')
+        if (parseInt(event.target.value) >= parseInt(value2)) {
+          event.target.value = value2
+        }
+        if (event.target.value === '2025') {
+          event.target.style.zIndex = '2025'
+        } else {
+          event.target.style.zIndex = '1959'
+        }
+        event.target.parentNode.parentNode.style.setProperty(
+          '--value-1',
+          event.target.value
+        )
+        event.target.nextElementSibling.value = event.target.value
+      }
+
+      function handleInputRange2() {
+        const value1 = event.target.parentNode.parentNode.style.getPropertyValue('--value-1');
+        if (parseInt(event.target.value) <= parseInt(value1)) {
+          console.log(event.target.value)
+          event.target.value = value1
+        }
+        if (event.target.value === '1959') {
+          event.target.style.zIndex = '2025'
+        } else {
+          event.target.style.zIndex = '1959'
+        }
+        event.target.parentNode.parentNode.style.setProperty(
+          "--value-2",
+          event.target.value
+        )
+        event.target.nextElementSibling.value = event.target.value
+
+      }
+
+
 
 </script>
 {% endblock %}
