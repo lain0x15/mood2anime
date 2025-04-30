@@ -9,8 +9,8 @@
     <div style="text-align: center; font-size: 1.5em; height: 50px; line-height: 50px;">
         Фильтр
     </div>
-    <div class="range" style="--value-1: 1959; --value-2: 2025;">
-        <label class="range-label" for="tailmetr">Хвост-о-метр (cм)</label>
+    <div class="range" style="--value-1: {{ anime_filter.date_from }}; --value-2: {{ anime_filter.date_to }}; --value_min: {{ anime_filter.min_date_release }}; --value_max: {{ anime_filter.max_date_release }};">
+        <label class="range-label" for="tailmetr">Год релиза</label>
         <div class="track"></div>
         <div class="progress"></div>
         <div class="thumbs">
@@ -18,12 +18,12 @@
                     class="range-input"
                     id="tailmetr1"
                     type="range"
-                    min="1959"
-                    max="2025"
-                    value="1959"
+                    min="{{ anime_filter.min_date_release }}"
+                    max="{{ anime_filter.max_date_release }}"
+                    value="{{ anime_filter.date_from }}"
                     step="1"
-                    aria-valuemin="1959"
-                    aria-valuemax="2025"
+                    aria-valuemin="{{ anime_filter.min_date_release }}"
+                    aria-valuemax="{{ anime_filter.max_date_release }}"
                     aria-orientation="horizontal"
                     list="tickmarks"
             >
@@ -33,19 +33,19 @@
                     for="tailmetr1"
                     style="--value: var(--value-1);"
             >
-                1959
+                {{ anime_filter.date_from }}
             </output>
             <!-- Второй ползунок -->
             <input
                     class="range-input"
                     id="tailmetr2"
                     type="range"
-                    min="1959"
-                    max="2025"
-                    value="2025"
+                    min="{{ anime_filter.min_date_release }}"
+                    max="{{ anime_filter.max_date_release }}"
+                    value="{{ anime_filter.date_to }}"
                     step="1"
-                    aria-valuemin="1959"
-                    aria-valuemax="2025"
+                    aria-valuemin="{{ anime_filter.min_date_release }}"
+                    aria-valuemax="{{ anime_filter.max_date_release }}"
                     aria-orientation="horizontal"
                     list="tickmarks"
             >
@@ -56,20 +56,19 @@
                     for="tailmetr2"
                     style="--value: var(--value-2);"
             >
-                2025
+                {{ anime_filter.date_to }}
             </output>
         </div>
         <datalist id="tickmarks" class="tickmarks">
-            <option value="0 to 20">1959</option>
-            <option>1972</option>
-            <option>1985</option>
-            <option>1998</option>
-            <option>2011</option>
-            <option>2025</option>
+            <option>{{ anime_filter.min_date_release }}</option>
+            <option>{{ anime_filter.max_date_release}}</option>
         </datalist>
     </div>
 
 </div>
+{% if animes|length == 0 %}
+<span id="not_found_anime">Не найдено аниме</span>
+{% endif %}
 {% for anime in animes %}
 <div class="animeRow">
     <img class="animeRowImg" src="media/{{ anime.portraitImage }}">
@@ -82,7 +81,9 @@
 </div>
 {% endfor %}
 
-<ul id="pager"></ul>
+
+<ul {% if animes|length == 0 %}style="display: none;"{% endif %} id="pager"></ul>
+
 
 <script>
     var maxVisiblePages = 7;
@@ -153,10 +154,10 @@
         if (parseInt(event.target.value) >= parseInt(value2)) {
           event.target.value = value2
         }
-        if (event.target.value === '2025') {
-          event.target.style.zIndex = '2025'
+        if (event.target.value === '{{ anime_filter.max_date_release }}') {
+          event.target.style.zIndex = '{{ anime_filter.max_date_release }}'
         } else {
-          event.target.style.zIndex = '1959'
+          event.target.style.zIndex = '{{ anime_filter.min_date_release }}'
         }
         event.target.parentNode.parentNode.style.setProperty(
           '--value-1',
@@ -171,10 +172,10 @@
           console.log(event.target.value)
           event.target.value = value1
         }
-        if (event.target.value === '1959') {
-          event.target.style.zIndex = '2025'
+        if (event.target.value === '{{ anime_filter.min_date_release }}') {
+          event.target.style.zIndex = '{{ anime_filter.max_date_release }}'
         } else {
-          event.target.style.zIndex = '1959'
+          event.target.style.zIndex = '{{ anime_filter.min_date_release }}'
         }
         event.target.parentNode.parentNode.style.setProperty(
           "--value-2",

@@ -76,6 +76,11 @@
 .animeDescription {
     font-size: 1.5em;
 }
+
+#not_found_anime {
+    font-size: 2em;
+}
+
 @media (width <= 1024px) and (orientation: portrait) {
 
 }
@@ -174,10 +179,10 @@
     --option-after-h: 30px;
     --option-after-top: -30px;
 
-    --range-progress-w: calc((var(--value-2) - var(--value-1)) * 1.51 * 1%);
+    --range-progress-w: calc((var(--value-2) - var(--value-1)) * (100 / (var(--value_max) - var(--value_min))) * 1%);
     --range-progress-left: min(
-      calc((var(--value-1) - 1959) * 1.51 * 1%),
-      calc((var(--value-2) - 1959) * 1.51 * 1%)
+      calc((var(--value-1) - var(--value_min)) * (100 / (var(--value_max) - var(--value_min))) * 1%),
+      calc((var(--value-2) - var(--value_min)) * (100 / (var(--value_max) - var(--value_min))) * 1%)
     );
 
     position: relative;
@@ -186,9 +191,9 @@
 }
 
 .range-output {
-    --range-output-left: calc((var(--value) - 1959) * 1.51 * 1%);
-    --range-output-offset-xy: calc((var(--value) - 1959) * 1.51 * -0.95%), 0;
-    --range-output-margin: calc(6 / ((var(--value) - 1959) * 1.51 + 1) * 1px);
+    --range-output-left: calc((var(--value) - var(--value_min)) * (100 / (var(--value_max) - var(--value_min))) * 1%);
+    --range-output-offset-xy: calc((var(--value) - var(--value_min)) * (100 / (var(--value_max) - var(--value_min))) * -0.95%), 0;
+    --range-output-margin: calc(6 / ((var(--value) - var(--value_min)) * (100 / (var(--value_max) - var(--value_min))) + 1) * 1px);
 }
 
 .range-label {

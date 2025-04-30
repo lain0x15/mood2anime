@@ -19,11 +19,45 @@ def listAnimePage(request):
     except ValueError:
         page = 1
 
-    animes = anime.objects.all()
-    pages = ceil(animes.count()/pageLimit)
-    page = pages if page > pages else page
-    animes = animes[pageLimit * (page - 1):pageLimit * page]
-    return render(request, "listAnimePage.html", context={'animes':animes, 'pages':pages, 'currentPage':page})
+    min_date_release = anime.objects.order_by('releaseYear')[0].releaseYear.year
+    max_date_release = datetime.datetime.now().year
+
+    try:
+        date_release_from = int(request.GET.get('date_release_from', min_date_release))
+        date_release_from = datetime.datetime(date_release_from, 1, 1)
+    except ValueError:
+        date_release_from = datetime.datetime(min_date_release, 1, 1)
+    try:
+        date_release_to = int(request.GET.get('date_release_to', max_date_release))
+        date_release_to = datetime.datetime(date_release_to, 1, 1)
+    except ValueError:
+        date_release_to = datetime.datetime(max_date_release, 1, 1)
+
+    animes = anime.objects.filter(releaseYear__range=(
+        date_release_from,
+        date_release_to
+    ))
+
+    if animes.count() != 0:
+        pages = ceil(animes.count()/pageLimit)
+        page = pages if page > pages else page
+        animes = animes[pageLimit * (page - 1):pageLimit * page]
+    else:
+        pages = 0
+        page = 0
+
+    return render(request, "listAnimePage.html", context={
+    'animes':animes,
+    'pages':pages,
+    'currentPage':page,
+    'anime_filter':
+    {
+        'min_date_release': min_date_release,
+        'max_date_release': max_date_release,
+        'date_from':date_release_from.year,
+        'date_to': date_release_to.year
+    }
+    })
 
 def animePage(request, url_name):
     animeContext = get_object_or_404(anime, url_name=url_name)
