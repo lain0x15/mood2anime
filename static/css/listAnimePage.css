@@ -117,7 +117,6 @@
 
     position: relative;
     display: grid;
-    min-width: 400px;
 }
 
 .range-output {
@@ -282,6 +281,10 @@ option::after {
 @media (width <= 1024px) and (orientation: portrait) {
     #anime_filters {
         float: none;
+        width:100%;
+    }
+    .animeRow {
+        width:100%;
     }
 }
 
@@ -337,7 +340,13 @@ option::after {
 }
 
 @media (width <= 1024px) and (orientation: landscape) {
-
+    #anime_filters {
+        float: none;
+        width:100%;
+    }
+    .animeRow {
+        width:100%;
+    }
 }
 
 @media (width <= 768px) and (orientation: landscape) {
