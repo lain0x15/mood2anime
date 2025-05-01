@@ -5,8 +5,8 @@
 <script src="{% static 'js/jquery/3.5.1/jquery.min.js' %}"></script>
 {% endblock %}
 {% block main %}
-<div style="padding: 10px; position: sticky; top: 0px; right: 0px; float: right; width: 30%; box-sizing: border-box;">
-    <div style="text-align: center; font-size: 1.5em; height: 50px; line-height: 50px;">
+<div id="anime_filters">
+    <div id="anime_filters_title">
         Фильтр
     </div>
     <div class="range" style="--value-1: {{ anime_filter.date_from }}; --value-2: {{ anime_filter.date_to }}; --value_min: {{ anime_filter.min_date_release }}; --value_max: {{ anime_filter.max_date_release }};">

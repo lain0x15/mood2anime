@@ -81,92 +81,22 @@
     font-size: 2em;
 }
 
-@media (width <= 1024px) and (orientation: portrait) {
-
+#anime_filters {
+    padding: 10px;
+    position: sticky;
+    top: 0px;
+    right: 0px;
+    float: right;
+    width: 30%;
+    box-sizing: border-box;
 }
 
-@media (width <= 768px) and (orientation: portrait) {
-    .animeRowName {
-        font-size: 1.5em;
-        color: red;
-    }
-    .animeRowText {
-        font-size:1.3em;
-    }
-    .animeDescription {
-        font-size: 1.3em;
-    }
+#anime_filters_title {
+    text-align: center;
+    font-size: 1.5em;
+    height: 50px;
+    line-height: 50px;
 }
-
-@media (width <= 480px) and (orientation: portrait) {
-        .animeRow {
-            display:flex;
-            width:100%;
-            height:100px;
-            overflow: hidden;
-        }
-        .animeRowName {
-            font-size: 1.9em;
-            color: red;
-        }
-        .animeRowText {
-            font-size:1.9em;
-        }
-        .animeDescription {
-            display: none;
-        }
-}
-
-@media (width <= 320px) and (orientation: portrait) {
-        .animeRow {
-            display:flex;
-            width:100%;
-            height:100px;
-            overflow: hidden;
-        }
-        .animeRowName {
-            font-size: 1.9em;
-            color: red;
-        }
-        .animeRowText {
-            font-size:1.9em;
-        }
-        .animeDescription {
-            display: none;
-        }
-}
-
-@media (width <= 1024px) and (orientation: landscape) {
-
-}
-
-@media (width <= 768px) and (orientation: landscape) {
-        .animeRowName {
-            font-size: 1.7em;
-            color: red;
-        }
-        .animeRowText {
-            font-size:1.5em;
-        }
-        .animeDescription {
-            font-size: 1.5em;
-        }
-}
-
-@media (width <= 480px) and (orientation: landscape) {
-        .animeDescription {
-            display: none;
-        }
-
-}
-
-@media (width <= 320px) and (orientation: landscape) {
-
-}
-
-
-
-
 
 .thumbs {
     display: grid;
@@ -210,6 +140,7 @@
     appearance: none;
     background: none;
     pointer-events: none;
+    touch-action: none;
 }
 
 .range-input::-webkit-slider-thumb {
@@ -346,4 +277,89 @@ option::after {
     margin: 0 auto;
     background: #c6c6c6;
     z-index: -1;
+}
+
+@media (width <= 1024px) and (orientation: portrait) {
+    #anime_filters {
+        float: none;
+    }
+}
+
+@media (width <= 768px) and (orientation: portrait) {
+    .animeRowName {
+        font-size: 1.5em;
+        color: red;
+    }
+    .animeRowText {
+        font-size:1.3em;
+    }
+    .animeDescription {
+        font-size: 1.3em;
+    }
+}
+
+@media (width <= 480px) and (orientation: portrait) {
+        .animeRow {
+            display:flex;
+            width:100%;
+            height:100px;
+            overflow: hidden;
+        }
+        .animeRowName {
+            font-size: 1.9em;
+            color: red;
+        }
+        .animeRowText {
+            font-size:1.9em;
+        }
+        .animeDescription {
+            display: none;
+        }
+}
+
+@media (width <= 320px) and (orientation: portrait) {
+        .animeRow {
+            display:flex;
+            width:100%;
+            height:100px;
+            overflow: hidden;
+        }
+        .animeRowName {
+            font-size: 1.9em;
+            color: red;
+        }
+        .animeRowText {
+            font-size:1.9em;
+        }
+        .animeDescription {
+            display: none;
+        }
+}
+
+@media (width <= 1024px) and (orientation: landscape) {
+
+}
+
+@media (width <= 768px) and (orientation: landscape) {
+        .animeRowName {
+            font-size: 1.7em;
+            color: red;
+        }
+        .animeRowText {
+            font-size:1.5em;
+        }
+        .animeDescription {
+            font-size: 1.5em;
+        }
+}
+
+@media (width <= 480px) and (orientation: landscape) {
+        .animeDescription {
+            display: none;
+        }
+
+}
+
+@media (width <= 320px) and (orientation: landscape) {
+
 }
