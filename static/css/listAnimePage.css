@@ -100,10 +100,11 @@
 
 .thumbs {
     display: grid;
+    margin-top: 27px;
 }
 
 .range {
-    --range-track-top: 90px;
+    --range-track-top: 40px;
 
     --tickmarks-w: calc(100% - 18px);
     --option-after-h: 30px;
@@ -123,12 +124,7 @@
     --range-output-left: calc((var(--value) - var(--value_min)) * (100 / (var(--value_max) - var(--value_min))) * 1%);
     --range-output-offset-xy: calc((var(--value) - var(--value_min)) * (100 / (var(--value_max) - var(--value_min))) * -0.95%), 0;
     --range-output-margin: calc(6 / ((var(--value) - var(--value_min)) * (100 / (var(--value_max) - var(--value_min))) + 1) * 1px);
-}
-
-.range-label {
-    margin-block-end: 50px;
-    font-size: 24px;
-    font-weight: 500;
+    margin-top: -45px;
 }
 
 .range-input {
@@ -234,7 +230,7 @@
     place-items: center;
     background: transparent;
     border-radius: 10px;
-    font-size: 18px;
+    font-size: 1em;
     text-align: end;
     transform: translate(var(--range-output-offset-xy));
     user-select: none;
@@ -262,7 +258,7 @@ option {
     padding-top: 10px;
     padding-left: 4px;
     width: 10px;
-    font-size: 14px;
+    font-size: 1em;
 }
 
 option::after {
@@ -281,6 +277,7 @@ option::after {
 @media (width <= 1024px) and (orientation: portrait) {
     #anime_filters {
         float: none;
+        position: relative;
         width:100%;
     }
     .animeRow {
@@ -342,6 +339,7 @@ option::after {
 @media (width <= 1024px) and (orientation: landscape) {
     #anime_filters {
         float: none;
+        position: relative;
         width:100%;
     }
     .animeRow {
