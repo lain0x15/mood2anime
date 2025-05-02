@@ -89,6 +89,8 @@
     float: right;
     width: 30%;
     box-sizing: border-box;
+    z-index: 1;
+    background: white;
 }
 
 #anime_filters_title {
@@ -274,12 +276,52 @@ option::after {
     z-index: -1;
 }
 
+#filter_button {
+    width: 200px;
+    margin: 5px;
+	text-align: center;
+	border: solid 3px red;
+	border-radius: 10px;
+	transition: background-color 0.5s ease-out 100ms;
+	font-size: 1.5em;
+	cursor: pointer;
+	height: 30px;
+	line-height: 30px;
+	user-select: none;
+	display: none;
+}
+
+#filter_button:hover {
+	background: red;
+}
+
+#close_anime_filter {
+    color: #000000;
+    font-size: 3em;
+    display: none;
+    cursor: pointer;
+    width: fit-content;
+    position: relative;
+    right: -92%;
+}
+
 @media (width <= 1024px) and (orientation: portrait) {
-    #anime_filters {
-        float: none;
-        position: relative;
-        width:100%;
+    #close_anime_filter {
+        display: block;
     }
+    #filter_button {
+        display: block;
+    }
+    #anime_filters {
+        position: fixed;
+        display: none;
+        height: 100%;
+        width: 100%;
+    }
+    #anime_filters:target {
+        display: block;
+    }
+
     .animeRow {
         width:100%;
     }
@@ -338,9 +380,10 @@ option::after {
 
 @media (width <= 1024px) and (orientation: landscape) {
     #anime_filters {
-        float: none;
-        position: relative;
-        width:100%;
+        position: fixed;
+        display: none;
+        height: 100%;
+        width: 100%;
     }
     .animeRow {
         width:100%;

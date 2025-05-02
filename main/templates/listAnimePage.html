@@ -5,7 +5,9 @@
 <script src="{% static 'js/jquery/3.5.1/jquery.min.js' %}"></script>
 {% endblock %}
 {% block main %}
+<div id="filter_button">Фильтры</div>
 <div id="anime_filters">
+    <div id="close_anime_filter">&#10006;</div>
     <div id="anime_filters_title">
         Фильтр
     </div>
@@ -184,7 +186,17 @@
 
       }
 
+    const filter_btn = document.getElementById('filter_button');
+    filter_btn.addEventListener('click', show_filters);
+    close_anime_filter = document.getElementById('close_anime_filter');
+    close_anime_filter.addEventListener('click', close_filters);
 
+    function show_filters() {
+        location.hash = '#anime_filters';
+    }
 
+    function close_filters() {
+        location.hash = '';
+    }
 </script>
 {% endblock %}

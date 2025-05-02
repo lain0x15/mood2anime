@@ -30,7 +30,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() in ['true']
 WEBSITE_DNS_NAME=os.environ.get('DJANGO_WEBSITE_DNS_NAME', 'localhost')
 ALLOWED_HOSTS = [WEBSITE_DNS_NAME]
 if DEBUG:
-    ALLOWED_HOSTS += ['127.0.0.1', 'localhost']
+    ALLOWED_HOSTS += ['127.0.0.1', 'localhost', '*']
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.contenttypes',
