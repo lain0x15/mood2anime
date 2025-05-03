@@ -70,18 +70,7 @@
 {% if animes|length == 0 %}
 <span id="not_found_anime">Не найдено аниме</span>
 {% endif %}
-{% for anime in animes %}
-<div class="animeRow">
-    <img class="animeRowImg" src="media/{{ anime.portraitImage }}">
-    <div class="animeRowInfo">
-        <div class="animeRowName"><a href="{% url 'animePage' anime.url_name %}">{{ anime.name }}</a></div>
-        <br>
-        <span class="animeRowText">{{ anime.releaseYear | date:"Y" }}  /  {% for genre in anime.getGenres %}{{ genre.genreID.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
-        <p class="animeDescription">{{ anime.description }}</p>
-    </div>
-</div>
-{% endfor %}
-
+<div id="animeRows"></div>
 
 <ul {% if animes|length == 0 %}style="display: none;"{% endif %} id="pager"></ul>
 
@@ -137,7 +126,8 @@
             url.search = search_params.toString();
             var new_url = url.toString();
 
-            window.location.href = new_url;
+            window.history.replaceState(null, null, new_url);
+            getAnimesByFilters();
       }
       function change2 () {
         const value2 = event.target.parentNode.parentNode.style.getPropertyValue('--value-2');
@@ -147,7 +137,8 @@
         url.search = search_params.toString();
         var new_url = url.toString();
 
-        window.location.href = new_url;
+        window.history.replaceState(null, null, new_url);
+        getAnimesByFilters();
       }
 
       function handleInputRange1() {
@@ -198,5 +189,62 @@
     function close_filters() {
         location.hash = '';
     }
+
+    function getAnimesByFilters (){
+        let params = new URLSearchParams(document.location.search);
+        $.ajax({
+            url: "/getAnimesByFilters",
+            headers: { 'X-CSRFToken': csrftoken },
+            method: 'post',
+            dataType: 'html',
+            data: {
+                date_release_from: params.get("date_release_from"),
+                date_release_to: params.get("date_release_to")
+            },
+            success: function(data){
+                var animes = JSON.parse(data).animes;
+                let newAnimeRows = document.getElementById('animeRows').cloneNode(true);
+                newAnimeRows.innerHTML = '';
+                animes.forEach((anime) => {
+                    var animeRow = document.createElement("div");
+                    animeRow.classList.add("animeRow");
+
+                    animeRowImg = document.createElement("img");
+                    animeRowImg.src = anime.portraitImage;
+                    animeRowImg.classList.add("animeRowImg");
+                    animeRow.appendChild(animeRowImg);
+
+                    animeRowInfo = document.createElement("div");
+                    animeRowInfo.classList.add("animeRowInfo");
+                    animeRowName = document.createElement("div");
+                    animeRowName.classList.add("animeRowName");
+                    animeRowNameLink = document.createElement("a");
+                    animeRowNameLink.href="animePage/" + anime.url_name;
+                    animeRowNameLink.appendChild(document.createTextNode(anime.name));
+                    animeRowName.appendChild(animeRowNameLink);
+                    animeRowInfo.appendChild(animeRowName);
+
+                    animeRowText = document.createElement("span");
+                    animeRowText.classList.add("animeRowText");
+                    var dateRelease = new Date(anime.releaseYear);
+                    animeRowText.appendChild(document.createTextNode(dateRelease.getFullYear() + " / " + anime.genre.join(', ')));
+                    animeRowInfo.appendChild(document.createElement("br"));
+                    animeRowInfo.appendChild(animeRowText);
+
+                    animeDescription = document.createElement("p");
+                    animeDescription.classList.add("animeDescription");
+                    animeDescription.appendChild(document.createTextNode(anime.description.slice(0, 150) + "..."));
+                    animeRowInfo.appendChild(animeDescription);
+
+                    animeRow.appendChild(animeRowInfo);
+                    newAnimeRows.appendChild(animeRow);
+                });
+                let oldNode = document.getElementById('animeRows');
+                oldNode.parentElement.replaceChild(newAnimeRows, oldNode);
+            }
+        });
+    }
+
+    getAnimesByFilters();
 </script>
 {% endblock %}
