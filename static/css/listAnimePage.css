@@ -1,3 +1,7 @@
+.pagerLink {
+    cursor: pointer;
+}
+
 #pager {
     position: absolute;
     transform: translate(-50%);
@@ -34,6 +38,10 @@
 #pager .active a {
     color: #000; /* Цвет текущего номера */
     font-weight: bold; /* Жирное начертание */
+}
+
+.blur {
+    filter: blur(2px)
 }
 
 .animeRow {
@@ -79,6 +87,7 @@
 
 #not_found_anime {
     font-size: 2em;
+    display: none;
 }
 
 #anime_filters {

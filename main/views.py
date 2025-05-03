@@ -134,7 +134,10 @@ def getAnimesByFilters(request):
             'description': anime.description,
             'url_name': anime.url_name
         } for anime in animes[pageLimit * (page - 1):pageLimit * page]]
+    else:
+        animes = []
 
+    print(animes)
     response = JsonResponse({'status': 'ok', 'animes':animes, 'page': page, 'pages': pages})
     return response
 

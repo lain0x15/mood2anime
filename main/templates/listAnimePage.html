@@ -67,47 +67,16 @@
     </div>
 
 </div>
-{% if animes|length == 0 %}
+
 <span id="not_found_anime">Не найдено аниме</span>
-{% endif %}
+
 <div id="animeRows"></div>
 
 <ul {% if animes|length == 0 %}style="display: none;"{% endif %} id="pager"></ul>
 
 
 <script>
-    var maxVisiblePages = 7;
-    var pager = document.getElementById("pager");
-    var currentPage = {{ currentPage }};
-    var maxPages = {{ pages }};
-    var halfVisiblePages = Math.floor(maxVisiblePages/2);
-
-    nextPagesCount = maxVisiblePages - halfVisiblePages - (maxPages - currentPage + 1)
-    if (nextPagesCount > 0 && (maxPages - currentPage) >= 0){
-        halfVisiblePages += nextPagesCount;
-    }
-
-    for (let i = currentPage - 1; i > 0 && halfVisiblePages > 0; i--) {
-        pager.innerHTML = '<li><a href="?page=' + i + '">'+i+'</a></li>' + pager.innerHTML;
-        halfVisiblePages--;
-        maxVisiblePages--;
-    }
-
-    for (let i = currentPage; i <= maxPages && i < maxVisiblePages + currentPage ; i++) {
-        if (i == currentPage ) {
-            pager.innerHTML+='<li class="active"><a>'+i+'</a></li>';
-        } else {
-            pager.innerHTML+='<li><a href="?page=' + i + '">'+i+'</a></li>';
-        }
-    }
-
-
-    let animeDescription = document.getElementsByClassName("animeDescription");
-    let sizeDescription = 150;
-    for (let i = 0; i < animeDescription.length; i++) {
-        newsText=animeDescription[i].innerHTML;
-        animeDescription[i].innerHTML = newsText.slice(0, sizeDescription) + '...';
-    }
+    document.getElementById("loaderFullFill").style.display = "block";
 
       const range1 = document.querySelector('#tailmetr1')
       range1.addEventListener('input', handleInputRange1)
@@ -123,6 +92,7 @@
             var url = new URL(window.location.href);
             var search_params = url.searchParams;
             search_params.set('date_release_from', value1);
+            search_params.set('page', 1);
             url.search = search_params.toString();
             var new_url = url.toString();
 
@@ -134,6 +104,7 @@
         var url = new URL(window.location.href);
         var search_params = url.searchParams;
         search_params.set('date_release_to', value2);
+        search_params.set('page', 1);
         url.search = search_params.toString();
         var new_url = url.toString();
 
@@ -190,7 +161,45 @@
         location.hash = '';
     }
 
+    function renderPager(currentPage, maxPages){
+        var maxVisiblePages = 7;
+        var pager = document.getElementById("pager");
+        pager.innerHTML = '';
+        var halfVisiblePages = Math.floor(maxVisiblePages/2);
+        nextPagesCount = maxVisiblePages - halfVisiblePages - (maxPages - currentPage + 1)
+        if (nextPagesCount > 0 && (maxPages - currentPage) >= 0){
+            halfVisiblePages += nextPagesCount;
+        }
+
+        for (let i = currentPage - 1; i > 0 && halfVisiblePages > 0; i--) {
+            pager.innerHTML = '<li><a class="pagerLink" onclick="changePage(' + i + ')">'+i+'</a></li>' + pager.innerHTML;
+            halfVisiblePages--;
+            maxVisiblePages--;
+        }
+
+        for (let i = currentPage; i <= maxPages && i < maxVisiblePages + currentPage ; i++) {
+            if (i == currentPage ) {
+                pager.innerHTML+='<li class="active"><a>'+i+'</a></li>';
+            } else {
+                pager.innerHTML+='<li><a class="pagerLink" onclick="changePage(' + i + ')">'+i+'</a></li>';
+            }
+        }
+    }
+
+    function changePage(page){
+        var url = new URL(window.location.href);
+        var search_params = url.searchParams;
+        search_params.set('page', page);
+        url.search = search_params.toString();
+        var new_url = url.toString();
+
+        window.history.replaceState(null, null, new_url);
+        window.scrollTo(0, 0);
+        getAnimesByFilters();
+    }
+
     function getAnimesByFilters (){
+        document.getElementById('animeRows').classList.add("blur");
         let params = new URLSearchParams(document.location.search);
         $.ajax({
             url: "/getAnimesByFilters",
@@ -199,11 +208,13 @@
             dataType: 'html',
             data: {
                 date_release_from: params.get("date_release_from"),
-                date_release_to: params.get("date_release_to")
+                date_release_to: params.get("date_release_to"),
+                page: params.get("page")
             },
             success: function(data){
                 var animes = JSON.parse(data).animes;
                 let newAnimeRows = document.getElementById('animeRows').cloneNode(true);
+                newAnimeRows.classList.remove("blur");
                 newAnimeRows.innerHTML = '';
                 animes.forEach((anime) => {
                     var animeRow = document.createElement("div");
@@ -239,8 +250,17 @@
                     animeRow.appendChild(animeRowInfo);
                     newAnimeRows.appendChild(animeRow);
                 });
+                if (animes.length == 0) {
+                    document.getElementById("not_found_anime").style.display = "block";
+                } else {
+                    document.getElementById("not_found_anime").style.display = "none";
+                }
                 let oldNode = document.getElementById('animeRows');
-                oldNode.parentElement.replaceChild(newAnimeRows, oldNode);
+                setTimeout(() => {
+                    oldNode.parentElement.replaceChild(newAnimeRows, oldNode);
+                    renderPager(JSON.parse(data).page, JSON.parse(data).pages);
+                 }, 300);
+                 setTimeout(() => {  document.getElementById("loaderFullFill").style.display = "none"; }, 300);
             }
         });
     }
