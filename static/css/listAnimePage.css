@@ -330,7 +330,6 @@ option::after {
     #anime_filters:target {
         display: block;
     }
-
     .animeRow {
         width:100%;
     }
@@ -388,11 +387,20 @@ option::after {
 }
 
 @media (width <= 1024px) and (orientation: landscape) {
+    #close_anime_filter {
+        display: block;
+    }
+    #filter_button {
+        display: block;
+    }
     #anime_filters {
         position: fixed;
         display: none;
         height: 100%;
         width: 100%;
+    }
+    #anime_filters:target {
+        display: block;
     }
     .animeRow {
         width:100%;
