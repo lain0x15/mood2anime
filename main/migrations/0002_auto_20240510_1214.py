@@ -166,7 +166,6 @@ def addFranchises (apps, scheme_editor):
 def addAnime (apps, scheme_editor):
     anime = apps.get_model('main', 'anime')
 
-    genreAnime = apps.get_model('main', 'genreAnime')
     genres = apps.get_model('main', 'genres')
     studiosModel = apps.get_model('main', 'studios')
     types_model = apps.get_model('main', 'types_model')
@@ -1097,7 +1096,7 @@ def addAnime (apps, scheme_editor):
         for animeStudioName in animeField['anime']['studios']:
             createdAnime.studio.add(studiosModel.objects.get(name=animeStudioName))
         for genre in animeField['genres']:
-            genreAnime.objects.create(animeID = createdAnime, genreID=genres.objects.get(name=genre))
+            createdAnime.genres.add(genres.objects.get(name=genre))
 
 class Migration(migrations.Migration):
     dependencies = [
