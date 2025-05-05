@@ -69,7 +69,7 @@
         <button onclick="myFunction()" class="dropbtn">Жанры</button>
         <div id="myDropdown" class="dropdown-content">
             {% for genre in anime_filter.genres %}
-                <div class="dropNoClose"><input onchange="setGenreFilter({{ genre.id }})" class="dropNoClose" type="checkbox" value="{{ genre.id }}" {% if genre.id in anime_filter.selected_genres %}checked{% endif %} /><label class="dropNoClose" for="scales">{{genre}}</label></div>
+                <div onclick="setGenreFilter(this,{{ genre.id }})" class="dropNoClose"><input class="dropNoClose checkboxGenres" type="checkbox" value="{{ genre.id }}" {% if genre.id in anime_filter.selected_genres %}checked{% endif %} /><label class="dropNoClose checkboxGenresLabel" for="scales">{{genre}}</label></div>
             {% endfor %}
         </div>
     </div>
@@ -205,7 +205,7 @@
         getAnimesByFilters();
     }
 
-    function setGenreFilter(idGenre) {
+    function setGenreFilter(element,idGenre) {
         let params = new URLSearchParams(document.location.search);
         let filter_genre = params.get("filter_genres");
 
@@ -217,8 +217,10 @@
 
         if (filter_genre.includes(idGenre.toString())){
             filter_genre = filter_genre.filter((item) => item !== idGenre.toString());
+            element.children[0].checked=false;
         } else {
             filter_genre.push(idGenre);
+            element.children[0].checked=true;
         }
         var url = new URL(window.location.href);
         var search_params = url.searchParams;

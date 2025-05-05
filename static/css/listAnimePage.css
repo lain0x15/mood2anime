@@ -291,7 +291,7 @@ option::after {
   background-color: red;
   color: white;
   padding: 16px;
-  font-size: 16px;
+  font-size: 1.3em;
   border: none;
   cursor: pointer;
   width: 100%;
@@ -330,6 +330,17 @@ option::after {
   display: block;
 }
 
+.checkboxGenres {
+    accent-color: red;
+}
+
+.checkboxGenresLabel {
+    font-size: 1.2em;
+}
+
+.dropNoClose {
+    cursor: pointer;
+}
 /* Изменение цвета выпадающих ссылок при наведении курсора */
 .dropdown-content div:hover {background-color: #ddd}
 
