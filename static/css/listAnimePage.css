@@ -156,7 +156,7 @@
     border: none;
     border-radius: 50%;
     background-color: white;
-    box-shadow: 0 0 0 5px inset #c56fff;
+    box-shadow: 0 0 0 5px inset red;
     transition: 300ms;
     pointer-events: auto;
 }
@@ -167,26 +167,26 @@
     border: none;
     border-radius: 50%;
     background-color: white;
-    box-shadow: 0 0 0 5px inset #c56fff;
+    box-shadow: 0 0 0 5px inset red;
     transition: 300ms;
     pointer-events: auto;
 }
 
 .range-input:hover::-webkit-slider-thumb,
 .range-input:focus-visible::-webkit-slider-thumb {
-    box-shadow: 0 0 0 10px inset #c56fff;
+    box-shadow: 0 0 0 10px inset red;
 }
 
 .range-input:hover::-moz-range-thumb,
 .range-input:focus-visible::-moz-range-thumb {
-    box-shadow: 0 0 0 10px inset #c56fff;
+    box-shadow: 0 0 0 10px inset red;
 }
 
 .range-input:active::-webkit-slider-thumb {
-    box-shadow: 0 0 0 30px inset #c56fff;
+    box-shadow: 0 0 0 30px inset red;
 }
 .range-input:active::-moz-range-thumb {
-    box-shadow: 0 0 0 30px inset #c56fff;
+    box-shadow: 0 0 0 30px inset red;
 }
 
 .range-input:disabled::-webkit-slider-thumb {
@@ -198,7 +198,7 @@
 
 .range-input:focus-visible {
     outline-offset: 7px;
-    outline: 1px solid #c56fff;
+    outline: 1px solid red;
 }
 
 .range-input:focus-visible::-webkit-slider-thumb {
@@ -226,7 +226,7 @@
     width: var(--range-progress-w);
     height: 8px;
     border-radius: 10px;
-    background-color: #c56fff;
+    background-color: red;
     z-index: -1;
 }
 
@@ -250,7 +250,7 @@
 
 .range-input:hover + .range-output,
 .range-input:focus-visible + .range-output {
-    background-color: #c56fff;
+    background-color: red;
     transition: 0ms;
 }
 
@@ -288,7 +288,7 @@ option::after {
 
 /* Кнопка выпадающего списка */
 .dropbtn {
-  background-color: #3498DB;
+  background-color: red;
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -299,7 +299,7 @@ option::after {
 
 /* Кнопка выпадающего меню при наведении и фокусировке */
 .dropbtn:hover, .dropbtn:focus {
-  background-color: #2980B9;
+  background-color: #ff4242;
 }
 
 /* Контейнер <div> - необходим для размещения выпадающего содержимого */
