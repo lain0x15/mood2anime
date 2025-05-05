@@ -82,12 +82,25 @@ def getAnimeByID (request, id):
     response = JsonResponse({'status': 'ok', 'anime':animeDict})
     return response
 
-def getAnimesByFilters(request):
+def get_anime(request):
     if request.method != "POST":
         return HttpResponseNotAllowed(["POST"])
+
+    try:
+        limit = int(request.POST.get('limit', 25))
+    except ValueError:
+        limit = 25
+    limit = limit if 1 <= limit and limit <= 25 else 25
+
+    try:
+        page = int(request.POST.get('page', 1))
+    except ValueError:
+        page = 1
+    page = page if page >= 1 else 1
+    pages = 0
+
     min_date_release = anime.objects.order_by('releaseYear')[0].releaseYear.year
     max_date_release = datetime.datetime.now().year
-
     try:
         date_release_from = int(request.POST.get('date_release_from', min_date_release))
         date_release_from = datetime.datetime(date_release_from, 1, 1)
@@ -115,66 +128,7 @@ def getAnimesByFilters(request):
             date_release_to
         ),
         genres__in=selected_genres
-    )
-
-    pageLimit = 25
-    pages = 0
-    try:
-        page = int(request.POST.get('page', 1))
-        page = page if page >= 1 else 1
-    except ValueError:
-        page = 1
-
-    if animes.count() != 0:
-        pages = ceil(animes.count()/pageLimit)
-        page = pages if page > pages else page
-        animes = [{
-            'name': anime.name,
-            'portraitImage': anime.portraitImage.url,
-            'releaseYear': anime.releaseYear,
-            'genre': [genre.name for genre in anime.genres.all()],
-            'description': anime.description,
-            'url_name': anime.url_name
-        } for anime in animes[pageLimit * (page - 1):pageLimit * page]]
-    else:
-        animes = []
-
-    response = JsonResponse({'status': 'ok', 'animes':animes, 'page': page, 'pages': pages})
-    return response
-
-def get_anime(response):
-    if request.method != "POST":
-        return HttpResponseNotAllowed(["POST"])
-
-    try:
-        limit = int(request.POST.get('limit', 25))
-    except ValueError:
-        limit = 25
-    limit = limit if 1 <= limit and limit <= 25 else 25
-
-    try:
-        page = int(request.POST.get('page', 1))
-    except ValueError:
-        page = 1
-    page = page if page >= 1 else 1
-
-    min_date_release = anime.objects.order_by('releaseYear')[0].releaseYear.year
-    max_date_release = datetime.datetime.now().year
-    try:
-        date_release_from = int(request.POST.get('date_release_from', min_date_release))
-        date_release_from = datetime.datetime(date_release_from, 1, 1)
-    except ValueError:
-        date_release_from = datetime.datetime(min_date_release, 1, 1)
-    try:
-        date_release_to = int(request.POST.get('date_release_to', max_date_release))
-        date_release_to = datetime.datetime(date_release_to, 1, 1)
-    except ValueError:
-        date_release_to = datetime.datetime(max_date_release, 1, 1)
-
-    animes = anime.objects.filter(releaseYear__range=(
-        date_release_from,
-        date_release_to
-    ))
+    ).distinct()
 
     if animes.count() != 0:
         pages = ceil(animes.count()/limit)

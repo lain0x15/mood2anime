@@ -236,7 +236,7 @@
         document.getElementById('animeRows').classList.add("blur");
         let params = new URLSearchParams(document.location.search);
         $.ajax({
-            url: "/getAnimesByFilters",
+            url: "/api/anime/get",
             headers: { 'X-CSRFToken': csrftoken },
             method: 'post',
             dataType: 'html',
@@ -244,6 +244,7 @@
                 date_release_from: params.get("date_release_from"),
                 date_release_to: params.get("date_release_to"),
                 filter_genres: params.get("filter_genres"),
+                limit: params.get("limit"),
                 page: params.get("page")
             },
             success: function(data){
