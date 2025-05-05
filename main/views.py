@@ -26,6 +26,15 @@ def listAnimePage(request):
     except ValueError:
         date_release_to = datetime.datetime(max_date_release, 1, 1)
 
+    genresFilter = genres.objects.all()
+
+    selected_genres_req = request.GET.get('filter_genres', '').split('-')
+    selected_genres = []
+    for selected_genre in selected_genres_req:
+        try:
+            selected_genres.append(int(selected_genre))
+        except ValueError:
+            pass
 
     return render(request, "listAnimePage.html", context={
     'anime_filter':
@@ -33,7 +42,9 @@ def listAnimePage(request):
             'min_date_release': min_date_release,
             'max_date_release': max_date_release,
             'date_from':date_release_from.year,
-            'date_to': date_release_to.year
+            'date_to': date_release_to.year,
+            'genres': genresFilter,
+            'selected_genres': selected_genres
         }
     })
 
@@ -88,10 +99,26 @@ def getAnimesByFilters(request):
     except ValueError:
         date_release_to = datetime.datetime(max_date_release, 1, 1)
 
+    selected_genres_req = request.POST.get('filter_genres', '').split('-')
+    selected_genres = []
+    for selected_genre in selected_genres_req:
+        try:
+            selected_genres.append(int(selected_genre))
+        except ValueError:
+            pass
+
     animes = anime.objects.filter(releaseYear__range=(
         date_release_from,
         date_release_to
     ))
+
+    if selected_genres:
+        for animeIndex in animes:
+            for animeGenre in animeIndex.getGenres():
+                if animeGenre.genreID.id in selected_genres:
+                    break
+            else:
+                animes = animes.exclude(id=animeIndex.id)
 
     pageLimit = 25
     pages = 0
@@ -115,7 +142,6 @@ def getAnimesByFilters(request):
     else:
         animes = []
 
-    print(animes)
     response = JsonResponse({'status': 'ok', 'animes':animes, 'page': page, 'pages': pages})
     return response
 

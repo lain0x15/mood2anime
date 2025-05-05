@@ -65,7 +65,14 @@
             <option>{{ anime_filter.max_date_release}}</option>
         </datalist>
     </div>
-
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">Жанры</button>
+        <div id="myDropdown" class="dropdown-content">
+            {% for genre in anime_filter.genres %}
+                <div class="dropNoClose"><input onchange="setGenreFilter({{ genre.id }})" class="dropNoClose" type="checkbox" value="{{ genre.id }}" {% if genre.id in anime_filter.selected_genres %}checked{% endif %} /><label class="dropNoClose" for="scales">{{genre}}</label></div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 
 <span id="not_found_anime">Не найдено аниме</span>
@@ -198,6 +205,33 @@
         getAnimesByFilters();
     }
 
+    function setGenreFilter(idGenre) {
+        let params = new URLSearchParams(document.location.search);
+        let filter_genre = params.get("filter_genres");
+
+        if (filter_genre != null && filter_genre!="") {
+            filter_genre=filter_genre.split('-');
+        } else {
+            filter_genre = new Array();
+        }
+
+        if (filter_genre.includes(idGenre.toString())){
+            filter_genre = filter_genre.filter((item) => item !== idGenre.toString());
+        } else {
+            filter_genre.push(idGenre);
+        }
+        var url = new URL(window.location.href);
+        var search_params = url.searchParams;
+        search_params.set('page', 1);
+        search_params.set('filter_genres', filter_genre.join('-'));
+        url.search = search_params.toString();
+        var new_url = url.toString();
+
+        window.history.replaceState(null, null, new_url);
+        window.scrollTo(0, 0);
+        getAnimesByFilters();
+    }
+
     function getAnimesByFilters (){
         document.getElementById('animeRows').classList.add("blur");
         let params = new URLSearchParams(document.location.search);
@@ -209,6 +243,7 @@
             data: {
                 date_release_from: params.get("date_release_from"),
                 date_release_to: params.get("date_release_to"),
+                filter_genres: params.get("filter_genres"),
                 page: params.get("page")
             },
             success: function(data){
@@ -264,7 +299,25 @@
             }
         });
     }
+/* Когда пользователь нажимает на кнопку,
+переключение между скрытием и отображением раскрывающегося содержимого */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
 
+// Закройте выпадающее меню, если пользователь щелкает за его пределами
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn') && !event.target.matches('.dropNoClose')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
     getAnimesByFilters();
 </script>
 {% endblock %}
