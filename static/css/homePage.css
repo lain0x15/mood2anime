@@ -47,6 +47,9 @@
     color: black;
     text-decoration: none;
 }
+.link_to_anime:hover {
+    color: red;
+}
 .box3 {
 	font-size: 1.3em;
 }
