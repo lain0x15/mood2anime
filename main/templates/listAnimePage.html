@@ -65,7 +65,7 @@
             <option>{{ anime_filter.max_date_release}}</option>
         </datalist>
     </div>
-    <div class="dropdown">
+    <div id="dropdown_id" class="dropdown">
         <button onclick="myFunction()" class="dropbtn">Жанры</button>
         <div id="myDropdown" class="dropdown-content">
             {% for genre in anime_filter.genres %}
@@ -308,6 +308,30 @@ function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
+
+    getAnimesByFilters();
+
+window.addEventListener('resize', () => {
+  test();
+});
+
+function test() {
+    var height_myDropdown = 300;
+    var myElement = document.getElementById('myDropdown');
+    var myElementDp = document.getElementById('dropdown_id');
+    var bounding = myElement.getBoundingClientRect();
+    var boundingDp = myElementDp.getBoundingClientRect();
+
+
+    if (boundingDp.bottom + bounding.bottom - bounding.top <= window.innerHeight) {
+        myElement.style.transform = "translate(0px," + 0 + "px)";
+        myElement.style.height = "" + height_myDropdown + "px";
+    } else {
+        myElement.style.height = "" + boundingDp.top + "px";
+        myElement.style.transform = "translate(0px," + boundingDp.bottom * -1 + "px)";
+    }
+}
+
 // Закройте выпадающее меню, если пользователь щелкает за его пределами
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn') && !event.target.matches('.dropNoClose')) {
@@ -320,7 +344,8 @@ window.onclick = function(event) {
       }
     }
   }
+  test();
 }
-    getAnimesByFilters();
 </script>
+
 {% endblock %}
