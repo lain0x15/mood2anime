@@ -234,7 +234,21 @@
         getAnimesByFilters();
     }
 
+    let first_lock_getAnimesByFilters = false;
+    let second_lock_getAnimesByFilters = false;
     function getAnimesByFilters (){
+        if (first_lock_getAnimesByFilters && !second_lock_getAnimesByFilters) {
+            second_lock_getAnimesByFilters = true;
+            setTimeout(() => {
+                second_lock_getAnimesByFilters = false;
+                getAnimesByFilters();
+            }, 300);
+            return 0;
+        } else if (second_lock_getAnimesByFilters) {
+            return 0;
+        }
+
+        first_lock_getAnimesByFilters = true;
         document.getElementById('animeRows').classList.add("blur");
         let params = new URLSearchParams(document.location.search);
         $.ajax({
@@ -297,6 +311,7 @@
                 setTimeout(() => {
                     oldNode.parentElement.replaceChild(newAnimeRows, oldNode);
                     renderPager(JSON.parse(data).page, JSON.parse(data).pages);
+                    first_lock_getAnimesByFilters = false;
                  }, 300);
                  setTimeout(() => {  document.getElementById("loaderFullFill").style.display = "none"; }, 300);
             }
@@ -323,7 +338,7 @@ function test() {
     var boundingDp = myElementDp.getBoundingClientRect();
 
 
-    if (boundingDp.bottom + bounding.bottom - bounding.top <= window.innerHeight) {
+    if (boundingDp.bottom + height_myDropdown <= window.innerHeight) {
         myElement.style.transform = "translate(0px," + 0 + "px)";
         myElement.style.height = "" + height_myDropdown + "px";
     } else {
