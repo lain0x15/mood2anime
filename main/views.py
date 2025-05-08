@@ -55,7 +55,7 @@ def animePage(request, url_name):
 def getIDsAnime(request):
     if request.method != "POST":
         return HttpResponseNotAllowed(["POST"])
-    animeIDs = anime.objects.all()
+    animeIDs = anime.objects.all().order_by('?')[:500]
 
     animeIDs = [animeRow.id for animeRow in animeIDs]
     response = JsonResponse({'status': 'ok', 'animeIDs':animeIDs})
