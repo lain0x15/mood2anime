@@ -119,16 +119,19 @@ def get_anime(request):
             selected_genres.append(int(selected_genre))
         except ValueError:
             pass
-    if not selected_genres:
-        selected_genres = genres.objects.all()
 
-    animes = anime.objects.filter(
-        releaseYear__range=(
-            date_release_from,
-            date_release_to
-        ),
-        genres__in=selected_genres
-    ).distinct()
+    animes = anime.objects.all()
+
+    if selected_genres:
+        animes = animes.filter(genres__in=selected_genres).distinct()
+
+    if date_release_from.year != min_date_release or date_release_to.year != max_date_release:
+        animes = animes.filter(
+            releaseYear__range=(
+                date_release_from,
+                date_release_to
+            )
+        )
 
     if animes.count() != 0:
         pages = ceil(animes.count()/limit)
