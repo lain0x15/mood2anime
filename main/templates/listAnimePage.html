@@ -5,7 +5,33 @@
 <script src="{% static 'js/jquery/3.5.1/jquery.min.js' %}"></script>
 {% endblock %}
 {% block main %}
-<div id="filter_button">Фильтры</div>
+<div id="filter_button" class="anime_menu_button anime_menu">Фильтры</div>
+<div id="sort_menu" class="anime_menu">
+    <div id="sort_button" class="anime_menu_button">
+        <span id="sort_name">
+            {% if anime_filter.order_by == 1 %}
+                Дата релиза &#9660;
+            {% elif anime_filter.order_by == 2 %}
+                Дата релиза &#9650;
+            {% elif anime_filter.order_by == 3 %}
+                Рейтинг &#9660;
+            {% elif anime_filter.order_by == 4 %}
+                Рейтинг &#9650;
+            {%else%}
+                Сортировка
+            {% endif %}
+        </span>
+    </div>
+    <div id="dropdown_sort" class="hide">
+        <div onclick="change_sort(this,0)">-----------------</div>
+        <div onclick="change_sort(this,1)">Дата релиза &#9660;</div>
+        <div onclick="change_sort(this,2)">Дата релиза &#9650;</div>
+        <div onclick="change_sort(this,3)">Рейтинг &#9660;</div>
+        <div onclick="change_sort(this,4)">Рейтинг &#9650;</div>
+    </div>
+</div>
+
+
 <div id="anime_filters">
     <div id="close_anime_filter">&#10006;</div>
     <div id="anime_filters_title">
@@ -155,10 +181,10 @@
 
       }
 
-    const filter_btn = document.getElementById('filter_button');
-    filter_btn.addEventListener('click', show_filters);
-    close_anime_filter = document.getElementById('close_anime_filter');
-    close_anime_filter.addEventListener('click', close_filters);
+    document.getElementById('filter_button').addEventListener('click', show_filters);
+    document.getElementById('close_anime_filter').addEventListener('click', close_filters);
+
+    document.getElementById('sort_button').addEventListener('click', show_sort);
 
     function show_filters() {
         location.hash = '#anime_filters';
@@ -166,6 +192,10 @@
 
     function close_filters() {
         location.hash = '';
+    }
+
+    function show_sort() {
+        document.getElementById("dropdown_sort").classList.toggle("show");
     }
 
     function renderPager(currentPage, maxPages){
@@ -261,7 +291,8 @@
                 date_release_to: params.get("date_release_to"),
                 filter_genres: params.get("filter_genres"),
                 limit: params.get("limit"),
-                page: params.get("page")
+                page: params.get("page"),
+                order_by: params.get("order_by")
             },
             success: function(data){
                 var animes = JSON.parse(data).animes;
@@ -323,14 +354,13 @@ function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
-
-    getAnimesByFilters();
+getAnimesByFilters();
 
 window.addEventListener('resize', () => {
-  test();
+    change_size_genre_filter();
 });
 
-function test() {
+function change_size_genre_filter() {
     var height_myDropdown = 300;
     var myElement = document.getElementById('myDropdown');
     var myElementDp = document.getElementById('dropdown_id');
@@ -340,26 +370,46 @@ function test() {
 
     if (boundingDp.bottom + height_myDropdown <= window.innerHeight) {
         myElement.style.transform = "translate(0px," + 0 + "px)";
-        myElement.style.height = "" + height_myDropdown + "px";
+        myElement.style.maxHeight = "" + height_myDropdown + "px";
     } else {
-        myElement.style.height = "" + boundingDp.top + "px";
+        myElement.style.maxHeight = "" + boundingDp.top + "px";
         myElement.style.transform = "translate(0px," + boundingDp.bottom * -1 + "px)";
     }
 }
 
 // Закройте выпадающее меню, если пользователь щелкает за его пределами
 window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn') && !event.target.matches('.dropNoClose')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
+    if (!event.target.matches('.dropbtn') && !event.target.matches('.dropNoClose')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
     }
-  }
-  test();
+    change_size_genre_filter();
+
+    if (!event.target.matches('#sort_button') && !event.target.matches('#sort_name')) {
+        var openDropdown = document.getElementById("dropdown_sort");
+        if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+        }
+    }
+}
+
+function change_sort(element,order_by){
+    var url = new URL(window.location.href);
+    var search_params = url.searchParams;
+    search_params.set('page', 1);
+    search_params.set('order_by', order_by);
+    url.search = search_params.toString();
+    var new_url = url.toString();
+
+    document.getElementById('sort_name').textContent=element.innerHTML;
+    window.history.replaceState(null, null, new_url);
+    getAnimesByFilters();
 }
 </script>
 

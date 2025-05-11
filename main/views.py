@@ -36,6 +36,11 @@ def listAnimePage(request):
         except ValueError:
             pass
 
+    try:
+        order_by = int(request.GET.get('order_by', 0))
+    except ValueError:
+        order_by = 0
+
     return render(request, "listAnimePage.html", context={
     'anime_filter':
         {
@@ -44,7 +49,8 @@ def listAnimePage(request):
             'date_from':date_release_from.year,
             'date_to': date_release_to.year,
             'genres': genresFilter,
-            'selected_genres': selected_genres
+            'selected_genres': selected_genres,
+            'order_by': order_by
         }
     })
 
@@ -120,6 +126,11 @@ def get_anime(request):
         except ValueError:
             pass
 
+    try:
+        order_by = int(request.POST.get('order_by', 0))
+    except ValueError:
+        order_by = 0
+
     animes = anime.objects.all()
 
     if selected_genres:
@@ -132,6 +143,15 @@ def get_anime(request):
                 date_release_to
             )
         )
+
+    if order_by == 1:
+        animes = animes.order_by('-releaseYear')
+    elif order_by == 2:
+        animes = animes.order_by('releaseYear')
+    elif order_by == 3:
+        animes = animes.order_by('-review')
+    elif order_by == 4:
+        animes = animes.order_by('review')
 
     if animes.count() != 0:
         pages = ceil(animes.count()/limit)
