@@ -3,6 +3,7 @@
 {% block head %}
 <link href="{% static 'css/listAnimePage.css' %}" rel="stylesheet" />
 <script src="{% static 'js/jquery/3.5.1/jquery.min.js' %}"></script>
+<script src="{% static 'js/anime.js' %}"></script>
 {% endblock %}
 {% block main %}
 <div id="filter_button" class="anime_menu_button anime_menu">Фильтры</div>
@@ -92,7 +93,7 @@
         </datalist>
     </div>
     <div id="dropdown_id" class="dropdown">
-        <button onclick="myFunction()" class="dropbtn">Жанры</button>
+        <button onclick="show_genres_filter()" class="dropbtn">Жанры</button>
         <div id="myDropdown" class="dropdown-content">
             {% for genre in anime_filter.genres %}
                 <div onclick="setGenreFilter(this,{{ genre.id }})" class="dropNoClose"><input class="dropNoClose checkboxGenres" type="checkbox" value="{{ genre.id }}" {% if genre.id in anime_filter.selected_genres %}checked{% endif %} /><label class="dropNoClose checkboxGenresLabel" for="scales">{{genre}}</label></div>
@@ -111,75 +112,58 @@
 <script>
     document.getElementById("loaderFullFill").style.display = "block";
 
-      const range1 = document.querySelector('#tailmetr1')
-      range1.addEventListener('input', handleInputRange1)
-      range1.addEventListener('change', change1)
+    const range1 = document.querySelector('#tailmetr1')
+    range1.addEventListener('input', handleInputRange1)
+    range1.addEventListener('change', change1)
 
-      const range2 = document.querySelector('#tailmetr2')
-      range2.addEventListener('input', handleInputRange2)
-      range2.addEventListener('change', change2)
+    const range2 = document.querySelector('#tailmetr2')
+    range2.addEventListener('input', handleInputRange2)
+    range2.addEventListener('change', change2)
 
-      function change1 () {
-           const value1 = event.target.parentNode.parentNode.style.getPropertyValue('--value-1');
-
-            var url = new URL(window.location.href);
-            var search_params = url.searchParams;
-            search_params.set('date_release_from', value1);
-            search_params.set('page', 1);
-            url.search = search_params.toString();
-            var new_url = url.toString();
-
-            window.history.replaceState(null, null, new_url);
-            getAnimesByFilters();
-      }
-      function change2 () {
-        const value2 = event.target.parentNode.parentNode.style.getPropertyValue('--value-2');
-        var url = new URL(window.location.href);
-        var search_params = url.searchParams;
-        search_params.set('date_release_to', value2);
-        search_params.set('page', 1);
-        url.search = search_params.toString();
-        var new_url = url.toString();
-
-        window.history.replaceState(null, null, new_url);
+    function change1 () {
+        const value1 = event.target.parentNode.parentNode.style.getPropertyValue('--value-1');
+        setUrlParams([
+            {name:'page', value:1},
+            {name:'date_release_from', value:value1}
+        ]);
         getAnimesByFilters();
-      }
+    }
+    function change2 () {
+        const value2 = event.target.parentNode.parentNode.style.getPropertyValue('--value-2');
+        setUrlParams([
+            {name:'page', value:1},
+            {name:'date_release_to', value:value2}
+        ]);
+        getAnimesByFilters();
+    }
 
-      function handleInputRange1() {
-        const value2 = event.target.parentNode.parentNode.style.getPropertyValue('--value-2')
+    function handleInputRange1() {
+        const value2 = event.target.parentNode.parentNode.style.getPropertyValue('--value-2');
         if (parseInt(event.target.value) >= parseInt(value2)) {
-          event.target.value = value2
+            event.target.value = value2
         }
         if (event.target.value === '{{ anime_filter.max_date_release }}') {
-          event.target.style.zIndex = '{{ anime_filter.max_date_release }}'
+            event.target.style.zIndex = '{{ anime_filter.max_date_release }}'
         } else {
-          event.target.style.zIndex = '{{ anime_filter.min_date_release }}'
+            event.target.style.zIndex = '{{ anime_filter.min_date_release }}'
         }
-        event.target.parentNode.parentNode.style.setProperty(
-          '--value-1',
-          event.target.value
-        )
-        event.target.nextElementSibling.value = event.target.value
-      }
+        event.target.parentNode.parentNode.style.setProperty('--value-1',event.target.value);
+        event.target.nextElementSibling.value = event.target.value;
+    }
 
-      function handleInputRange2() {
+    function handleInputRange2() {
         const value1 = event.target.parentNode.parentNode.style.getPropertyValue('--value-1');
         if (parseInt(event.target.value) <= parseInt(value1)) {
-          console.log(event.target.value)
-          event.target.value = value1
+            event.target.value = value1;
         }
         if (event.target.value === '{{ anime_filter.min_date_release }}') {
-          event.target.style.zIndex = '{{ anime_filter.max_date_release }}'
+            event.target.style.zIndex = '{{ anime_filter.max_date_release }}';
         } else {
-          event.target.style.zIndex = '{{ anime_filter.min_date_release }}'
+            event.target.style.zIndex = '{{ anime_filter.min_date_release }}';
         }
-        event.target.parentNode.parentNode.style.setProperty(
-          "--value-2",
-          event.target.value
-        )
-        event.target.nextElementSibling.value = event.target.value
-
-      }
+        event.target.parentNode.parentNode.style.setProperty("--value-2",event.target.value);
+        event.target.nextElementSibling.value = event.target.value;
+    }
 
     document.getElementById('filter_button').addEventListener('click', show_filters);
     document.getElementById('close_anime_filter').addEventListener('click', close_filters);
@@ -224,13 +208,9 @@
     }
 
     function changePage(page){
-        var url = new URL(window.location.href);
-        var search_params = url.searchParams;
-        search_params.set('page', page);
-        url.search = search_params.toString();
-        var new_url = url.toString();
-
-        window.history.replaceState(null, null, new_url);
+        setUrlParams([
+            {name:'page',value:page}
+        ]);
         window.scrollTo(0, 0);
         getAnimesByFilters();
     }
@@ -252,14 +232,12 @@
             filter_genre.push(idGenre);
             element.children[0].checked=true;
         }
-        var url = new URL(window.location.href);
-        var search_params = url.searchParams;
-        search_params.set('page', 1);
-        search_params.set('filter_genres', filter_genre.join('-'));
-        url.search = search_params.toString();
-        var new_url = url.toString();
 
-        window.history.replaceState(null, null, new_url);
+        setUrlParams([
+            {name:'page', value:1},
+            {name:'filter_genres',value:filter_genre.join('-')}
+        ]);
+
         window.scrollTo(0, 0);
         getAnimesByFilters();
     }
@@ -348,10 +326,9 @@
             }
         });
     }
-/* Когда пользователь нажимает на кнопку,
-переключение между скрытием и отображением раскрывающегося содержимого */
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
+
+function show_genres_filter() {
+    document.getElementById("myDropdown").classList.toggle("show");
 }
 
 getAnimesByFilters();
@@ -377,7 +354,15 @@ function change_size_genre_filter() {
     }
 }
 
-// Закройте выпадающее меню, если пользователь щелкает за его пределами
+function change_sort(element,order_by){
+    setUrlParams([
+        {name:'page',value: 1},
+        {name:'order_by',value:order_by}
+    ]);
+    document.getElementById('sort_name').textContent=element.innerHTML;
+    getAnimesByFilters();
+}
+
 window.onclick = function(event) {
     if (!event.target.matches('.dropbtn') && !event.target.matches('.dropNoClose')) {
         var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -397,19 +382,6 @@ window.onclick = function(event) {
             openDropdown.classList.remove('show');
         }
     }
-}
-
-function change_sort(element,order_by){
-    var url = new URL(window.location.href);
-    var search_params = url.searchParams;
-    search_params.set('page', 1);
-    search_params.set('order_by', order_by);
-    url.search = search_params.toString();
-    var new_url = url.toString();
-
-    document.getElementById('sort_name').textContent=element.innerHTML;
-    window.history.replaceState(null, null, new_url);
-    getAnimesByFilters();
 }
 </script>
 
