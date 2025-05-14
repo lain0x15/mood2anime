@@ -318,7 +318,7 @@
                 }
                 let oldNode = document.getElementById('animeRows');
                 setTimeout(() => {
-                    oldNode.parentElemzent.replaceChild(newAnimeRows, oldNode);
+                    oldNode.parentElement.replaceChild(newAnimeRows, oldNode);
                     renderPager(JSON.parse(data).page, JSON.parse(data).pages);
                     first_lock_getAnimesByFilters = false;
                  }, 300);
