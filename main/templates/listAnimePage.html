@@ -326,6 +326,11 @@
             },
             error: function(jqXHR, exception){
                 first_lock_getAnimesByFilters = false;
+                if (!second_lock_getAnimesByFilters){
+                    setTimeout(() => {
+                        getAnimesByFilters();
+                    }, 500);
+                }
             }
         });
     }
