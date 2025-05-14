@@ -325,8 +325,7 @@
                  setTimeout(() => {  document.getElementById("loaderFullFill").style.display = "none"; }, 300);
             },
             error: function(jqXHR, exception){
-                console.log(jqXHR);
-                console.log(exception);
+                first_lock_getAnimesByFilters = false;
             }
         });
     }
