@@ -18,6 +18,7 @@ from django.urls import path
 from main import views as mainViews
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', mainViews.homePage, name = 'home'),
@@ -25,7 +26,9 @@ urlpatterns = [
     path('animePage/<str:url_name>', mainViews.animePage, name = 'animePage'),
     path('getAnimeByID/<int:id>', mainViews.getAnimeByID, name="getAnimeByID"),
     path('getIDsAnime', mainViews.getIDsAnime, name="getIDsAnime"),
-    path('sitemap.xml', mainViews.sitemap, name="sitemap")
+    path('api/anime/get', mainViews.get_anime, name="get_anime"),
+    path('sitemap.xml', mainViews.sitemap, name="sitemap"),
+    path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain'))
 ]
 
 if settings.DEBUG:

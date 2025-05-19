@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import anime, genres, genreAnime
+from .models import anime, genres
 from django.http import JsonResponse, HttpResponse
 import datetime
 from django.conf import settings
@@ -12,18 +12,47 @@ def homePage(request):
     return render(request, "homePage.html")
 
 def listAnimePage(request):
-    pageLimit = 25
-    try:
-        page = int(request.GET.get('page', 1))
-        page = page if page >= 1 else 1
-    except ValueError:
-        page = 1
+    min_date_release = anime.objects.order_by('releaseYear')[0].releaseYear.year
+    max_date_release = datetime.datetime.now().year
 
-    animes = anime.objects.all()
-    pages = ceil(animes.count()/pageLimit)
-    page = pages if page > pages else page
-    animes = animes[pageLimit * (page - 1):pageLimit * page]
-    return render(request, "listAnimePage.html", context={'animes':animes, 'pages':pages, 'currentPage':page})
+    try:
+        date_release_from = int(request.GET.get('date_release_from', min_date_release))
+        date_release_from = datetime.datetime(date_release_from, 1, 1)
+    except ValueError:
+        date_release_from = datetime.datetime(min_date_release, 1, 1)
+    try:
+        date_release_to = int(request.GET.get('date_release_to', max_date_release))
+        date_release_to = datetime.datetime(date_release_to, 1, 1)
+    except ValueError:
+        date_release_to = datetime.datetime(max_date_release, 1, 1)
+
+    genresFilter = genres.objects.all()
+
+    selected_genres_req = request.GET.get('filter_genres', '').split('-')
+    selected_genres = []
+    for selected_genre in selected_genres_req:
+        try:
+            selected_genres.append(int(selected_genre))
+        except ValueError:
+            pass
+
+    try:
+        order_by = int(request.GET.get('order_by', 0))
+    except ValueError:
+        order_by = 0
+
+    return render(request, "listAnimePage.html", context={
+    'anime_filter':
+        {
+            'min_date_release': min_date_release,
+            'max_date_release': max_date_release,
+            'date_from':date_release_from.year,
+            'date_to': date_release_to.year,
+            'genres': genresFilter,
+            'selected_genres': selected_genres,
+            'order_by': order_by
+        }
+    })
 
 def animePage(request, url_name):
     animeContext = get_object_or_404(anime, url_name=url_name)
@@ -32,7 +61,7 @@ def animePage(request, url_name):
 def getIDsAnime(request):
     if request.method != "POST":
         return HttpResponseNotAllowed(["POST"])
-    animeIDs = anime.objects.all()
+    animeIDs = anime.objects.all().order_by('?')[:500]
 
     animeIDs = [animeRow.id for animeRow in animeIDs]
     response = JsonResponse({'status': 'ok', 'animeIDs':animeIDs})
@@ -54,9 +83,93 @@ def getAnimeByID (request, id):
         'releaseYear': responseAnime.releaseYear,
         'review': responseAnime.review,
         'description': responseAnime.description,
-        'genre': [genre.genreID.name for genre in responseAnime.getGenres()]
+        'genre': [genre.name for genre in responseAnime.genres.all()]
     }
     response = JsonResponse({'status': 'ok', 'anime':animeDict})
+    return response
+
+def get_anime(request):
+    if request.method != "POST":
+        return HttpResponseNotAllowed(["POST"])
+
+    try:
+        limit = int(request.POST.get('limit', 25))
+    except ValueError:
+        limit = 25
+    limit = limit if 1 <= limit and limit <= 25 else 25
+
+    try:
+        page = int(request.POST.get('page', 1))
+    except ValueError:
+        page = 1
+    page = page if page >= 1 else 1
+    pages = 0
+
+    min_date_release = anime.objects.order_by('releaseYear')[0].releaseYear.year
+    max_date_release = datetime.datetime.now().year
+    try:
+        date_release_from = int(request.POST.get('date_release_from', min_date_release))
+        date_release_from = datetime.datetime(date_release_from, 1, 1)
+    except ValueError:
+        date_release_from = datetime.datetime(min_date_release, 1, 1)
+    try:
+        date_release_to = int(request.POST.get('date_release_to', max_date_release))
+        date_release_to = datetime.datetime(date_release_to, 1, 1)
+    except ValueError:
+        date_release_to = datetime.datetime(max_date_release, 1, 1)
+
+    selected_genres_req = request.POST.get('filter_genres', '').split('-')
+    selected_genres = []
+    for selected_genre in selected_genres_req:
+        try:
+            selected_genres.append(int(selected_genre))
+        except ValueError:
+            pass
+
+    try:
+        order_by = int(request.POST.get('order_by', 0))
+    except ValueError:
+        order_by = 0
+
+    animes = anime.objects.all()
+
+    if selected_genres:
+        animes = animes.filter(genres__in=selected_genres).distinct()
+
+    if date_release_from.year != min_date_release or date_release_to.year != max_date_release:
+        animes = animes.filter(
+            releaseYear__range=(
+                date_release_from,
+                date_release_to
+            )
+        )
+
+    if order_by == 1:
+        animes = animes.order_by('-releaseYear')
+    elif order_by == 2:
+        animes = animes.order_by('releaseYear')
+    elif order_by == 3:
+        animes = animes.order_by('-review')
+    elif order_by == 4:
+        animes = animes.order_by('review')
+
+    if animes.count() != 0:
+        pages = ceil(animes.count()/limit)
+        page = pages if page > pages else page
+        animes = [{
+            'url_name': anime.url_name,
+            'name': anime.name,
+            'trailer': anime.trailer,
+            'releaseYear': anime.releaseYear,
+            'review': anime.review,
+            'description': anime.description,
+            'portraitImage': anime.portraitImage.url,
+            'genre': [genre.name for genre in anime.genres.all()]
+        } for anime in animes[limit * (page - 1):limit * page]]
+    else:
+        animes = []
+
+    response = JsonResponse({'animes':animes, 'page': page, 'pages': pages})
     return response
 
 def sitemap(request):

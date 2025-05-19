@@ -31,19 +31,10 @@ class anime(models.Model):
     studio = models.ManyToManyField(studios)
     type_field = models.ForeignKey(types_model, on_delete=models.PROTECT, null=True)
     franchise = models.ForeignKey(franchises, on_delete=models.PROTECT, null=False)
-
-    def getGenres(self):
-        return genreAnime.objects.filter(animeID=self)
+    genres = models.ManyToManyField(genres)
 
     def getFranchisesAnime(self):
         return anime.objects.filter(franchise=self.franchise.id).order_by('releaseYear')
 
     def __str__(self):
         return self.name
-
-class genreAnime(models.Model):
-    genreID = models.ForeignKey(genres, on_delete=models.CASCADE)
-    animeID = models.ForeignKey(anime, on_delete=models.CASCADE)
-    
-    def __str__(self):
-        return self.genreID.name + ' | ' + self.animeID.name

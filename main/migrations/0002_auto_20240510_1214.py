@@ -8,12 +8,10 @@ from random import shuffle
 
 def addGenres (apps, scheme_editor):
     genres = apps.get_model('main', 'genres')
-    genresName = [ 'Апокалиптика', 'Боевик', 'Боевые искусства', 'Детектив', 'Добуцу',
-      'Драма', 'Идолы', 'Икудзи', 'Исторические произведения', 'Кайто', 'Киберпанк', 'Комедия',
-      'Махо-сёдзё', 'Моэ', 'Меха', 'Мистика', 'Научная фантастика', 'Отаку', 'Парапсихология', 'Паропанк/Стимпанк',
-      'Повседневность', 'Постапокалиптика', 'Психологический триллер', 'Триллер', 'Исэкай', 'Романтика', 'Спокон', 'Токусацу', 'Фэнтези',
-      'Супер сила', 'Приключения', 'Сёнэн', 'Экшен', 'Фантастика', 'Пародия', 'Исторический', 'Сверхъестественное', 'Сэйнэн', 'Этти', 'Сёнен',
-      'Самураи'
+    genresName = ['Боевик', 'Детектив', 'Драма', 'Комедия', 'Научная фантастика', 'Повседневность',
+      'Психологический триллер', 'Триллер', 'Исэкай', 'Романтика', 'Фэнтези',
+      'Супер сила', 'Приключения', 'Сёнэн', 'Экшен', 'Фантастика', 'Пародия', 'Исторический',
+      'Сверхъестественное', 'Сэйнэн', 'Этти', 'Сёнен', 'Самураи'
     ]
     for genreName in genresName:
         genres.objects.create (name=genreName)
@@ -166,7 +164,6 @@ def addFranchises (apps, scheme_editor):
 def addAnime (apps, scheme_editor):
     anime = apps.get_model('main', 'anime')
 
-    genreAnime = apps.get_model('main', 'genreAnime')
     genres = apps.get_model('main', 'genres')
     studiosModel = apps.get_model('main', 'studios')
     types_model = apps.get_model('main', 'types_model')
@@ -1097,7 +1094,7 @@ def addAnime (apps, scheme_editor):
         for animeStudioName in animeField['anime']['studios']:
             createdAnime.studio.add(studiosModel.objects.get(name=animeStudioName))
         for genre in animeField['genres']:
-            genreAnime.objects.create(animeID = createdAnime, genreID=genres.objects.get(name=genre))
+            createdAnime.genres.add(genres.objects.get(name=genre))
 
 class Migration(migrations.Migration):
     dependencies = [
