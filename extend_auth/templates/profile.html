@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Профиль{%endblock%}
+
+{% block main %}
+{{ user.get_username }}
+
+<a href="{% url 'password_change' %}">Сменить пароль</a>
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Выйти</button>
+</form>
+{% endblock %}

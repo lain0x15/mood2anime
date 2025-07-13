@@ -32,6 +32,19 @@
                         &emsp;Список&emsp;
                     </b>
                 </a>
+                {% if user.is_authenticated %}
+                <a href = "{% url 'profile' %}">
+                    <b>
+                        &emsp;Профиль&emsp;
+                    </b>
+                </a>
+                {% else %}
+                <a href = "{% url 'login' %}">
+                    <b>
+                        &emsp;Вход&emsp;
+                    </b>
+                </a>
+                {% endif %}
             </div>
         </div>
     </div>
