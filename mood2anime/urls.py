@@ -31,6 +31,7 @@ urlpatterns = [
     path('sitemap.xml', mainViews.sitemap, name="sitemap"),
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     path("accounts/", include("django.contrib.auth.urls")),
+    path('accounts/signup/', extend_auth_views.signup, name='signup'),
     path('accounts/profile/', extend_auth_views.profile, name='profile'),
 ]
 

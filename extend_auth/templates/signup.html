@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Вход{%endblock%}
+{% block head %}<link href="{% static 'css/registration/signup.css' %}" rel="stylesheet" />{% endblock %}
+{% block bodyHeader %}{% endblock %}
+
+{% block main %}
+<div class="middle">
+    <div class="wrapper">
+        {% if form.errors %}
+        <p>{{form.errors}}</p>
+        {% endif %}
+        <form method="POST" novalidate>
+            {% csrf_token %}
+            <input placeholder="Логин" type="text" name="username" maxlength="150" autofocus="" required="" aria-describedby="id_username_helptext" id="id_username">
+            <input placeholder="email" type="email" name="email" maxlength="254" id="id_email">
+            <input placeholder="Пароль" type="password" name="password1" autocomplete="new-password" id="id_password1">
+            <input placeholder="Подтверждение пароля" type="password" name="password2" autocomplete="new-password" aria-describedby="id_password2_helptext" id="id_password2">
+            <input type="submit" value="Зарегистрироваться" />
+        </form>
+    </div>
+</div>
+{% endblock %}
