@@ -33,6 +33,7 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path('accounts/signup/', extend_auth_views.signup, name='signup'),
     path('accounts/profile/', extend_auth_views.profile, name='profile'),
+    path('accounts/change_email/', extend_auth_views.email_change, name='change_emain')
 ]
 
 if settings.DEBUG:

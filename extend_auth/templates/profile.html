@@ -1,13 +1,49 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Профиль{%endblock%}
+{% block head %}
+    <link href="{% static 'css/registration/profile.css' %}" rel="stylesheet" />
+{% endblock %}
 
 {% block main %}
-{{ user.get_username }}
+<div class="profile">
+    <div class="wrapper">
+        <div class="profile_grid">
+            <img class="avatar" src="{% static 'img/default_avatar.png' %}">
+            <div>
+                <div class="username">{{ user.get_username }}</div>
+                <hr class="separator">
+                <div class="email">Почта: {{ user.email }}</div>
+            </div>
+        </div>
+        <a href="{% url 'change_emain' %}">Изменить эл. почту</a>
+        <a href="{% url 'password_change' %}">Сменить пароль</a>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Выйти</button>
+        </form>
+    </div>
+</div>
 
-<a href="{% url 'password_change' %}">Сменить пароль</a>
-<form action="{% url 'logout' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Выйти</button>
-</form>
+<script>
+
+const inpEdit = document.getElementById('inpedit');
+document.getElementById('btn').addEventListener('click', (event) => {
+  if (inpEdit.readOnly) inpEdit.focus();
+  inpEdit.readOnly = !inpEdit.readOnly;
+  event.stopPropagation();
+})
+
+inpEdit.addEventListener('click', event => event.stopPropagation());
+
+// Если сработает, значит клик не на кнопке и не на поле
+document.addEventListener('click', () => {
+    inpEdit.readOnly = true
+});
+
+inpEdit.oninput = function() {
+  const textWidth = getTextWidth(this.value, window.getComputedStyle(this).font);
+  this.style.width = (textWidth + 4) + 'px';
+};
+</script>
 {% endblock %}

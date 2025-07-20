@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Смена email{% endblock %}
+{% block head %}<link href="{% static 'css/registration/email_change.css' %}" rel="stylesheet">{% endblock %}
+{% block bodyHeader %}{% endblock %}
+{% block main %}
+<div class="middle">
+    <div class="wrapper">
+        <p>Изменение почты</p>
+        {% if form.errors %}
+        <p>{{form.errors}}</p>
+        {% endif %}
+        <form method="POST" novalidate>
+        {% csrf_token %}
+        <input placeholder="Пароль" type="password" name="password1" autocomplete="password" required="" id="id_password1">
+        <input placeholder="Новый email" type="email" name="new_email1" maxlength="320" required="" id="id_new_email1">
+        <input placeholder="Подтверждение email" type="email" name="new_email2" maxlength="320" required="" id="id_new_email2">
+        <input type="submit" value="Изменить почту" />
+        </form>
+    </div>
+</div>
+{% endblock %}
