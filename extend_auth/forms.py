@@ -81,3 +81,17 @@ class email_change_form(forms.Form):
         if commit:
             self.user.save()
         return self.user
+
+class avatar_change_form(forms.Form):
+    avatar = forms.ImageField()
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super(avatar_change_form, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        if commit:
+            Profile.objects.update_or_create (
+                user=self.user,
+                defaults={"portrait": self.cleaned_data["avatar"]}
+            )

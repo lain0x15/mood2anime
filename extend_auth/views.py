@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib.auth.models import User
-from .forms import signup_form, email_change_form
+from .forms import signup_form, email_change_form, avatar_change_form
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -41,3 +42,15 @@ def email_change(request):
             return redirect("/accounts/profile/")
         else:
             return render(request, "email_change.html", {'form':form})
+
+@login_required
+def avatar_change(request):
+    if request.method=='POST':
+        form = avatar_change_form(request.user, request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            print('yes')
+            return JsonResponse({'status': 'ok'})
+        else:
+            return JsonResponse({'status': form.errors})
+        return JsonResponse({'status': 'wtf'})
