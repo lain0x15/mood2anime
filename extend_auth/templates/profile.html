@@ -16,34 +16,12 @@
                 <div class="email">Почта: {{ user.email }}</div>
             </div>
         </div>
-        <a href="{% url 'change_emain' %}">Изменить эл. почту</a>
-        <a href="{% url 'password_change' %}">Сменить пароль</a>
+        <div><a href="{% url 'change_emain' %}">Изменить эл. почту</a></div>
+        <div><a href="{% url 'password_change' %}">Сменить пароль</a></div>
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <button type="submit">Выйти</button>
         </form>
     </div>
 </div>
-
-<script>
-
-const inpEdit = document.getElementById('inpedit');
-document.getElementById('btn').addEventListener('click', (event) => {
-  if (inpEdit.readOnly) inpEdit.focus();
-  inpEdit.readOnly = !inpEdit.readOnly;
-  event.stopPropagation();
-})
-
-inpEdit.addEventListener('click', event => event.stopPropagation());
-
-// Если сработает, значит клик не на кнопке и не на поле
-document.addEventListener('click', () => {
-    inpEdit.readOnly = true
-});
-
-inpEdit.oninput = function() {
-  const textWidth = getTextWidth(this.value, window.getComputedStyle(this).font);
-  this.style.width = (textWidth + 4) + 'px';
-};
-</script>
 {% endblock %}
