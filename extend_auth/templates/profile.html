@@ -34,7 +34,10 @@
 <div class="profile">
     <div class="wrapper">
         <div class="profile_grid">
-            <img class="avatar" src="{% if user.profile.portrait %}{{user.profile.portrait.url}}{% else %}{% static 'img/default_avatar.png' %}{% endif %}">
+            <label class="label" data-toggle="tooltip" title="Изменить аватар">
+                <img class="avatar" id="avatar" src="{% if user.profile.portrait %}{{user.profile.portrait.url}}{% else %}{% static 'img/default_avatar.png' %}{% endif %}">
+                <input type="file" class="sr-only" id="input" name="image" accept="image/*">
+            </label>
             <div>
                 <div class="username">{{ user.get_username }}</div>
                 <hr class="separator">
@@ -51,10 +54,7 @@
 </div>
 
 <div class="container">
-    <label class="label" data-toggle="tooltip" title="Change your avatar">
-        <img class="rounded" id="avatar" src="{% if user.profile.portrait %}{{user.profile.portrait.url}}{% else %}{% static 'img/default_avatar.png' %}{% endif %}" alt="avatar">
-        <input type="file" class="sr-only" id="input" name="image" accept="image/*">
-    </label>
+
     <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
     </div>
