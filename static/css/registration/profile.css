@@ -214,3 +214,31 @@ button.close {
     background-color: #000;
     opacity: .5;
 }
+
+@media (width <= 1024px) and (orientation: portrait) {}
+@media (width <= 768px) and (orientation: portrait) {
+    .wrapper {
+        width: 100%;
+    }
+}
+@media (width <= 480px) and (orientation: portrait) {
+    .profile_grid {
+        display: grid;
+        grid-template-columns: auto;
+    }
+}
+@media (width <= 320px) and (orientation: portrait) {}
+
+@media (width <= 1024px) and (orientation: landscape) {}
+@media (width <= 768px) and (orientation: landscape) {
+    .wrapper {
+        width: 100%;
+    }
+}
+@media (width <= 480px) and (orientation: landscape) {
+    .profile_grid {
+        display: grid;
+        grid-template-columns: auto;
+    }
+}
+@media (width <= 320px) and (orientation: landscape) {}
