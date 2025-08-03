@@ -6,21 +6,28 @@
 {% block main %}
 <div class="middle">
     <div class="wrapper">
-        {% if form.errors %}
-        <p>Ваши имя пользователя и пароль не совпали. Пожалуйста, попробуйте снова.</p>
-        {% endif %}
-        <form method="post" action="{% url 'login' %}" class="auth_form">
-            {% csrf_token %}
-            <input placeholder="Логин" type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
-            <input placeholder="Пароль" type="password" name="password" autocomplete="current-password" required="" id="id_password">
+        <div class="left_side">
+            <img src="{% static 'img/girl.png' %}">
+        </div>
+        <div class="right_side">
+            <p><b style="font-size: 1.5em;">Аутентификация</b></p>
+            {% if form.errors %}
+            <p>Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте снова.</p>
+            {% endif %}
+            <form method="post" action="{% url 'login' %}" class="auth_form">
+                {% csrf_token %}
+                <input class="auth_form_input" placeholder="Логин" type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
+                <input class="auth_form_input" placeholder="Пароль" type="password" name="password" autocomplete="current-password" required="" id="id_password">
+                <div class="buttons_grid">
+                    <input class="buttons" type="submit" value="Войти">
+                    <a class="buttons" href="{% url 'signup' %}">Регистрация</a>
+                    <a class="buttons" href="{% url 'password_reset' %}">Забыли пароль?</a>
+                </div>
+                <input type="hidden" name="next" value="{{ next }}">
+            </form>
 
-            <input type="submit" value="Войти">
-            <input type="hidden" name="next" value="{{ next }}">
-        </form>
 
-        {# Assumes you set up the password_reset view in your URLconf #}
-        <p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
-        <p><a href="{% url 'signup' %}">Зарегистрировать новый аккаунт</a></p>
+        </div>
     </div>
 </div>
 {% endblock %}
