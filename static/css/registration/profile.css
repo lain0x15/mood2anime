@@ -217,6 +217,9 @@ button.close {
 
 @media (width <= 1024px) and (orientation: portrait) {}
 @media (width <= 768px) and (orientation: portrait) {
+    .modal-footer > button,.username,.email,.change_email_button,.change_pass_button,.exit_button {
+        font-size: 1.9em;
+    }
     .wrapper {
         width: 100%;
     }
@@ -231,6 +234,9 @@ button.close {
 
 @media (width <= 1024px) and (orientation: landscape) {}
 @media (width <= 768px) and (orientation: landscape) {
+    .modal-footer > button,.username,.email,.change_email_button,.change_pass_button,.exit_button {
+        font-size: 1.9em;
+    }
     .wrapper {
         width: 100%;
     }
