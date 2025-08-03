@@ -5,7 +5,7 @@
     <link href="{% static 'css/registration/profile.css' %}" rel="stylesheet" />
     <script src="{% static 'js/jquery/3.5.1/jquery.min.js' %}"></script>
 
-    <script src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}" crossorigin="anonymous"></script>
 
     <link href="{% static 'css/cropper/cropper.css' %}" rel="stylesheet" />
     <script src="{% static 'js/cropper/cropper.js' %}"></script>
@@ -18,7 +18,7 @@
 <div class="profile">
     <div class="wrapper">
         <div class="profile_grid">
-            <label class="avatar_label" data-toggle="tooltip" data-title="Изменить аватар">
+            <label class="avatar_label" data-title="Изменить аватар">
                 <img class="avatar" id="avatar" src="{% if user.profile.portrait %}{{user.profile.portrait.url}}{% else %}{% static 'img/default_avatar.png' %}{% endif %}">
                 <input type="file" class="sr-only" id="input" name="image" accept="image/*">
             </label>

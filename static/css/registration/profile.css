@@ -160,7 +160,6 @@ button.close {
     font-size: 1em;
     cursor: pointer;
     height: 30px;
-    line-height: 30px;
     user-select: none;
     box-sizing: border-box;
 }
