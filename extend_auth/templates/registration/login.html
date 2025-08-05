@@ -10,9 +10,9 @@
             <img src="{% static 'img/girl.png' %}">
         </div>
         <div class="right_side">
-            <p><b style="font-size: 1.5em;">Аутентификация</b></p>
+            <p><b class="title_form">Аутентификация</b></p>
             {% if form.errors %}
-            <p>Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте снова.</p>
+            <p class="error_form">Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте снова.</p>
             {% endif %}
             <form method="post" action="{% url 'login' %}" class="auth_form">
                 {% csrf_token %}

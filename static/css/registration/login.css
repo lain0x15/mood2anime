@@ -15,6 +15,7 @@
     display: grid;
     grid-template-columns: auto auto;
     gap: 5px;
+    max-width: 703px;
 }
 
 .left_side {
@@ -26,13 +27,12 @@
     width: 200px;
 }
 
-.right_side > p {
+.title_form,.error_form {
     font-size: 1.2em;
 }
 
 .auth_form {
     width: 100%;
-    font-size: 1.2em;
 }
 
 .auth_form > .auth_form_input {
@@ -41,7 +41,7 @@
     box-sizing: border-box;
     border: none;
     border-bottom: solid 1px red;
-    font-size: 1em;
+    font-size: 1.2em;
 }
 
 .auth_form > .auth_form_input:focus {
@@ -64,11 +64,10 @@
     text-align: center;
     padding: 0px;
     margin: 0px;
-
     border: solid 3px red;
     border-radius: 6px;
     transition: background-color 0.5s ease-out 100ms;
-    font-size: 1em;
+    font-size: 1.2em;
     cursor: pointer;
     height: 36px;
     line-height: 30px;
@@ -76,8 +75,6 @@
     width: 100%;
     box-sizing: border-box;
     background: white;
-
-
     text-decoration: none;
     color: black;
 }
@@ -85,3 +82,51 @@
 .buttons:hover {
     background: red;
 }
+
+.title_form {
+    font-size: 2em;
+}
+
+@media (width <= 1024px) and (orientation: portrait) {}
+@media (width <= 768px) and (orientation: portrait) {}
+@media (width <= 480px) and (orientation: portrait) {
+    .middle{
+        align-items: stretch;
+        height: auto;
+    }
+    .wrapper {
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        display: block;
+        width: 100%;
+    }
+    .left_side {
+        display: none;
+    }
+    .title_form {
+        font-size: 3em;
+    }
+    .buttons,.error_form,.auth_form > .auth_form_input {
+        font-size: 2em;
+    }
+}
+@media (width <= 320px) and (orientation: portrait) {}
+
+@media (width <= 1024px) and (orientation: landscape) {}
+@media (width <= 768px) and (orientation: landscape) {
+    .middle{
+        align-items: stretch;
+        height: auto;
+    }
+    .wrapper {
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+    }
+}
+@media (width <= 480px) and (orientation: landscape) {
+
+
+}
+@media (width <= 320px) and (orientation: landscape) {}
