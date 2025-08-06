@@ -9,17 +9,36 @@ class signup_form(UserCreationForm):
         model=User
         fields = ['username','email','password1','password2']
 
+    def __init__(self, *args, **kwargs):
+        super(signup_form, self).__init__(*args, **kwargs)
+        ru_label = {
+            'username': 'Логин',
+            'email': 'email',
+            'password1': 'пароль',
+            'password2': 'Подтверждение пароля'
+        }
+        self.error_messages.update({
+            'password_mismatch':'Пароли не совпадают'
+        })
+        self.fields['username'].error_messages['unique'] = f'Логин занят'
+        self.fields['email'].error_messages['invalid'] = f'Неверный формат почтового адреса'
+        for k, field in self.fields.items():
+            field.error_messages['required'] = f'Поле "{ru_label[k]}" обязательно!'
+
+
     def clean_email(self):
         cleaned_email = self.cleaned_data.get('email')
-        if User.objects.filter(email=cleaned_email).exists():
-            raise ValidationError("Почта уже привязана к другому аккаунту")
+        if cleaned_email == '':
+            raise ValidationError("Неверный формат почтового адреса", code='invalid')
+        elif User.objects.filter(email=cleaned_email).exists():
+            raise ValidationError("Почта уже привязана к другому аккаунту", code='unique')
         return cleaned_email
 
 class email_change_form(forms.Form):
     error_messages = {
         'password_error': "Неправильный пароль",
-        'email_mismatch': "The two email addresses fields didn't match.",
-        'not_changed': "The email address is the same as the one already defined.",
+        'email_mismatch': "Введённые адреса электронной почты не совпадают",
+        'not_changed': "Адрес электронной почты совпадает с уже привязанным к пользователю",
     }
 
     password1 = forms.CharField(
