@@ -125,8 +125,5 @@
         -moz-box-shadow: none;
     }
 }
-@media (width <= 480px) and (orientation: landscape) {
-
-
-}
+@media (width <= 480px) and (orientation: landscape) {}
 @media (width <= 320px) and (orientation: landscape) {}
