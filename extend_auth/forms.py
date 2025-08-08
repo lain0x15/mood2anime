@@ -81,6 +81,8 @@ class email_change_form(forms.Form):
                     self.error_messages['not_changed'],
                     code='not_changed',
                 )
+            elif User.objects.filter(email=new_email1).exists():
+                raise forms.ValidationError("Почта уже привязана к другому аккаунту", code='unique')
         return new_email1
 
     def clean_new_email2(self):
