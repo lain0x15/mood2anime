@@ -30,6 +30,22 @@
 
 .email {
     font-size: 1.2em;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+}
+
+.email::after {
+    content: "🖉";
+    display: none;
+    font-size: 1.2rem;
+    padding: 0px;
+    margin: 0px;
+}
+.email:hover::after {
+    position: absolute;
+    display: inline;
 }
 
 .avatar_label {
@@ -162,6 +178,7 @@ button.close {
     height: 30px;
     user-select: none;
     box-sizing: border-box;
+    background: none;
 }
 
 .modal-footer > button:hover {
@@ -217,7 +234,7 @@ button.close {
 
 @media (width <= 1024px) and (orientation: portrait) {}
 @media (width <= 768px) and (orientation: portrait) {
-    .modal-footer > button,.username,.email,.change_email_button,.change_pass_button,.exit_button {
+    .modal-footer > button,.username,.email,.change_pass_button,.exit_button {
         font-size: 1.9em;
     }
     .wrapper {
@@ -234,7 +251,7 @@ button.close {
 
 @media (width <= 1024px) and (orientation: landscape) {}
 @media (width <= 768px) and (orientation: landscape) {
-    .modal-footer > button,.username,.email,.change_email_button,.change_pass_button,.exit_button {
+    .modal-footer > button,.username,.email,.change_pass_button,.exit_button {
         font-size: 1.9em;
     }
     .wrapper {
