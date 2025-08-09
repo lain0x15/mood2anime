@@ -81,8 +81,6 @@
     font-size: 1.5em;
 }
 
-
-
 .close {
     float: right;
     font-size: 1.5rem;
@@ -250,9 +248,33 @@ button.close {
     opacity: .5;
 }
 
+.buttons {
+    text-align: center;
+    padding: 0px;
+    margin-top: 8px;
+    border: solid 3px red;
+    border-radius: 6px;
+    transition: background-color 0.5s ease-out 100ms;
+    font-size: 1.2em;
+    cursor: pointer;
+    height: 36px;
+    line-height: 30px;
+    user-select: none;
+    width: 200px;
+    box-sizing: border-box;
+    background: white;
+    text-decoration: none;
+    color: black;
+    display: block;
+}
+
+.buttons:hover {
+    background: red;
+}
+
 @media (width <= 1024px) and (orientation: portrait) {}
 @media (width <= 768px) and (orientation: portrait) {
-    .modal-footer > button,.username,.email,.change_pass_button,.exit_button,.modal-title {
+    .modal-footer > button,.username,.email,.buttons,.modal-title {
         font-size: 1.9em;
     }
     .wrapper {
@@ -269,7 +291,7 @@ button.close {
 
 @media (width <= 1024px) and (orientation: landscape) {}
 @media (width <= 768px) and (orientation: landscape) {
-    .modal-footer > button,.username,.email,.change_pass_button,.exit_button,.modal-title {
+    .modal-footer > button,.username,.email,.buttons,.modal-title {
         font-size: 1.9em;
     }
     .wrapper {
