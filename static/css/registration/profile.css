@@ -74,33 +74,14 @@
     }
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    z-index: 1050;
-}
-
-.modal-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 1rem 1rem;
-    border-bottom: 1px solid red;
-    border-top-left-radius: calc(.3rem - 1px);
-    border-top-right-radius: calc(.3rem - 1px);
-}
-
 .modal-title {
     margin: 0;
     line-height: 1.5;
     box-sizing: border-box;
     font-size: 1.5em;
 }
+
+
 
 .close {
     float: right;
@@ -119,12 +100,30 @@ button.close {
     cursor: pointer;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 1050;
+    box-sizing: border-box;
+}
+
+.modal-dialog {
+    box-sizing: border-box;
+    width: 100%;
+}
+
 .modal-content {
     position: relative;
     background-color: #fff;
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100%;
     pointer-events: auto;
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, .2);
@@ -132,21 +131,22 @@ button.close {
     outline: 0;
 }
 
-.modal-body {
-    position: relative;
-    flex: 1 1 auto;
-    padding: 1rem;
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid red;
+    border-top-left-radius: calc(.3rem - 1px);
+    border-top-right-radius: calc(.3rem - 1px);
 }
 
-.modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1040;
-    width: 100vw;
-    height: 100vh;
-    background-color: #000;
-    opacity: .5;
+.modal-body {
+    position: relative;
+    box-sizing: border-box;
+    flex: 1 1 auto;
+    padding: 1rem;
+    height: 80vh;
 }
 
 .modal-footer{
@@ -185,6 +185,17 @@ button.close {
     background: red;
 }
 
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    opacity: .5;
+}
+
 .progress {
     display: none;
     margin-bottom: 1rem;
@@ -194,13 +205,20 @@ button.close {
     display: none;
 }
 
+.img-container {
+    width: 100%;
+    height: 100%;
+}
+
 .img-container img {
     max-width: 100%;
+    max-height: 100%;
 }
 
 @media (min-width: 576px) {
     .modal-dialog {
         max-width: 500px;
+        max-height: 100vh;
         margin: 1.75rem auto;
     }
 }
