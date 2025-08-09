@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load forms_error %}
 {% block title %}Смена email{% endblock %}
 {% block head %}<link href="{% static 'css/registration/email_change.css' %}" rel="stylesheet">{% endblock %}
 {% block bodyHeader %}{% endblock %}
@@ -13,7 +13,7 @@
         <div class="right_side">
             <p><b class="title_form">Изменение email</b></p>
             {% if form.errors %}
-            <p>{{form.errors}}</p>
+            <p class="error_form">{{ form|show_error }}</p>
             {% endif %}
             <form method="POST" class="auth_form" novalidate>
                 {% csrf_token %}

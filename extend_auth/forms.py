@@ -62,6 +62,8 @@ class email_change_form(forms.Form):
     def __init__(self, user, *args, **kwargs):
         self.user = user
         super(email_change_form, self).__init__(*args, **kwargs)
+        for k, field in self.fields.items():
+            field.error_messages['required'] = 'Не заполнены обязательные поля'
 
     def clean_password1(self):
         user_password = self.cleaned_data.get('password1')
