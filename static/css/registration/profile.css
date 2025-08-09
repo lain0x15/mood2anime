@@ -51,8 +51,8 @@
 .avatar_label {
     position: relative;
     cursor: pointer;
+    width: fit-content;
 }
-
 
 .avatar_label > input {
     display: none;
@@ -219,7 +219,7 @@ button.close {
     .modal-dialog {
         max-width: 500px;
         max-height: 100vh;
-        margin: 1.75rem auto;
+        margin: 0px auto;
     }
 }
 
@@ -252,7 +252,7 @@ button.close {
 
 @media (width <= 1024px) and (orientation: portrait) {}
 @media (width <= 768px) and (orientation: portrait) {
-    .modal-footer > button,.username,.email,.change_pass_button,.exit_button {
+    .modal-footer > button,.username,.email,.change_pass_button,.exit_button,.modal-title {
         font-size: 1.9em;
     }
     .wrapper {
@@ -269,7 +269,7 @@ button.close {
 
 @media (width <= 1024px) and (orientation: landscape) {}
 @media (width <= 768px) and (orientation: landscape) {
-    .modal-footer > button,.username,.email,.change_pass_button,.exit_button {
+    .modal-footer > button,.username,.email,.change_pass_button,.exit_button,.modal-title {
         font-size: 1.9em;
     }
     .wrapper {
