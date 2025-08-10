@@ -13,6 +13,17 @@
 .profile_grid {
     display: grid;
     grid-template-columns: 200px auto;
+    gap: 5px;
+}
+
+.avatar_label {
+    position: relative;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.avatar_label > input {
+    display: none;
 }
 
 .avatar {
@@ -48,29 +59,19 @@
     display: inline;
 }
 
-.avatar_label {
-    position: relative;
-    cursor: pointer;
-    width: fit-content;
-}
-
-.avatar_label > input {
-    display: none;
-}
-
 @media (hover: hover) {
     .avatar_label:hover::after {
-        content: attr(data-title); /* Выводим текст */
-        position: absolute; /* Абсолютное позиционирование */
-        left: 0; right: 0; bottom: 0; /* Положение подсказки */
-        z-index: 1; /* Отображаем подсказку поверх других элементов */
-        background: rgba(255,0,0,0.8); /* Полупрозрачный цвет фона */
-        color: #fff; /* Цвет текста */
-        text-align: center; /* Выравнивание текста по центру */
-        font-family: Arial, sans-serif; /* Гарнитура шрифта */
-        font-size: 1em; /* Размер текста подсказки */
-        padding: 5px 10px; /* Поля */
-        border: 1px solid #333; /* Параметры рамки */
+        content: attr(data-title);
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        z-index: 1;
+        background: rgba(255,0,0,0.8);
+        color: #fff;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        font-size: 1em;
+        padding: 5px 10px;
+        border: 1px solid #333;
     }
 }
 
@@ -283,8 +284,8 @@ button.close {
 }
 @media (width <= 480px) and (orientation: portrait) {
     .profile_grid {
-        display: grid;
         grid-template-columns: auto;
+        gap: none;
     }
 }
 @media (width <= 320px) and (orientation: portrait) {}
@@ -300,8 +301,8 @@ button.close {
 }
 @media (width <= 480px) and (orientation: landscape) {
     .profile_grid {
-        display: grid;
         grid-template-columns: auto;
+        gap: none;
     }
 }
 @media (width <= 320px) and (orientation: landscape) {}
