@@ -1,13 +1,8 @@
-html {
-  padding: 0px;
-  margin: 0px;
-}
-
-body { 
+body {
   font-size: 16px;
+  font-family: serif;
   padding: 0px;
   margin: 0px;
-  font-family: serif;
 }
 
 * {
