@@ -1,157 +1,158 @@
 html {
-    padding: 0px;
-    margin: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 
 body { 
-    font-size:16px;
-    padding: 0px;
-    margin: 0px;
-    font-family: serif;
+  font-size: 16px;
+  padding: 0px;
+  margin: 0px;
+  font-family: serif;
 }
 
 * {
-    touch-action: manipulation;
+  touch-action: manipulation;
 }
 
 #header {
-    width: 100%;
-    border-bottom: 5px solid red;
-    padding: 0px 10px 0px 10px;
-    box-sizing: border-box;
+  width: 100%;
+  border-bottom: 5px solid red;
+  padding: 0px 10px 0px 10px;
+  box-sizing: border-box;
 }
 
 #innerHeader {
-    width: 100%;
-    height: 64px;
-    line-height: 64px;
-    font-size: 2em;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
+  width: 100%;
+  height: 64px;
+  line-height: 64px;
+  font-size: 2em;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
 }
 
 #innerHeader > div {
-    display: flex;
+  display: flex;
 }
 
 #header a {
-    text-decoration: none;
-    color: black;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    display: block;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-    white-space: nowrap;
-    min-width: min-content;
+  text-decoration: none;
+  color: black;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  min-width: min-content;
+  font-weight: bold;
 }
 
 #header a::before {
-    content: "";
-    background-color: red;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: all 0.4s;
-    z-index: -1;
-    transform: translateX(-101%);
+  content: "";
+  background-color: red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.4s;
+  z-index: -1;
+  transform: translateX(-101%);
 }
 
 @media (hover: hover) {
-    #header a:hover::before {
-      transform: translateX(0);
-    }
+  #header a:hover::before {
+    transform: translateX(0);
+  }
 }
 
 #loaderFullFill {
-    position: fixed;
-    background-color: black;
-    width: 100%;
-    height: 100%;
-    top:0px;
-    left: 0px;
-    z-index: 666;
-    display: none;
+  position: fixed;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  top:0px;
+  left: 0px;
+  z-index: 666;
+  display: none;
 }
 
 .loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 1;
-    width: 120px;
-    height: 120px;
-    margin: -76px 0 0 -76px;
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  margin: -76px 0 0 -76px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @media (width <= 1024px) and (orientation: portrait) {
 }
 
 @media (width <= 768px) and (orientation: portrait) {
-    body {
-        font-size: 12px;
-    }
-    #header {
-        border-bottom: 4px solid red;
-    }
+  body {
+    font-size: 12px;
+  }
+  #header {
+    border-bottom: 4px solid red;
+  }
 }
 
 @media (width <= 480px) and (orientation: portrait) {
-    body {
-        font-size: 8px;
-    }
-    #innerHeader {
-        height: 40px;
-        line-height: 40px;
-    }
-    #header {
-        border-bottom: 3px solid red;
-    }
+  body {
+    font-size: 8px;
+  }
+  #innerHeader {
+    height: 40px;
+    line-height: 40px;
+  }
+  #header {
+    border-bottom: 3px solid red;
+  }
 }
 
 @media (width <= 320px) and (orientation: portrait) {
-    body {
-        font-size: 6px;
-    }
-    #header {
-        border-bottom: 3px solid red;
-    }
+  body {
+    font-size: 6px;
+  }
+  #header {
+    border-bottom: 3px solid red;
+  }
 }
 
 @media (width <= 1024px) and (orientation: landscape) {
-    #innerHeader {
-        height: 50px;
-        line-height: 50px;
-    }
+  #innerHeader {
+    height: 50px;
+    line-height: 50px;
+  }
 }
 
 @media (width <= 768px) and (orientation: landscape) {
-    body {
-        font-size: 12px;
-    }
-    #innerHeader {
-        height: 40px;
-        line-height: 40px;
-    }
-    #header {
-        border-bottom: 3px solid red;
-    }
+  body {
+    font-size: 12px;
+  }
+  #innerHeader {
+    height: 40px;
+    line-height: 40px;
+  }
+  #header {
+    border-bottom: 3px solid red;
+  }
 }
 
 @media (width <= 480px) and (orientation: landscape) {}
