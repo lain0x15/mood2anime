@@ -300,6 +300,7 @@
     user-select: none;
     display: inline-block;
     line-height: 21.2px;
+    padding-left: 5px;
 }
 
 .dropNoClose {
