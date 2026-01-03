@@ -106,11 +106,9 @@
     overflow: hidden;
 }
 
-
 .screenshot_img {
     width: 100%;
 }
-
 
 @media (width <= 1024px) and (orientation: portrait) {
     #franchises {
