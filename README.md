@@ -8,3 +8,5 @@
 | DJANGO_EMAIL_USE_TLS        |                                        |                              |
 | DJANGO_EMAIL_HOST_USER      |                                        |                              |
 | DJANGO_EMAIL_HOST_PASSWORD  |                                        |                              |
+| PGSERVICEFILE               |                                        |                              |
+| PGPASSFILE                  |                                        |                              |

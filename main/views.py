@@ -7,13 +7,26 @@ import json
 import random
 from django.http import HttpResponseNotAllowed, HttpResponseNotFound, HttpResponseBadRequest, HttpResponseRedirect
 from math import ceil
+from django.core.cache import cache
 
 def homePage(request):
     return render(request, "homePage.html")
 
+def get_min_date_release():
+    if (min_date_release := cache.get("min_date_release")) == None:
+        min_date_release = anime.objects.filter(releaseYear__isnull=False).order_by('releaseYear').first().releaseYear.year
+        cache.set("min_date_release", min_date_release, 120)
+    return min_date_release
+
+def get_max_date_release():
+    if (max_date_release := cache.get("max_date_release")) == None:
+        max_date_release = anime.objects.filter(releaseYear__isnull=False).order_by('releaseYear').last().releaseYear.year
+        cache.set("max_date_release", max_date_release, 120)
+    return max_date_release
+
 def listAnimePage(request):
-    min_date_release = anime.objects.filter(releaseYear__isnull=False).order_by('releaseYear').first().releaseYear.year
-    max_date_release = anime.objects.filter(releaseYear__isnull=False).order_by('releaseYear').last().releaseYear.year
+    min_date_release = get_min_date_release()
+    max_date_release = get_max_date_release()
 
     try:
         date_release_from = int(request.GET.get('date_release_from', min_date_release))
@@ -112,8 +125,9 @@ def get_anime(request):
     page = page if page >= 1 else 1
     pages = 0
 
-    min_date_release = anime.objects.filter(releaseYear__isnull=False).order_by('releaseYear').first().releaseYear.year
-    max_date_release = anime.objects.filter(releaseYear__isnull=False).order_by('releaseYear').last().releaseYear.year
+    min_date_release = get_min_date_release()
+    max_date_release = get_max_date_release()
+
     try:
         date_release_from = int(request.POST.get('date_release_from', min_date_release))
         date_release_from = datetime.datetime(date_release_from, 1, 1)
@@ -142,7 +156,7 @@ def get_anime(request):
     except ValueError:
         order_by = 0
 
-    animes = anime.objects.all()
+    animes = anime.objects.select_related("type_field").all()
 
     if selected_genres:
         animes = animes.filter(genres__in=selected_genres).distinct()
