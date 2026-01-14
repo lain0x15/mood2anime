@@ -8,6 +8,7 @@ import random
 from django.http import HttpResponseNotAllowed, HttpResponseNotFound, HttpResponseBadRequest, HttpResponseRedirect
 from math import ceil
 from django.core.cache import cache
+from django.views.decorators.cache import cache_page
 
 def homePage(request):
     return render(request, "homePage.html")
@@ -204,6 +205,7 @@ def get_anime(request):
     response = JsonResponse({'animes':animes, 'page': page, 'pages': pages})
     return response
 
+@cache_page(60 * 15)
 def sitemap(request):
     animeList = anime.objects.all()
     return render(request, 'sitemap.xml', context={'animeList': animeList, 'website_dns_name': settings.WEBSITE_DNS_NAME}, content_type='application/xml')
