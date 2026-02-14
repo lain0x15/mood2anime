@@ -199,10 +199,19 @@ function getAnimesByFilters (){
                 var animeRow = document.createElement("div");
                 animeRow.classList.add("animeRow");
 
+                animeRowLeft = document.createElement("div");
+                animeRowLeft.classList.add("animeRowLeft");
+                animeRow.appendChild(animeRowLeft);
+
+                animeRowScore = document.createElement("div");
+                animeRowScore.classList.add("animeRowScore");
+                animeRowScore.appendChild(document.createTextNode(anime.review))
+                animeRowLeft.appendChild(animeRowScore);
+
                 animeRowImg = document.createElement("img");
                 animeRowImg.src = anime.portraitImage;
                 animeRowImg.classList.add("animeRowImg");
-                animeRow.appendChild(animeRowImg);
+                animeRowLeft.appendChild(animeRowImg);
 
                 animeRowInfo = document.createElement("div");
                 animeRowInfo.classList.add("animeRowInfo");
