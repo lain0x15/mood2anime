@@ -5,11 +5,23 @@
 {% block keywords %}"{{anime.name}}, аниме"{% endblock %}
 {% block head %}
 <link href="{% static 'css/animePage.css' %}" rel="stylesheet" />
+<script src="{% static 'js/animePage.js' %}"></script>
 {% endblock %}
 {% block main %}
 <div id="animeContent">
     <div id="animeContentSplit">
-        <img id="animeImg" src="{{ anime.portraitImage.url }}" />
+        <div class="animeImageButton">
+            <img id="animeImg" src="{{ anime.portraitImage.url }}" />
+            <div id="add_in_list" class="add_in_list">Добавить в список</div>
+            <div id="list_relative" class="list_relative">
+                <div>Смотрю</div>
+                <div>Просмотрено</div>
+                <div>Отложено</div>
+                <div>Брошено</div>
+                <div>Запланировано</div>
+                <div>Пересматриваю</div>
+            </div>
+        </div>
         <div>
             <div id="animeName"><b>{{anime.name}}</b></div>
             <div class="stageName">Информация</div>
