@@ -52,6 +52,7 @@
 
 .animeImageButton {
     position: relative;
+    margin-bottom: 5px;
 }
 
 .add_in_list {
@@ -65,7 +66,7 @@
     align-items: center;
     text-align: center;
     justify-content: center;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
     user-select: none;
     cursor: pointer;
     transition: background-color 0.5s ease-out 100ms;
@@ -95,6 +96,7 @@
 
 .list_relative > div:hover {
     background: red;
+    color: #fff;
     cursor: pointer;
 }
 
